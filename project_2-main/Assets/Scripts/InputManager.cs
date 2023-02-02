@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            skill.SetActive(true);
+            EventManager.CallMouseButton0();
         }
     }
 }
