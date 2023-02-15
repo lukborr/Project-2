@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2621949044912643593}
   - component: {fileID: 2621949044912643639}
   - component: {fileID: 2621949044912643636}
-  - component: {fileID: 2621949044912643634}
   - component: {fileID: 2779253923191804097}
   m_Layer: 0
   m_Name: Fireball
@@ -122,19 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  shootPoint: {fileID: 0}
---- !u!114 &2621949044912643634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621949044912643592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3121fe159e30c094494496df3692bd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  offensiveSkillSO: {fileID: 11400000, guid: aa4277e795a06584ba9e5b43581bec92, type: 2}
 --- !u!50 &2779253923191804097
 Rigidbody2D:
   serializedVersion: 4
