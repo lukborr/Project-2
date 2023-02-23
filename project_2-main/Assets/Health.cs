@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private int health;
-    // Start is called before the first frame update
+  [HideInInspector] public int health;
+    
     void Start()
     {
-        health = 2;  // tu wstawic scriptableObject
-
+        health = 10;  // tu wstawic scriptableObject
     }
 
     public void RemoveHealth(int healthToRemove)

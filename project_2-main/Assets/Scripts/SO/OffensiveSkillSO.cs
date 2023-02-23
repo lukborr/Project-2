@@ -4,8 +4,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/OffensiveSkillSO")]
 public class OffensiveSkillSO : ScriptableObject
 {
-    public bool isProjectile;
-    public Vector2 spawnPlace;
+    public SkillShotType skillShotType;
+    public bool spawnFromHand;
     public float skillDuration;
     public int skillDamage;
     public float skillSpeed;

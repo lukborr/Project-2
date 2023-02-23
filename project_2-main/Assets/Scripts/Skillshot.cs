@@ -5,31 +5,27 @@ using UnityEngine;
 public class Skillshot : MonoBehaviour
 {
    [SerializeField] private float speed;
-    Rigidbody2D rb;
+
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     private int enemyCountBeforeDestroy;
+    private bool cooldownUp = true;
+    private float cooldownTime;
+    
 
     private void Awake()
     {
         StartCoroutine("DestroyAfterTime");
+        
     }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+        cooldownTime = offensiveSkillSO.skillCooldown;
         speed = offensiveSkillSO.skillSpeed;
     }
 
-    void FixedUpdate()
-    {
-        float posX = transform.right.x;
-        float posY = transform.right.y;
-        Vector2 move = new Vector2(posX, posY);
-
-        rb.MovePosition(rb.position + speed * Time.deltaTime * move);
-        
-    }
+   
     // Damage
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -45,10 +41,8 @@ public class Skillshot : MonoBehaviour
                 {
                     Debug.Log("tu weszlo");
                     Destroy(gameObject);
-                }
-                    
+                }                  
             }
-
         }
     }
     // Destroy after time
@@ -59,7 +53,16 @@ public class Skillshot : MonoBehaviour
         Destroy(gameObject);
     }
 
+    IEnumerator ResetCooldown()
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        cooldownUp = true;
+    }
 
-
+    private void OnEnable()
+    {
+        cooldownUp = false;
+        StartCoroutine(ResetCooldown());
+    }
 
 }

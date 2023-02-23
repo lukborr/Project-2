@@ -9,7 +9,8 @@ public class FollowPlayer : MonoBehaviour
 
 
     private void Update()
-    {     
+    {  
+        if (playerObject != null)
         transform.position = Vector2.MoveTowards(this.transform.position, playerObject.transform.position, speed * Time.deltaTime);
     }
     
