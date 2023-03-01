@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class UseActiveSkill : MonoBehaviour
 {
-   [SerializeField] private GameObject activeProjectile;
-   [SerializeField] private GameObject handGameobject;
+    [SerializeField] private GameObject activeProjectile;
+    [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
+
+    private bool cooldownUp = true;
+    private float cooldownTime;
+
+    [SerializeField] private OffensiveSkillSO offensiveSkillSO;
 
     private void Update()
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LoadNewSkillPrefab("Fireball");
+        }
     }
 
     private void OnEnable()
-    {
+    {      
         EventManager.MouseButton0 += SpawnProjectile;
     }
     private void OnDisable()
@@ -23,6 +32,36 @@ public class UseActiveSkill : MonoBehaviour
     }
     private void SpawnProjectile()
     {
-        Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+        if (activeProjectile != null && cooldownUp)
+        {
+            cooldownUp = false;
+            Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+            StartCoroutine(ResetCooldown(cooldownTime));
+        }
     }
+    IEnumerator ResetCooldown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        cooldownUp = true;       
+    }
+
+    private void LoadNewSkillPrefab(string name)
+    {
+        switch (name)
+        {
+            case "Fireball":
+               activeProjectile = Resources.Load("Prefabs/Fireball") as GameObject;
+                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/Fireball");
+                cooldownTime = offensiveSkillSO.skillCooldown;
+                break;
+
+            case "PoisonCloud":
+                break;
+        }
+    }
+
+
+
+    
+
 }

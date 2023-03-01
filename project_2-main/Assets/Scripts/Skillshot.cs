@@ -7,34 +7,44 @@ public class Skillshot : MonoBehaviour
    [SerializeField] private float speed;
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
-    private int enemyCountBeforeDestroy;
-    private bool cooldownUp = true;
-    private float cooldownTime;
-    
+    [HideInInspector] public int enemyCountBeforeDestroy;
+    [HideInInspector] public int skillDamage;
+    [HideInInspector] public float cooldownTime;
+    private float skillDuration;
 
-    private void Awake()
+    [SerializeField] private GameObject activeProjectile;
+    [SerializeField] private GameObject handGameobject;
+
+    private void OnEnable()
     {
-        StartCoroutine("DestroyAfterTime");
-        
+        StartCoroutine(DestroyAfterTime(skillDuration));
     }
 
     private void Start()
     {
-        enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
-        cooldownTime = offensiveSkillSO.skillCooldown;
-        speed = offensiveSkillSO.skillSpeed;
+        Debug.Log("tu" + cooldownTime);
     }
 
-   
+    private void Awake()
+    {
+        enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+        cooldownTime = offensiveSkillSO.skillCooldown;
+        
+        speed = offensiveSkillSO.skillSpeed;
+        skillDamage = offensiveSkillSO.skillDamage;
+        skillDuration = offensiveSkillSO.skillDuration;
+    }
+
+
     // Damage
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Health>().RemoveHealth(offensiveSkillSO.skillDamage);  
-            Debug.Log("-" + offensiveSkillSO.skillDamage +" hp");
+            collision.gameObject.GetComponent<Health>().RemoveHealth(skillDamage);  
+            Debug.Log("-" +skillDamage+" hp");
 
-            if(offensiveSkillSO.enemyCountBeforeDestroy != -1)
+            if(enemyCountBeforeDestroy != -1)
             {
                 enemyCountBeforeDestroy--;
                 if (enemyCountBeforeDestroy <= 0)
@@ -47,22 +57,10 @@ public class Skillshot : MonoBehaviour
     }
     // Destroy after time
 
-    IEnumerator DestroyAfterTime()
+    IEnumerator DestroyAfterTime(float time)
     {
-        yield return new WaitForSeconds(offensiveSkillSO.skillDuration);
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
-    }
-
-    IEnumerator ResetCooldown()
-    {
-        yield return new WaitForSeconds(cooldownTime);
-        cooldownUp = true;
-    }
-
-    private void OnEnable()
-    {
-        cooldownUp = false;
-        StartCoroutine(ResetCooldown());
     }
 
 }

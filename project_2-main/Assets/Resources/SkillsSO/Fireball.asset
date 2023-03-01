@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa022df8cce6e74479456a77281d8f4c, type: 3}
-  m_Name: FireballDataSO
+  m_Name: Fireball
   m_EditorClassIdentifier: 
   skillShotType: 0
   spawnFromHand: 0
   skillDuration: 20
   skillDamage: 2
   skillSpeed: 2
-  skillCooldown: 5
+  skillCooldown: 3
   enemyCountBeforeDestroy: 1
