@@ -7,6 +7,10 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField] GameObject playerObject;
    [SerializeField] float speed;
 
+    private void Start()
+    {
+        playerObject = GameObject.Find("Player");
+    }
 
     private void Update()
     {  

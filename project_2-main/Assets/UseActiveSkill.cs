@@ -18,9 +18,13 @@ public class UseActiveSkill : MonoBehaviour
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             LoadNewSkillPrefab("Fireball");
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            LoadNewSkillPrefab("PoisonPool");
         }
     }
 
@@ -68,7 +72,10 @@ public class UseActiveSkill : MonoBehaviour
                 cooldownTime = offensiveSkillSO.skillCooldown;
                 break;
 
-            case "PoisonCloud":
+            case "PoisonPool":
+                activeProjectile = Resources.Load("Prefabs/Skills/PoisonPool") as GameObject;
+                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/PoisonPool");
+                cooldownTime = offensiveSkillSO.skillCooldown;
                 break;
         }
     }
