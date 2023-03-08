@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a3a95a0f3ddd6ef4a909855738115087
+guid: 8db5976ab786f1a4698d024e268204eb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PoisonCloud_0
+      name: poisonAnimation-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c29ac08e47c62f4d8ce161463d96e59
-      internalID: -1830735631
+      spriteID: e9492311602c7094aaf93cb1ee0f320d
+      internalID: 1687885644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PoisonCloud_1
+      name: poisonAnimation-Sheet_1
       rect:
         serializedVersion: 2
         x: 55
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13eba318014747443bcc15ab0f41d16e
-      internalID: 152023298
+      spriteID: b80725d5e59d5b74e9be9cd550faf0a2
+      internalID: 2015434530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PoisonCloud_2
+      name: poisonAnimation-Sheet_2
       rect:
         serializedVersion: 2
         x: 110
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 150516b85b614f84ab501aff19c63eac
-      internalID: -277372773
+      spriteID: f12299e2102d9204fb4cd4e4ca746108
+      internalID: -871200387
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PoisonCloud_3
+      name: poisonAnimation-Sheet_3
       rect:
         serializedVersion: 2
         x: 165
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 760fec50d9ebfcc4caa3e28887f7fbad
-      internalID: -719146974
+      spriteID: e18d4ea5281f70a4889e121c1841dedf
+      internalID: 574738189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PoisonCloud_4
+      name: poisonAnimation-Sheet_4
       rect:
         serializedVersion: 2
         x: 220
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e7e619efc8ebd804c8211768cf5ff10c
-      internalID: -985759638
+      spriteID: 80595205009abdf4b9a6f19aed74b867
+      internalID: 686222825
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PoisonCloud_5
+      name: poisonAnimation-Sheet_5
       rect:
         serializedVersion: 2
         x: 275
@@ -224,8 +224,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6efd32678cb1a0c48a969db3cbe0bf95
-      internalID: -765695886
+      spriteID: 7edcf9a7635283c47b01134e761b611d
+      internalID: 897356385
       vertices: []
       indices: 
       edges: []
@@ -241,12 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      PoisonCloud_0: -1830735631
-      PoisonCloud_3: -719146974
-      PoisonCloud_4: -985759638
-      PoisonCloud_2: -277372773
-      PoisonCloud_5: -765695886
-      PoisonCloud_1: 152023298
+      poisonAnimation-Sheet_1: 2015434530
+      poisonAnimation-Sheet_2: -871200387
+      poisonAnimation-Sheet_0: 1687885644
+      poisonAnimation-Sheet_4: 686222825
+      poisonAnimation-Sheet_5: 897356385
+      poisonAnimation-Sheet_3: 574738189
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

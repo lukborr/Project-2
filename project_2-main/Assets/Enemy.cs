@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if(routine!= null)
         StopCoroutine(routine);
     }
 

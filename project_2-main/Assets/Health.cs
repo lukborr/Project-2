@@ -21,6 +21,16 @@ public class Health : MonoBehaviour
         }
     }
 
+    public IEnumerator RemoveHealthGradually(int healthToRemove)
+    {
+        while(health > 0)
+        {
+            yield return new WaitForSeconds(0.5f);
+            health -= healthToRemove;
+            Debug.Log("removed " + healthToRemove);
+        }           
+    }
+
     private void Die()
     {
         Destroy(gameObject);

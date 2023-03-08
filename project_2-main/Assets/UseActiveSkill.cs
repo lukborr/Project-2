@@ -12,10 +12,12 @@ public class UseActiveSkill : MonoBehaviour
     private float cooldownTime;
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
+    private Vector2 worldPositionCursor;
 
     private void Update()
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
+        worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             LoadNewSkillPrefab("Fireball");
@@ -35,8 +37,19 @@ public class UseActiveSkill : MonoBehaviour
         if (activeProjectile != null && cooldownUp)
         {
             cooldownUp = false;
-            Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
-            StartCoroutine(ResetCooldown(cooldownTime));
+            
+            if (offensiveSkillSO.whereSkillSpawn == WhereSkillSpawn.Hand)
+            {
+                
+                Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+                StartCoroutine(ResetCooldown(cooldownTime));
+            }
+            else if(offensiveSkillSO.whereSkillSpawn == WhereSkillSpawn.Cursor)
+            {
+                Instantiate(activeProjectile, worldPositionCursor, handRotation);
+                StartCoroutine(ResetCooldown(cooldownTime));
+            }
+            
         }
     }
     IEnumerator ResetCooldown(float time)
@@ -50,7 +63,7 @@ public class UseActiveSkill : MonoBehaviour
         switch (name)
         {
             case "Fireball":
-               activeProjectile = Resources.Load("Prefabs/Fireball") as GameObject;
+               activeProjectile = Resources.Load("Prefabs/Skills/Fireball") as GameObject;
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/Fireball");
                 cooldownTime = offensiveSkillSO.skillCooldown;
                 break;

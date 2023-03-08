@@ -5,7 +5,7 @@ using UnityEngine;
 public class OffensiveSkillSO : ScriptableObject
 {
     public SkillShotType skillShotType;
-    public bool spawnFromHand;
+    public WhereSkillSpawn whereSkillSpawn;
     public float skillDuration;
     public int skillDamage;
     public float skillSpeed;

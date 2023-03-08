@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Skillshot : MonoBehaviour
 {
-   [SerializeField] private float speed;
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     [HideInInspector] public int enemyCountBeforeDestroy;
@@ -12,8 +11,7 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public float cooldownTime;
     private float skillDuration;
 
-    [SerializeField] private GameObject activeProjectile;
-    [SerializeField] private GameObject handGameobject;
+    private Coroutine dotRoutine;
 
     private void OnEnable()
     {
@@ -29,8 +27,6 @@ public class Skillshot : MonoBehaviour
     {
         enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
         cooldownTime = offensiveSkillSO.skillCooldown;
-        
-        speed = offensiveSkillSO.skillSpeed;
         skillDamage = offensiveSkillSO.skillDamage;
         skillDuration = offensiveSkillSO.skillDuration;
     }
@@ -41,18 +37,35 @@ public class Skillshot : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<Health>().RemoveHealth(skillDamage);  
-            Debug.Log("-" +skillDamage+" hp");
-
-            if(enemyCountBeforeDestroy != -1)
+            Health health = collision.gameObject.GetComponent<Health>();
+            if (offensiveSkillSO.skillShotType == SkillShotType.Projectile)
             {
-                enemyCountBeforeDestroy--;
-                if (enemyCountBeforeDestroy <= 0)
+                health.RemoveHealth(skillDamage);
+
+                if (enemyCountBeforeDestroy != -1)
                 {
-                    Debug.Log("tu weszlo");
-                    Destroy(gameObject);
-                }                  
+                    enemyCountBeforeDestroy--;
+                    if (enemyCountBeforeDestroy <= 0)
+                    {
+
+                        Destroy(gameObject);
+                    }
+                }
             }
+            else if (offensiveSkillSO.skillShotType == SkillShotType.Dot)
+            {
+
+                dotRoutine = StartCoroutine(health.RemoveHealthGradually(skillDamage));
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+
+    {
+        if(offensiveSkillSO.skillShotType == SkillShotType.Dot && dotRoutine != null)
+        {
+            StopCoroutine(dotRoutine);
         }
     }
     // Destroy after time

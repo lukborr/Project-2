@@ -1,9 +1,16 @@
 
    public enum SkillShotType
     {
-        Projectile,
-        DotPool,
-        Explosion
+        Dot,
+        Projectile
+        
     }
+public enum WhereSkillSpawn
+{
+    Hand,
+    Cursor,
+    Self
+}
+
 
 

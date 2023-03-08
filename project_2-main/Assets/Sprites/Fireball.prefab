@@ -61,7 +61,6 @@ GameObject:
   - component: {fileID: 1611220887259364220}
   - component: {fileID: 1611220887259364223}
   - component: {fileID: 1611220887259364222}
-  - component: {fileID: 1611220887259364217}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -170,7 +169,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  shootPoint: {fileID: 0}
+  offensiveSkillSO: {fileID: 0}
+  enemyCountBeforeDestroy: 0
+  skillDamage: 0
+  cooldownTime: 0
+  activeProjectile: {fileID: 0}
+  handGameobject: {fileID: 0}
 --- !u!50 &1611220887259364222
 Rigidbody2D:
   serializedVersion: 4
@@ -192,15 +196,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1611220887259364217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1611220887259364163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3121fe159e30c094494496df3692bd44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
