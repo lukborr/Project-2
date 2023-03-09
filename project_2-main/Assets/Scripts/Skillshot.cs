@@ -18,10 +18,6 @@ public class Skillshot : MonoBehaviour
         StartCoroutine(DestroyAfterTime(skillDuration));
     }
 
-    private void Start()
-    {
-        Debug.Log("tu" + cooldownTime);
-    }
 
     private void Awake()
     {
@@ -41,6 +37,7 @@ public class Skillshot : MonoBehaviour
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile)
             {
                 health.RemoveHealth(skillDamage);
+                Debug.Log(skillDamage);
 
                 if (enemyCountBeforeDestroy != -1)
                 {
@@ -56,6 +53,7 @@ public class Skillshot : MonoBehaviour
             {
 
                 dotRoutine = StartCoroutine(health.RemoveHealthGradually(skillDamage));
+                Debug.Log(skillDamage);
             }
         }
     }

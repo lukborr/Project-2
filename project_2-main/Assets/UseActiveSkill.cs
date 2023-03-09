@@ -11,6 +11,8 @@ public class UseActiveSkill : MonoBehaviour
     private bool cooldownUp = true;
     private float cooldownTime;
 
+    private List<string> gatheredSkills = new List<string>();
+
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     private Vector2 worldPositionCursor;
 
@@ -18,14 +20,22 @@ public class UseActiveSkill : MonoBehaviour
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1) )
         {
             LoadNewSkillPrefab("Fireball");
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2) )
         {
             LoadNewSkillPrefab("PoisonPool");
         }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            for (int i = 0; i < gatheredSkills.Count; i++)
+            {
+                Debug.Log(gatheredSkills[i]);
+            }
+        }
+     
     }
 
     private void OnEnable()
@@ -64,20 +74,41 @@ public class UseActiveSkill : MonoBehaviour
 
     private void LoadNewSkillPrefab(string name)
     {
-        switch (name)
+        if (gatheredSkills.Contains(name))
         {
-            case "Fireball":
-               activeProjectile = Resources.Load("Prefabs/Skills/Fireball") as GameObject;
-                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/Fireball");
-                cooldownTime = offensiveSkillSO.skillCooldown;
-                break;
-
-            case "PoisonPool":
-                activeProjectile = Resources.Load("Prefabs/Skills/PoisonPool") as GameObject;
-                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/PoisonPool");
-                cooldownTime = offensiveSkillSO.skillCooldown;
-                break;
+            return;
         }
+        else
+        {
+
+            gatheredSkills.Add(name);           
+ 
+            switch (name)
+
+            {
+                case "Fireball":
+                    activeProjectile = Resources.Load("Prefabs/Skills/Fireball") as GameObject;
+                    offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/Fireball");
+                    StatsManager.skill1Cooldown = offensiveSkillSO.skillCooldown;
+                    StatsManager.skill1Duration = offensiveSkillSO.skillDuration;
+                    StatsManager.skill1Speed = offensiveSkillSO.skillSpeed;
+                    StatsManager.skill1Damage = offensiveSkillSO.skillDamage;
+                    StatsManager.skill1Enemies = offensiveSkillSO.enemyCountBeforeDestroy;
+                    break;
+
+                case "PoisonPool":
+                    activeProjectile = Resources.Load("Prefabs/Skills/PoisonPool") as GameObject;
+                    offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/PoisonPool");
+                    StatsManager.skill2Cooldown = offensiveSkillSO.skillCooldown;
+                    StatsManager.skill2Duration = offensiveSkillSO.skillDuration;
+                    StatsManager.skill2Speed = offensiveSkillSO.skillSpeed;
+                    StatsManager.skill2Damage = offensiveSkillSO.skillDamage;
+                    StatsManager.skill2Enemies = offensiveSkillSO.enemyCountBeforeDestroy;
+                    break;
+            }
+        }
+                   
+        
     }
 
 
