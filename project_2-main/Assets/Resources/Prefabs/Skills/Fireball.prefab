@@ -125,6 +125,8 @@ MonoBehaviour:
   enemyCountBeforeDestroy: 0
   skillDamage: 0
   cooldownTime: 0
+  skillDuration: 0
+  skillSpeed: 0
 --- !u!114 &7325939981477727373
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Skillshot : MonoBehaviour
@@ -9,7 +8,10 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public int enemyCountBeforeDestroy;
     [HideInInspector] public int skillDamage;
     [HideInInspector] public float cooldownTime;
-    private float skillDuration;
+    [HideInInspector] public float skillDuration;
+    [HideInInspector] public float skillSpeed;
+    [HideInInspector] public  WhereSkillSpawn whereSkillSpawn;
+
 
     private Coroutine dotRoutine;
 
@@ -17,16 +19,6 @@ public class Skillshot : MonoBehaviour
     {
         StartCoroutine(DestroyAfterTime(skillDuration));
     }
-
-
-    private void Awake()
-    {
-        enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
-        cooldownTime = offensiveSkillSO.skillCooldown;
-        skillDamage = offensiveSkillSO.skillDamage;
-        skillDuration = offensiveSkillSO.skillDuration;
-    }
-
 
     // Damage
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +36,6 @@ public class Skillshot : MonoBehaviour
                     enemyCountBeforeDestroy--;
                     if (enemyCountBeforeDestroy <= 0)
                     {
-
                         Destroy(gameObject);
                     }
                 }

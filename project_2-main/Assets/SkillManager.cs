@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UseActiveSkill : MonoBehaviour
+public class SkillManager : MonoBehaviour
 {
     [SerializeField] private GameObject activeProjectile;
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
 
     private bool cooldownUp = true;
-    private float cooldownTime;
 
     private List<string> gatheredSkills = new List<string>();
-    private string[] skills = new string[4];
+    private Skillshot[] skillsNumbers = new Skillshot[4];
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     private Vector2 worldPositionCursor;
@@ -23,47 +22,37 @@ public class UseActiveSkill : MonoBehaviour
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (skills[0] != null)
                 LoadExistingSkill(0);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (skills[1] != null)
                 LoadExistingSkill(1);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (skills[2] != null)
                 LoadExistingSkill(2);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            if (skills[3] != null)
+        {         
                 LoadExistingSkill(3);
         }
-        else if (Input.GetKeyDown(KeyCode.X))
-
+        
+        else if (Input.GetKeyDown(KeyCode.Z))
         {
-            for (int i = 0; i < gatheredSkills.Count; i++)
+            LoadNewSkillPrefab("Fireball");
+            LoadNewSkillPrefab("PoisonPool");
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            ModifySkillStats(skillsNumbers[0], 2, 0, 0, 2, 0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            for (int i = 0; i < skillsNumbers.Length; i++)
             {
-                Debug.Log(gatheredSkills[i]);
+                Debug.Log(skillsNumbers[i]);
             }
         }
-
-        else if(Input.GetKeyDown(KeyCode.Z)) 
-        {
-            AssignSkillToNumber("Fireball");
-            AssignSkillToNumber("faja");
-        }
-        else if (Input.GetKeyDown(KeyCode.Space)) 
-        {
-            Debug.Log(skills[0]);
-            Debug.Log(skills[1]);
-            Debug.Log(skills[2]);
-            Debug.Log(skills[3]);
-        }
-
-
     }
 
     private void OnEnable()
@@ -79,19 +68,18 @@ public class UseActiveSkill : MonoBehaviour
         if (activeProjectile != null && cooldownUp)
         {
             cooldownUp = false;
+            Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
 
-            if (offensiveSkillSO.whereSkillSpawn == WhereSkillSpawn.Hand)
+            if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
             {
-
                 Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
-                StartCoroutine(ResetCooldown(cooldownTime));
+                StartCoroutine(ResetCooldown(skillshot.cooldownTime));
             }
-            else if (offensiveSkillSO.whereSkillSpawn == WhereSkillSpawn.Cursor)
+            else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
             {
                 Instantiate(activeProjectile, worldPositionCursor, handRotation);
-                StartCoroutine(ResetCooldown(cooldownTime));
+                StartCoroutine(ResetCooldown(skillshot.cooldownTime));
             }
-
         }
     }
     IEnumerator ResetCooldown(float time)
@@ -107,50 +95,46 @@ public class UseActiveSkill : MonoBehaviour
             return;
         }
         else
+
+        gatheredSkills.Add(name);
         {
-
-            gatheredSkills.Add(name);
-            
-
             switch (name)
 
             {
                 case "Fireball":
                     activeProjectile = Resources.Load("Prefabs/Skills/Fireball") as GameObject;
                     offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/Fireball");
-                    StatsManager.skill1Cooldown = offensiveSkillSO.skillCooldown;
-                    StatsManager.skill1Duration = offensiveSkillSO.skillDuration;
-                    StatsManager.skill1Speed = offensiveSkillSO.skillSpeed;
-                    StatsManager.skill1Damage = offensiveSkillSO.skillDamage;
-                    StatsManager.skill1Enemies = offensiveSkillSO.enemyCountBeforeDestroy;
                     break;
 
                 case "PoisonPool":
                     activeProjectile = Resources.Load("Prefabs/Skills/PoisonPool") as GameObject;
                     offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/PoisonPool");
-                    StatsManager.skill2Cooldown = offensiveSkillSO.skillCooldown;
-                    StatsManager.skill2Duration = offensiveSkillSO.skillDuration;
-                    StatsManager.skill2Speed = offensiveSkillSO.skillSpeed;
-                    StatsManager.skill2Damage = offensiveSkillSO.skillDamage;
-                    StatsManager.skill2Enemies = offensiveSkillSO.enemyCountBeforeDestroy;
                     break;
             }
+
+            Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
+            skillshot.skillDamage = offensiveSkillSO.skillDamage;
+            skillshot.skillDuration = offensiveSkillSO.skillDuration;
+            skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
+            skillshot.cooldownTime = offensiveSkillSO.skillCooldown;
+            skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+            skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+
+            AssignSkillToNumber(skillshot);
         }
-
-
     }
 
-    private void AssignSkillToNumber(string skill)
+    private void AssignSkillToNumber(Skillshot skillshot)
     {
-        for (int i = 0; i < skills.Length; i++)
+        for (int i = 0; i < skillsNumbers.Length; i++)
         {
-            if (skills[i] == skill)
+            if (skillsNumbers[i] == skillshot)
             {
                 return;
             }
-             else if (skills[i] == null)
+            else if (skillsNumbers[i] == null)
             {
-                skills[i] = skill;
+                skillsNumbers[i] = skillshot;
                 break;
             }
         }
@@ -158,9 +142,20 @@ public class UseActiveSkill : MonoBehaviour
 
     private void LoadExistingSkill(int number)
     {
-        activeProjectile = Resources.Load("Prefabs/Skills/" + skills[number]) as GameObject;
-        offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/" + skills[number]);
-      
+        if (skillsNumbers[number] != null)
+        {
+            activeProjectile = skillsNumbers[number].gameObject;
+            Debug.Log(skillsNumbers[number].skillDamage);
+        }
+    }
+
+    private void ModifySkillStats(Skillshot skillshot, int damage, float duration, float speed, float cooldown, int enemies)
+    {
+        skillshot.skillDamage += damage;
+        skillshot.skillDuration+= duration;
+        skillshot.skillSpeed+= speed;
+        skillshot.cooldownTime-= cooldown; 
+        skillshot.enemyCountBeforeDestroy += enemies;
     }
 
 
