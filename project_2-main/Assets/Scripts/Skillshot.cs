@@ -11,7 +11,7 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public float skillDuration;
     [HideInInspector] public float skillSpeed;
     [HideInInspector] public  WhereSkillSpawn whereSkillSpawn;
-
+    [HideInInspector] public bool cooldownUp = true;
 
     private Coroutine dotRoutine;
 
@@ -63,6 +63,11 @@ public class Skillshot : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
+    }
+    public IEnumerator ResetCooldown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        cooldownUp = true;
     }
 
 }
