@@ -22,7 +22,14 @@ public class Health : MonoBehaviour
 
         if (health <= 0)
         {
-            Die();
+            if (gameObject.CompareTag("Player"))
+            {
+                Destroy(gameObject);
+            }             
+            else if(gameObject.CompareTag("Enemy"))
+            {
+                DieAndDrop();
+            }
         }
     }
 
@@ -36,8 +43,10 @@ public class Health : MonoBehaviour
         }           
     }
 
-    private void Die()
+    private void DieAndDrop()
     {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.DetachChildren();
         Destroy(gameObject);
     }
 

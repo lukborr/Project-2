@@ -72,8 +72,7 @@ public class SkillManager : MonoBehaviour
     {
 
         if (cooldowns[selectedNumber] == true)
-        {
-            cooldowns[selectedNumber] = false;
+        {        
             
             if (activeProjectile != null)
             {
@@ -90,6 +89,7 @@ public class SkillManager : MonoBehaviour
                     Instantiate(activeProjectile, worldPositionCursor, handRotation);
 
                 }
+                cooldowns[selectedNumber] = false;
                 StartCoroutine(ResetCooldown(selectedNumber));
             }
         }
