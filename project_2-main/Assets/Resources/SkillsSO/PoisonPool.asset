@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa022df8cce6e74479456a77281d8f4c, type: 3}
   m_Name: PoisonPool
   m_EditorClassIdentifier: 
+  skillName: 
   skillShotType: 0
   whereSkillSpawn: 1
   skillDuration: 14

@@ -8,7 +8,7 @@ public class Diamond : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<Experience>().GainExperience(2);
+            collision.GetComponent<Experience>().GainExperience(1);
             Destroy(gameObject);
         }
         

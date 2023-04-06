@@ -120,9 +120,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offensiveSkillSO: {fileID: 11400000, guid: 931bfbe57d2c48d4b90fe81e1d83d536, type: 2}
-  enemyCountBeforeDestroy: 0
-  skillDamage: 0
-  cooldownTime: 0
+  enemyCountBeforeDestroy: -1
+  skillDamage: 1
+  cooldownTime: 8
+  skillDuration: 14
+  skillSpeed: 0
+  whereSkillSpawn: 1
+  cooldownUp: 1
 --- !u!58 &8328865870209848607
 CircleCollider2D:
   m_ObjectHideFlags: 0

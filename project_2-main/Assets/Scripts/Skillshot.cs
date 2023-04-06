@@ -1,4 +1,5 @@
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Skillshot : MonoBehaviour
@@ -13,23 +14,29 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public  WhereSkillSpawn whereSkillSpawn;
     [HideInInspector] public bool cooldownUp = true;
 
-    private Coroutine dotRoutine;
+    private List<Health> healthsList= new List<Health>();
 
     private void OnEnable()
     {
         StartCoroutine(DestroyAfterTime(skillDuration));
     }
 
-    // Damage
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            Debug.Log(healthsList.Count);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {  
         if (collision.CompareTag("Enemy"))
         {
             Health health = collision.gameObject.GetComponent<Health>();
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile)
-            {
+            {              
                 health.RemoveHealth(skillDamage);
-                Debug.Log(skillDamage);
 
                 if (enemyCountBeforeDestroy != -1)
                 {
@@ -41,23 +48,21 @@ public class Skillshot : MonoBehaviour
                 }
             }
             else if (offensiveSkillSO.skillShotType == SkillShotType.Dot)
-            {
-
-                dotRoutine = StartCoroutine(health.RemoveHealthGradually(skillDamage));
-                Debug.Log(skillDamage);
+            {              
+              health.StartDotRoutine(skillDamage);               
             }
         }
     }
+  
 
     private void OnTriggerExit2D(Collider2D collision)
-
     {
-        if(offensiveSkillSO.skillShotType == SkillShotType.Dot && dotRoutine != null)
+        if (collision.CompareTag("Enemy"))
         {
-            StopCoroutine(dotRoutine);
-        }
+            Health health = collision.gameObject.GetComponent<Health>();
+            health.StopCoroutine(health.dotRoutine);
+        }                
     }
-    // Destroy after time
 
     IEnumerator DestroyAfterTime(float time)
     {
@@ -69,5 +74,6 @@ public class Skillshot : MonoBehaviour
         yield return new WaitForSeconds(time);
         cooldownUp = true;
     }
+
 
 }
