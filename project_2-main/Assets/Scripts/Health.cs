@@ -12,9 +12,10 @@ public class Health : MonoBehaviour
     
     void Start()
     {
-        health = 100;  // tu wstawic scriptableObject
+        health = 2;  // tu wstawic scriptableObject
     }
 
+    
     public void RemoveHealth(int healthToRemove)
     {
         health -=healthToRemove;
@@ -51,7 +52,7 @@ public class Health : MonoBehaviour
 
     public void StartDotRoutine(int damage)
     {      
-       dotRoutine = StartCoroutine(RemoveHealthGradually(damage));       
+      dotRoutine = StartCoroutine(RemoveHealthGradually(damage));      
     }
 
 
