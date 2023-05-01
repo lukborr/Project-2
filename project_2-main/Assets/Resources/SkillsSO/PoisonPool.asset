@@ -20,3 +20,5 @@ MonoBehaviour:
   skillSpeed: 0
   skillCooldown: 8
   enemyCountBeforeDestroy: -1
+  skillSprite: {fileID: 21300000, guid: 03b677a216202374d98617890ae3b367, type: 3}
+  skillDescription: A continously damaging pool of poison

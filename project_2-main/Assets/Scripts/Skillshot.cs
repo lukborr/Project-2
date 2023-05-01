@@ -75,5 +75,4 @@ public class Skillshot : MonoBehaviour
         cooldownUp = true;
     }
 
-
 }

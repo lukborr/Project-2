@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
 
-    private List<string> gatheredSkills = new List<string>();
+    public List<string> gatheredSkills = new List<string>();
     private Skillshot[] skillsNumbers = new Skillshot[4];
     private bool[] cooldowns = new bool[4] { true, true, true, true };
     private int selectedNumber;
@@ -56,7 +57,8 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log(skillsNumbers[0].name);
+            for(int i = 0;i < gatheredSkills.Count; i++)
+                Debug.Log(gatheredSkills[i]);
         }
     }
 

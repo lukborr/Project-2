@@ -12,4 +12,6 @@ public class OffensiveSkillSO : ScriptableObject
     public float skillSpeed;
     public float skillCooldown;
     public int enemyCountBeforeDestroy;
+    public Sprite skillSprite;
+    public string skillDescription;
 }
