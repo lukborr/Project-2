@@ -8,8 +8,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerb;
     [SerializeField] private float playerSpeed;
     private Camera mainCam;
+   [SerializeField] private Animator playerAnim;
 
     float horizontalInput, verticalInput;
+    private bool isWalking = false;
     void Start()
     {
         playerb = GetComponent<Rigidbody2D>();
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     {
         GetInput();
         GetPointerInput();
+        WalkCheck();
     }
 
     private void FixedUpdate()
@@ -30,9 +33,10 @@ public class PlayerController : MonoBehaviour
 
     private void GetInput()
     {
-         horizontalInput = Input.GetAxisRaw("Horizontal");
-         verticalInput = Input.GetAxisRaw("Vertical");       
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");       
     }
+
 
     private void MovePlayer()
     {
@@ -44,6 +48,19 @@ public class PlayerController : MonoBehaviour
     {
         var mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         EventManager.CallPointerEvent(mousePos);       
+    }
+
+    private void WalkCheck()
+    {
+        if(horizontalInput != 0 ||verticalInput != 0)
+        {
+            isWalking = true;
+        }
+        else if(horizontalInput == 0 && verticalInput == 0)
+        {
+            isWalking= false;
+        }
+        playerAnim.SetBool("isWalking", isWalking);
     }
 
  

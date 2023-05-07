@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8db5976ab786f1a4698d024e268204eb
+guid: 0c862114c1b10ba47b5df289467a035c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: poisonAnimation-Sheet_0
+      name: force_explosion_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 55
-        height: 57
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9492311602c7094aaf93cb1ee0f320d
-      internalID: 1687885644
+      spriteID: 8a26fb9783acf49409d030853aaac741
+      internalID: -1693330621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poisonAnimation-Sheet_1
+      name: force_explosion_1
       rect:
         serializedVersion: 2
-        x: 55
+        x: 64
         y: 0
-        width: 55
-        height: 57
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b80725d5e59d5b74e9be9cd550faf0a2
-      internalID: 2015434530
+      spriteID: dfad8d0cacac98749a49e20bf266253e
+      internalID: -1578489111
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: poisonAnimation-Sheet_2
+      name: force_explosion_2
       rect:
         serializedVersion: 2
-        x: 110
+        x: 128
         y: 0
-        width: 55
-        height: 57
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,71 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f12299e2102d9204fb4cd4e4ca746108
-      internalID: -871200387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poisonAnimation-Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 165
-        y: 0
-        width: 55
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e18d4ea5281f70a4889e121c1841dedf
-      internalID: 574738189
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poisonAnimation-Sheet_4
-      rect:
-        serializedVersion: 2
-        x: 220
-        y: 0
-        width: 55
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 80595205009abdf4b9a6f19aed74b867
-      internalID: 686222825
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: poisonAnimation-Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 275
-        y: 0
-        width: 55
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7edcf9a7635283c47b01134e761b611d
-      internalID: 897356385
+      spriteID: bc2c4c8acc865644ca51917428c4deaa
+      internalID: 128474765
       vertices: []
       indices: 
       edges: []
@@ -241,12 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      poisonAnimation-Sheet_1: 2015434530
-      poisonAnimation-Sheet_2: -871200387
-      poisonAnimation-Sheet_0: 1687885644
-      poisonAnimation-Sheet_4: 686222825
-      poisonAnimation-Sheet_5: 897356385
-      poisonAnimation-Sheet_3: 574738189
+      force_explosion_0: -1693330621
+      force_explosion_1: -1578489111
+      force_explosion_2: 128474765
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -18,6 +18,8 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     private Vector2 worldPositionCursor;
 
+    [SerializeField] private GameObject testProjectile;
+
     private void Update()
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
@@ -43,6 +45,8 @@ public class SkillManager : MonoBehaviour
         {
             LoadNewSkillPrefab("Fireball");
             LoadNewSkillPrefab("PoisonPool");
+            LoadNewSkillPrefab("ForceExplosion");
+
         }
         else if (Input.GetKeyDown(KeyCode.Y))
         {
@@ -57,8 +61,7 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            for(int i = 0;i < gatheredSkills.Count; i++)
-                Debug.Log(gatheredSkills[i]);
+            
         }
     }
 
