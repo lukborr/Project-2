@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1278339306286580307}
   - component: {fileID: 5677324815812903783}
-  - component: {fileID: 7268776399117046861}
   - component: {fileID: 1446668582696415863}
+  - component: {fileID: 6235613065567635606}
+  - component: {fileID: 980237099}
   m_Layer: 0
   m_Name: ForceExplosion
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -852622529
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 128474765, guid: 0c862114c1b10ba47b5df289467a035c, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,29 +84,9 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7268776399117046861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5597919972152919372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 493fbbc7962721544a42860a87067e1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offensiveSkillSO: {fileID: 11400000, guid: 632886d4dda00fb4e9dab1585cb9d0fb, type: 2}
-  enemyCountBeforeDestroy: 0
-  skillDamage: 0
-  cooldownTime: 0
-  skillDuration: 0
-  skillSpeed: 0
-  whereSkillSpawn: 0
-  cooldownUp: 1
 --- !u!58 &1446668582696415863
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -122,3 +103,44 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &6235613065567635606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597919972152919372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493fbbc7962721544a42860a87067e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offensiveSkillSO: {fileID: 11400000, guid: 632886d4dda00fb4e9dab1585cb9d0fb, type: 2}
+  enemyCountBeforeDestroy: 10
+  skillDamage: 0
+  cooldownTime: 1
+  skillDuration: 10
+  skillSpeed: 1
+  whereSkillSpawn: 0
+  cooldownUp: 1
+--- !u!95 &980237099
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5597919972152919372}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 84c21673044aba4468890b86e0fdb3b8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

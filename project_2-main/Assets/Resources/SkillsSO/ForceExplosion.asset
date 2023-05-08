@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: ForceExplosion
   skillShotType: 1
-  whereSkillSpawn: 2
-  skillDuration: 1
-  skillDamage: 1
+  whereSkillSpawn: 0
+  skillDuration: 10
+  skillDamage: 0
   skillSpeed: 1
   skillCooldown: 1
-  enemyCountBeforeDestroy: 1
+  enemyCountBeforeDestroy: 10
   skillSprite: {fileID: 0}
   skillDescription: 

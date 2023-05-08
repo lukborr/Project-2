@@ -81,19 +81,28 @@ public class SkillManager : MonoBehaviour
             
             if (activeProjectile != null)
             {
-                Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-
-
-                if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
+                if(activeProjectile.GetComponent<Skillshot>() != null)
                 {
-                    Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+                    Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
+                    Debug.Log("pobralem " + skillshot.name);
 
-                }
-                else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
-                {
-                    Instantiate(activeProjectile, worldPositionCursor, handRotation);
+                    if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
+                    {
+                        Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
 
+                    }
+                    else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
+                    {
+                        Instantiate(activeProjectile, worldPositionCursor, handRotation);
+
+                    }
                 }
+                
+
+                
+
+
+                
                 cooldowns[selectedNumber] = false;
                 StartCoroutine(ResetCooldown(selectedNumber));
             }
