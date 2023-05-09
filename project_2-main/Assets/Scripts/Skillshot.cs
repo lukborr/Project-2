@@ -57,9 +57,10 @@ public class Skillshot : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy")  )
         {
             Health health = collision.gameObject.GetComponent<Health>();
+            if(health.dotRoutine !=null)
             health.StopCoroutine(health.dotRoutine);
         }                
     }

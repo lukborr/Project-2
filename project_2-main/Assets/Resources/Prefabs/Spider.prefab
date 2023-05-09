@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObject: {fileID: 0}
   speed: 0.5
+  canMove: 1
 --- !u!114 &1602606510955348235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,9 +166,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.27
+  m_Radius: 0.25
 --- !u!50 &46013189
 Rigidbody2D:
   serializedVersion: 4
@@ -178,11 +179,11 @@ Rigidbody2D:
   m_GameObject: {fileID: 1602606510955348240}
   m_BodyType: 0
   m_Simulated: 1
-  m_UseFullKinematicContacts: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDrag: 100
+  m_AngularDrag: 100
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0

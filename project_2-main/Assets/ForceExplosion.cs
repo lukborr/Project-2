@@ -13,21 +13,32 @@ public class ForceExplosion : Skillshot
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        
+
         if (collision.CompareTag("Enemy"))
-        {          
-           Vector2 enemyPos = collision.transform.position;
-            Vector2 skillPos = transform.position;
-            Vector2 forceDirection = enemyPos - (Vector2)spriteRenderer.bounds.center; 
+        {
+            Vector2 enemyPos = collision.transform.position;
+            Vector2 forceDirection = enemyPos - (Vector2)spriteRenderer.bounds.center;
             var rb = collision.GetComponent<Rigidbody2D>();
-            rb.AddForce(forceDirection * 6, ForceMode2D.Impulse);
             FollowPlayer followPlayerScript = collision.GetComponent<FollowPlayer>();
+            rb.AddForce(forceDirection * 7, ForceMode2D.Impulse);
+            rb.isKinematic = true;
+
             followPlayerScript.StartFreezeRoutine();
+            
+               
+
         }
     }
 
-   
+ 
 
-    
+
+
+
+
 
 }
+
+
+
+
