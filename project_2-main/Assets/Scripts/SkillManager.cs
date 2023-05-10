@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -95,14 +93,12 @@ public class SkillManager : MonoBehaviour
                     {
                         Instantiate(activeProjectile, worldPositionCursor, handRotation);
 
+                    }else if(skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
+                    {
+                        Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
                     }
                 }
-                
-
-                
-
-
-                
+              
                 cooldowns[selectedNumber] = false;
                 StartCoroutine(ResetCooldown(selectedNumber));
             }
@@ -121,7 +117,7 @@ public class SkillManager : MonoBehaviour
 
             gatheredSkills.Add(name);
         activeProjectile = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-        offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SkillsSO/" + name);
+        offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
         Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
         skillshot.skillDamage = offensiveSkillSO.skillDamage;
         skillshot.skillDuration = offensiveSkillSO.skillDuration;
@@ -131,7 +127,6 @@ public class SkillManager : MonoBehaviour
         skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
 
         AssignSkillToNumber(skillshot);
-
     }
 
     private void AssignSkillToNumber(Skillshot skillshot)

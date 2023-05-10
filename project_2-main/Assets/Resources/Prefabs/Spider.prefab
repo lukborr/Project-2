@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 0}
-  speed: 0.5
   canMove: 1
+  enemySO: {fileID: 11400000, guid: e6c115ca3bcb1bc43bacb3b0a3bf3fdf, type: 2}
 --- !u!114 &1602606510955348235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   DamageOutput: {fileID: 1698507105855825405, guid: 25bf5e8f041e6604caf853e0e0ca0d02, type: 3}
+  enemySO: {fileID: 11400000, guid: e6c115ca3bcb1bc43bacb3b0a3bf3fdf, type: 2}
 --- !u!58 &5740482529089634920
 CircleCollider2D:
   m_ObjectHideFlags: 0

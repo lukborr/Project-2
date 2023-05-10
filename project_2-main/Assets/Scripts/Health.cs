@@ -9,10 +9,19 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject DamageOutput;
     public Coroutine dotRoutine;
     private int counter = 2;
+    [SerializeField] EnemySO enemySO;
+    
     
     void Start()
     {
-        health = 2;  // tu wstawic scriptableObject
+        if (gameObject.CompareTag("Player"))
+        {
+            health = 100;
+        }
+        else
+        {
+            health = enemySO.enemyHealth;
+        }       
     }
 
     
@@ -41,8 +50,7 @@ public class Health : MonoBehaviour
         {
             yield return new WaitForSeconds(0.5f);
             health -= healthToRemove;
-            InstantiateDamageOutput(healthToRemove);
-            //Debug.Log("zabrało" + healthToRemove);
+            InstantiateDamageOutput(healthToRemove);         
             if(health <= 0) 
             {
                 DieAndDrop();

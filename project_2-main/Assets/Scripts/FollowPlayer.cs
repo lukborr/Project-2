@@ -5,22 +5,20 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     [SerializeField] GameObject playerObject;
-   [SerializeField] float speed;
     private Rigidbody2D rb;
     public bool canMove = true;
+    [SerializeField] private EnemySO enemySO; 
 
     private void Start()
     {
         playerObject = GameObject.Find("Player");
-        rb = GetComponent<Rigidbody2D>();
-      
-        
+        rb = GetComponent<Rigidbody2D>();            
     }
 
     private void Update()
     {  
         if (playerObject != null && canMove)
-        transform.position = Vector2.MoveTowards(this.transform.position, playerObject.transform.position, speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(this.transform.position, playerObject.transform.position, enemySO.enemySpeed * Time.deltaTime);
     }
 
    private IEnumerator FreezeSelf()
@@ -32,8 +30,7 @@ public class FollowPlayer : MonoBehaviour
 
    public void StartFreezeRoutine()
     {
-        StartCoroutine(FreezeSelf());
-        
+        StartCoroutine(FreezeSelf());       
     }
 
 
