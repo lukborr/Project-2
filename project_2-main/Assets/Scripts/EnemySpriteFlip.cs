@@ -11,15 +11,15 @@ public class EnemySpriteFlip : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer= GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine("CheckPos");
     }
 
     IEnumerator CheckPos()
     {
-        
+
         currentPos = transform.position;
-        yield return new WaitForEndOfFrame();          
+        yield return new WaitForEndOfFrame();
         nextPos = transform.position;
         if (nextPos.x > currentPos.x)
         {
@@ -32,3 +32,4 @@ public class EnemySpriteFlip : MonoBehaviour
         StartCoroutine("CheckPos");
     }
 }
+  

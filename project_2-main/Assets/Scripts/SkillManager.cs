@@ -40,10 +40,9 @@ public class SkillManager : MonoBehaviour
         }
 
         else if (Input.GetKeyDown(KeyCode.Z))
-        {
-            LoadNewSkillPrefab("Fireball");
-            LoadNewSkillPrefab("PoisonPool");
+        {           
             LoadNewSkillPrefab("ForceExplosion");
+            LoadNewSkillPrefab("Blizzard");
 
         }
         else if (Input.GetKeyDown(KeyCode.Y))
@@ -91,7 +90,7 @@ public class SkillManager : MonoBehaviour
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
-                        Instantiate(activeProjectile, worldPositionCursor, handRotation);
+                        Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
 
                     }else if(skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
                     {

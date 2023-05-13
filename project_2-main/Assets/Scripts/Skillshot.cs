@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[RequireComponent(typeof(SpriteRenderer))]
 
 public class Skillshot : MonoBehaviour
 {
@@ -55,7 +56,7 @@ public class Skillshot : MonoBehaviour
     }
   
 
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy")  )
         {
@@ -75,5 +76,7 @@ public class Skillshot : MonoBehaviour
         yield return new WaitForSeconds(time);
         cooldownUp = true;
     }
+
+    
 
 }

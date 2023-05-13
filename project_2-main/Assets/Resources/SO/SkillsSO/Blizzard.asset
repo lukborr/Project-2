@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa022df8cce6e74479456a77281d8f4c, type: 3}
-  m_Name: PoisonPool
+  m_Name: Blizzard
   m_EditorClassIdentifier: 
-  skillName: PoisonPool
+  skillName: Blizzard
   skillShotType: 0
   whereSkillSpawn: 1
-  skillDuration: 12
+  skillDuration: 14
   skillDamage: 1
   skillSpeed: 0
-  skillCooldown: 8
+  skillCooldown: 10
   enemyCountBeforeDestroy: -1
-  skillSprite: {fileID: 21300000, guid: 03b677a216202374d98617890ae3b367, type: 3}
-  skillDescription: A continously damaging pool of poison
+  skillSprite: {fileID: 0}
+  skillDescription: 
