@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa022df8cce6e74479456a77281d8f4c, type: 3}
-  m_Name: Test2
+  m_Name: ElectricBall
   m_EditorClassIdentifier: 
-  skillName: test2
-  skillShotType: 0
-  whereSkillSpawn: 0
+  skillName: ElectricBall
+  skillShotType: 2
+  whereSkillSpawn: 2
   skillDuration: 0
-  skillDamage: 0
-  skillSpeed: 0
-  skillCooldown: 0
+  skillDamage: 2
+  skillSpeed: 100
+  skillCooldown: 10
   enemyCountBeforeDestroy: 0
-  skillSprite: {fileID: 21300000, guid: 9af5a449a0730e940912c9b15406fc7c, type: 3}
-  skillDescription: test2
+  skillSprite: {fileID: 0}
+  skillDescription: Orbiting ball of electricity, protecting it's bearer.

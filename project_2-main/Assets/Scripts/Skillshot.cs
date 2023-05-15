@@ -6,7 +6,7 @@ using UnityEngine;
 public class Skillshot : MonoBehaviour
 {
 
-    [SerializeField] private OffensiveSkillSO offensiveSkillSO;
+    [SerializeField] public OffensiveSkillSO offensiveSkillSO;
     [HideInInspector] public int enemyCountBeforeDestroy;
     [HideInInspector] public int skillDamage;
     [HideInInspector] public float cooldownTime;
@@ -16,6 +16,12 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public bool cooldownUp = true;
 
     private List<Health> healthsList= new List<Health>();
+
+    private void Awake()
+    {
+        skillSpeed = offensiveSkillSO.skillSpeed;
+        skillDamage= offensiveSkillSO.skillDamage;
+    }
 
     private void OnEnable()
     {
@@ -34,8 +40,9 @@ public class Skillshot : MonoBehaviour
     {  
         if (collision.CompareTag("Enemy"))
         {
+            //Debug.Log("wykrylo kolizje");
             Health health = collision.gameObject.GetComponent<Health>();
-            if (offensiveSkillSO.skillShotType == SkillShotType.Projectile)
+            if (offensiveSkillSO.skillShotType == SkillShotType.Projectile || offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {              
                 health.RemoveHealth(skillDamage);
 

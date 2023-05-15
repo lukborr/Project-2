@@ -2,7 +2,8 @@
    public enum SkillShotType
     {
         Dot,
-        Projectile
+        Projectile,
+        Aura
         
     }
 public enum WhereSkillSpawn

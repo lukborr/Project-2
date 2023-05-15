@@ -17,6 +17,7 @@ public class SkillManager : MonoBehaviour
     private Vector2 worldPositionCursor;
 
     [SerializeField] private GameObject testProjectile;
+    [SerializeField] private GameObject aurasGm;
 
     private void Update()
     {
@@ -43,6 +44,7 @@ public class SkillManager : MonoBehaviour
         {           
             LoadNewSkillPrefab("ForceExplosion");
             LoadNewSkillPrefab("Blizzard");
+            LoadNewSkillPrefab("ElectricBall");
 
         }
         else if (Input.GetKeyDown(KeyCode.Y))
@@ -113,19 +115,28 @@ public class SkillManager : MonoBehaviour
             return;
         }
         else
+        {
+            GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
 
-            gatheredSkills.Add(name);
-        activeProjectile = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-        offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
-        Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-        skillshot.skillDamage = offensiveSkillSO.skillDamage;
-        skillshot.skillDuration = offensiveSkillSO.skillDuration;
-        skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
-        skillshot.cooldownTime = offensiveSkillSO.skillCooldown;
-        skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
-        skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
-
-        AssignSkillToNumber(skillshot);
+            if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
+            {
+                gatheredSkills.Add(name);
+                activeProjectile = gm;
+                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
+                Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
+                skillshot.skillDamage = offensiveSkillSO.skillDamage;
+                skillshot.skillDuration = offensiveSkillSO.skillDuration;
+                skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
+                skillshot.cooldownTime = offensiveSkillSO.skillCooldown;
+                skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+                skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+                AssignSkillToNumber(skillshot);
+            }
+            else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
+            {
+               aurasGm.transform.Find(name).gameObject.SetActive(true);               
+            }
+        }                         
     }
 
     private void AssignSkillToNumber(Skillshot skillshot)
