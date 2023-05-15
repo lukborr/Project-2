@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -852622529
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1687885644, guid: 8db5976ab786f1a4698d024e268204eb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,6 +107,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &8328865870209848606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ MonoBehaviour:
   skillSpeed: 0
   whereSkillSpawn: 1
   cooldownUp: 1
+  skillRange: 0
 --- !u!58 &8328865870209848607
 CircleCollider2D:
   m_ObjectHideFlags: 0

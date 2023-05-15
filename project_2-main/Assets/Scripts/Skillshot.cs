@@ -14,15 +14,11 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public float skillSpeed;
     [HideInInspector] public  WhereSkillSpawn whereSkillSpawn;
     [HideInInspector] public bool cooldownUp = true;
+    [HideInInspector] public float skillRange;
 
     private List<Health> healthsList= new List<Health>();
 
-    private void Awake()
-    {
-        skillSpeed = offensiveSkillSO.skillSpeed;
-        skillDamage= offensiveSkillSO.skillDamage;
-    }
-
+   
     private void OnEnable()
     {
         StartCoroutine(DestroyAfterTime(skillDuration));

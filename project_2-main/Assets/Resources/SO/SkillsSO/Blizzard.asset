@@ -18,7 +18,8 @@ MonoBehaviour:
   skillDuration: 14
   skillDamage: 1
   skillSpeed: 0
-  skillCooldown: 10
+  skillCooldown: 3
+  SkillRange: 5
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 0}
   skillDescription: 

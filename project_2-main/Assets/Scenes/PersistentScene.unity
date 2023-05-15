@@ -1502,6 +1502,7 @@ MonoBehaviour:
   offensiveSkillSO: {fileID: 0}
   testProjectile: {fileID: 5597919972152919372, guid: ccded3b11f4852d4ca6bfe86a5f598dc, type: 3}
   aurasGm: {fileID: 289670447}
+  sphereRadius: 5
 --- !u!70 &678025486
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7010,7 +7011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1688051627
 Transform:
   m_ObjectHideFlags: 0

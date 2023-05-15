@@ -15,14 +15,29 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
     private Vector2 worldPositionCursor;
+    private float distancePlayerMouse;
+    private bool inRange = false;
 
     [SerializeField] private GameObject testProjectile;
     [SerializeField] private GameObject aurasGm;
+
+    [SerializeField] private float  sphereRadius;
+    private float activeProjectileRange;
 
     private void Update()
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        distancePlayerMouse = Vector2.Distance(worldPositionCursor, transform.position);
+        if(distancePlayerMouse <= activeProjectileRange)
+        {
+            inRange= true;
+        }
+        else
+        {
+            inRange = false;
+        }
+        
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             LoadExistingSkill(0);
@@ -42,7 +57,7 @@ public class SkillManager : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Z))
         {           
-            LoadNewSkillPrefab("ForceExplosion");
+            LoadNewSkillPrefab("PoisonPool");
             LoadNewSkillPrefab("Blizzard");
             LoadNewSkillPrefab("ElectricBall");
 
@@ -60,7 +75,8 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            
+            Debug.Log("range to " + activeProjectile.GetComponent<Skillshot>().skillRange);
+            Debug.Log("distans to" + distancePlayerMouse);
         }
     }
 
@@ -91,10 +107,15 @@ public class SkillManager : MonoBehaviour
 
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
-                    {
-                        Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
-
-                    }else if(skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
+                    {                      
+                                             
+                        if(inRange)
+                        {
+                            Debug.Log("tut");
+                            Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
+                        }
+                    }
+                    else if(skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
                     {
                         Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
                     }
@@ -124,6 +145,7 @@ public class SkillManager : MonoBehaviour
                 activeProjectile = gm;
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
                 Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
+                activeProjectileRange = offensiveSkillSO.SkillRange;
                 skillshot.skillDamage = offensiveSkillSO.skillDamage;
                 skillshot.skillDuration = offensiveSkillSO.skillDuration;
                 skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
@@ -178,6 +200,12 @@ public class SkillManager : MonoBehaviour
     {
         yield return new WaitForSeconds(skillsNumbers[number].cooldownTime);
         cooldowns[number] = true;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, sphereRadius);
+        
     }
 
 
