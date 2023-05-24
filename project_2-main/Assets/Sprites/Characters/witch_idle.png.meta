@@ -110,7 +110,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 23
+        width: 24
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e219f3e1c962d434fa3695a58f8726e4
-      internalID: -306600079
+      spriteID: 500577e0e7f4bbe48a602071650c2362
+      internalID: -1801478647
       vertices: []
       indices: 
       edges: []
@@ -129,9 +129,9 @@ TextureImporter:
       name: witch_idle_1
       rect:
         serializedVersion: 2
-        x: 23
+        x: 24
         y: 0
-        width: 23
+        width: 24
         height: 34
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ad412c4a0db53e4cbaf469f9c609a5a
-      internalID: -711907633
+      spriteID: 99ce579758f561b4384360d8fe68337e
+      internalID: 1785501704
       vertices: []
       indices: 
       edges: []
@@ -157,8 +157,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      witch_idle_1: -711907633
-      witch_idle_0: -306600079
+      witch_idle_0: -1801478647
+      witch_idle_1: 1785501704
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
