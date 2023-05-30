@@ -58,8 +58,7 @@ public class SkillManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Z))
         {           
             LoadNewSkillPrefab("PoisonPool");
-            LoadNewSkillPrefab("Blizzard");
-            LoadNewSkillPrefab("ElectricBall");
+            LoadNewSkillPrefab("Thunderbolt");
 
         }
         else if (Input.GetKeyDown(KeyCode.Y))

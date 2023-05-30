@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4578178859095743156}
   - component: {fileID: 4578178859095743155}
   - component: {fileID: 4578178859095743154}
+  - component: {fileID: -7110892917346573150}
   m_Layer: 0
   m_Name: ElectricBall
   m_TagString: Untagged
@@ -55,6 +56,7 @@ MonoBehaviour:
   skillSpeed: 100
   whereSkillSpawn: 2
   cooldownUp: 1
+  skillRange: 0
   rotationPoint: {fileID: 0}
 --- !u!58 &4578178859095743156
 CircleCollider2D:
@@ -111,7 +113,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -852622529
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 2131434510, guid: b32f5f3816218894a9cc27be2398377c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -145,3 +147,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-7110892917346573150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4578178859095743153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21dfc1641c17a34983427bd145afb28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
