@@ -35,6 +35,19 @@ public class FollowPlayer : MonoBehaviour
         StartCoroutine(FreezeSelf());       
     }
 
+    private IEnumerator Stun(FollowPlayer followPlayerScript, Animator animator, float duration)
+    {
+        followPlayerScript.enabled = false;
+        animator.enabled = false;
+        yield return new WaitForSeconds(duration);
+        followPlayerScript.enabled = true;
+        animator.enabled = true;
+    }
+
+    public void StartStunRoutine(FollowPlayer followPlayerScript, Animator animator, float duration)
+    {
+        StartCoroutine(Stun(followPlayerScript, animator, duration));
+    }
 
 
 

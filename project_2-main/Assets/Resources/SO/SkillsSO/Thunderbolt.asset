@@ -15,10 +15,10 @@ MonoBehaviour:
   skillName: Thunderbolt
   skillShotType: 1
   whereSkillSpawn: 1
-  skillDuration: 10
+  skillDuration: 0.4
   skillDamage: 5
   skillSpeed: 0
-  skillCooldown: 10
+  skillCooldown: 5
   SkillRange: 6
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 0}

@@ -42,15 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Enemies
-    uniqueID: 1323490111
-    locked: 0
   - name: Pools
     uniqueID: 830100601
+    locked: 0
+  - name: Enemies
+    uniqueID: 1323490111
     locked: 0
   - name: Player
     uniqueID: 2998256441
     locked: 0
   - name: Projectiles
     uniqueID: 3442344767
+    locked: 0
+  - name: DmgOutput
+    uniqueID: 1292703153
     locked: 0
