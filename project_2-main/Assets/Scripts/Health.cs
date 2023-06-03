@@ -66,8 +66,9 @@ public class Health : MonoBehaviour
 
     private void DieAndDrop()
     {
+        Destroy(transform.GetChild(1).gameObject);
         transform.GetChild(0).gameObject.SetActive(true);
-        transform.DetachChildren();
+        transform.DetachChildren();       
         Destroy(gameObject);
     }
 
