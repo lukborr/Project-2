@@ -16,6 +16,8 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public bool cooldownUp = true;
     [HideInInspector] public float skillRange;
 
+    
+
     private List<Health> healthsList= new List<Health>();
 
    
@@ -35,12 +37,12 @@ public class Skillshot : MonoBehaviour
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {  
         if (collision.CompareTag("Enemy"))
-        {
-            //Debug.Log("wykrylo kolizje");
+        {           
             Health health = collision.gameObject.GetComponent<Health>();
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile || offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {              
                 health.RemoveHealth(skillDamage);
+                Debug.Log(skillDamage);
 
                 if (enemyCountBeforeDestroy != -1)
                 {
@@ -51,9 +53,14 @@ public class Skillshot : MonoBehaviour
                     }
                 }
             }
-            else if (offensiveSkillSO.skillShotType == SkillShotType.Dot)
+            else if (offensiveSkillSO.skillShotType == SkillShotType.Dot || offensiveSkillSO.skillShotType == SkillShotType.DotStick)
             {              
-              health.StartDotRoutine(skillDamage);               
+             Coroutine routine = health.StartDotRoutine(skillDamage, skillDuration); 
+                if(offensiveSkillSO.skillShotType == SkillShotType.DotStick)
+                {
+                    health.StopDotRoutine(routine);
+                    
+                }
             }
         }
     }
@@ -63,9 +70,9 @@ public class Skillshot : MonoBehaviour
     {
         if (collision.CompareTag("Enemy")  )
         {
-            Health health = collision.gameObject.GetComponent<Health>();
-            if(health.dotRoutine !=null)
-            health.StopCoroutine(health.dotRoutine);
+           // Health health = collision.gameObject.GetComponent<Health>();
+           // if(health.dotRoutine !=null)
+           // health.StopCoroutine(health.dotRoutine);
         }                
     }
 

@@ -9,18 +9,16 @@ public class Ignite : Skillshot
         base.OnTriggerEnter2D(collision);
         if (collision.CompareTag("Enemy"))
         {
-            GameObject burn = collision.transform.Find("burn").gameObject;
-            burn.SetActive(true);
+            Animator animatorEffect = collision.transform.GetChild(2).GetComponent<Animator>();
+            animatorEffect.SetBool("isBurning" , true);
             
         }
-        // odpalic rutyne konczaca dot
+        
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)
     {
-        
+       
     }
-
-
 
 }

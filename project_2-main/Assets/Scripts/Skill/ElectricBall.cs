@@ -5,6 +5,12 @@ using UnityEngine;
 public class ElectricBall : Skillshot
 {
     [SerializeField] private GameObject rotationPoint;
+    private float stunDuration;
+    private void Start()
+    {
+        stunDuration = offensiveSkillSO.skillDuration;
+        skillDamage= offensiveSkillSO.skillDamage;
+    }
 
     private void FixedUpdate()
     {
@@ -14,7 +20,20 @@ public class ElectricBall : Skillshot
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);  
+        base.OnTriggerEnter2D(collision);
+
+        if (collision.CompareTag("Enemy"))
+        {
+            Animator animatorEffect = collision.transform.GetChild(1).GetComponent<Animator>();
+            animatorEffect.SetTrigger("isShocked");
+            
+            if (collision.GetComponent<FollowPlayer>() != null)
+            {
+                FollowPlayer followplayer = collision.GetComponent<FollowPlayer>();
+                Animator animator = collision.GetComponent<Animator>();
+                followplayer.StartStunRoutine(followplayer, animator, stunDuration);
+            }
+        }
     }
 
 

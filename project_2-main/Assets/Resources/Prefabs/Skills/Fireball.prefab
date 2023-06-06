@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2621949044912643638}
   - component: {fileID: 2621949044912643593}
   - component: {fileID: 2621949044912643639}
-  - component: {fileID: 2621949044912643636}
-  - component: {fileID: 7325939981477727373}
   - component: {fileID: 8122604386330203027}
+  - component: {fileID: 1540269092038344926}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -76,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -852622529
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -823674573, guid: fbf85e3991edc1a40b12c6c2fd83a9d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -109,37 +108,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!114 &2621949044912643636
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621949044912643592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9c249646b1110242a60d0d046165873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offensiveSkillSO: {fileID: 11400000, guid: aa4277e795a06584ba9e5b43581bec92, type: 2}
-  enemyCountBeforeDestroy: 0
-  skillDamage: 0
-  cooldownTime: 0
-  skillDuration: 0
-  skillSpeed: 0
---- !u!114 &7325939981477727373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2621949044912643592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77266d5c059f6564bbbbe0d837cf9dd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillSO: {fileID: 11400000, guid: aa4277e795a06584ba9e5b43581bec92, type: 2}
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &8122604386330203027
 Rigidbody2D:
   serializedVersion: 4
@@ -161,6 +130,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1540269092038344926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2621949044912643592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e21082015d16a134aae664a621f411fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offensiveSkillSO: {fileID: 11400000, guid: aa4277e795a06584ba9e5b43581bec92, type: 2}
+  enemyCountBeforeDestroy: 0
+  skillDamage: 0
+  cooldownTime: 0
+  skillDuration: 0
+  skillSpeed: 0
+  whereSkillSpawn: 0
+  cooldownUp: 1
+  skillRange: 0
 --- !u!1 &2621949045093427758
 GameObject:
   m_ObjectHideFlags: 0

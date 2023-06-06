@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,11 +8,19 @@ public class Health : MonoBehaviour
 {
   [HideInInspector] public int health;
     [SerializeField] private GameObject DamageOutput;
-    public Coroutine dotRoutine;
+   // public Coroutine dotRoutine;
     private int counter = 2;
     [SerializeField] EnemySO enemySO;
-    
-    
+
+
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.T)) 
+        {
+            
+        }
+    }
     void Start()
     {
         if (gameObject.CompareTag("Player"))
@@ -21,10 +30,10 @@ public class Health : MonoBehaviour
         else
         {
             health = enemySO.enemyHealth;
-        }       
+        }   
+        
     }
 
-    
     public void RemoveHealth(int healthToRemove)
     {
         health -=healthToRemove;
@@ -44,9 +53,14 @@ public class Health : MonoBehaviour
         }
     }
 
-    public IEnumerator RemoveHealthGradually(int healthToRemove)
-    {       
-        while(health > 0)
+    public IEnumerator RemoveHealthGradually(int healthToRemove, float duration)
+    {
+        bool dotFinished = false;
+        if (duration != -1)
+        {
+            StartCoroutine(Timer(duration, dotFinished));
+        }
+        while(dotFinished == false && health > 0)
         {
             yield return new WaitForSeconds(0.5f);
             health -= healthToRemove;
@@ -58,17 +72,33 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void StartDotRoutine(int damage)
+    private IEnumerator Timer(float duration, bool ready)
+    {
+        float timer = 0.0f;
+        while(timer != duration)
+        {
+            yield return new WaitForSeconds(1);
+            timer++;
+            
+            if(timer >= duration)
+            {
+                ready = true;
+            }               
+        }                
+    }
+
+    public Coroutine StartDotRoutine(int damage, float duration)
     {      
-      dotRoutine = StartCoroutine(RemoveHealthGradually(damage));      
+     Coroutine dotRoutine = StartCoroutine(RemoveHealthGradually(damage, duration));
+        return dotRoutine;
     }
 
 
     private void DieAndDrop()
     {
-        Destroy(transform.GetChild(1).gameObject);
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.DetachChildren();       
+        Transform childTransform = transform.GetChild(0);
+        childTransform.gameObject.SetActive(true);
+        childTransform.transform.parent = null;       
         Destroy(gameObject);
     }
 
@@ -87,5 +117,10 @@ public class Health : MonoBehaviour
         dmgOutput.transform.position = gameObject.transform.position;
     }
 
+   public IEnumerator StopDotRoutine(Coroutine routine)
+    {
+        yield return null;   
+        StopCoroutine(routine);
 
+    }
 }

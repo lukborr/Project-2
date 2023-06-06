@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ignite
   m_EditorClassIdentifier: 
   skillName: Ignite
-  skillShotType: 0
+  skillShotType: 3
   whereSkillSpawn: 1
-  skillDuration: 1
-  skillDamage: 2
+  skillDuration: 3
+  skillDamage: 1
   skillSpeed: 1
   skillCooldown: 4
   SkillRange: 2

@@ -15,10 +15,11 @@ MonoBehaviour:
   skillName: ElectricBall
   skillShotType: 2
   whereSkillSpawn: 2
-  skillDuration: 0
-  skillDamage: 2
+  skillDuration: 0.4
+  skillDamage: 3
   skillSpeed: 100
   skillCooldown: 10
+  SkillRange: 0
   enemyCountBeforeDestroy: 0
   skillSprite: {fileID: 0}
   skillDescription: Orbiting ball of electricity, protecting it's bearer.

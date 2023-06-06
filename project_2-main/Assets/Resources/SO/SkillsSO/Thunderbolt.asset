@@ -16,7 +16,7 @@ MonoBehaviour:
   skillShotType: 1
   whereSkillSpawn: 1
   skillDuration: 0.4
-  skillDamage: 5
+  skillDamage: 6
   skillSpeed: 0
   skillCooldown: 5
   SkillRange: 6

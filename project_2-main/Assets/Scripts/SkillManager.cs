@@ -59,6 +59,7 @@ public class SkillManager : MonoBehaviour
         {           
             LoadNewSkillPrefab("Ignite");
             LoadNewSkillPrefab("Thunderbolt");
+            LoadNewSkillPrefab("ElectricBall");
 
         }
         else if (Input.GetKeyDown(KeyCode.Y))
@@ -72,11 +73,7 @@ public class SkillManager : MonoBehaviour
                 Debug.Log(skillsNumbers[i]);
             }
         }
-        else if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log("range to " + activeProjectile.GetComponent<Skillshot>().skillRange);
-            Debug.Log("distans to" + distancePlayerMouse);
-        }
+        
     }
 
     private void OnEnable()

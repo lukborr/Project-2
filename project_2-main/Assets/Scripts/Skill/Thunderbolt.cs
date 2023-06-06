@@ -9,13 +9,16 @@ public class Thunderbolt : Skillshot
         stunDuration = offensiveSkillSO.skillDuration;
     }
 
-
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
+       
         if (collision.CompareTag("Enemy"))
         {
-            if(collision.GetComponent<FollowPlayer>() != null)
+            Animator animatorEffect = collision.transform.GetChild(1).GetComponent<Animator>();
+            animatorEffect.SetTrigger("isShocked");
+           
+            if (collision.GetComponent<FollowPlayer>() != null)
             {
                 FollowPlayer followplayer = collision.GetComponent<FollowPlayer>();
                 Animator animator = collision.GetComponent<Animator>();

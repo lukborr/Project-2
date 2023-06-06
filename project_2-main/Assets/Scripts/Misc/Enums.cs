@@ -3,9 +3,9 @@
     {
         Dot,
         Projectile,
-        Aura
-        
-    }
+        Aura,
+    DotStick
+}
 public enum WhereSkillSpawn
 {
     Hand,
