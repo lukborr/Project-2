@@ -53,48 +53,8 @@ public class Health : MonoBehaviour
         }
     }
 
-    public IEnumerator RemoveHealthGradually(int healthToRemove, float duration)
-    {
-        bool dotFinished = false;
-        if (duration != -1)
-        {
-            StartCoroutine(Timer(duration, dotFinished));
-        }
-        while(dotFinished == false && health > 0)
-        {
-            yield return new WaitForSeconds(0.5f);
-            health -= healthToRemove;
-            InstantiateDamageOutput(healthToRemove);         
-            if(health <= 0) 
-            {
-                DieAndDrop();
-            }
-        }
-    }
 
-    private IEnumerator Timer(float duration, bool ready)
-    {
-        float timer = 0.0f;
-        while(timer != duration)
-        {
-            yield return new WaitForSeconds(1);
-            timer++;
-            
-            if(timer >= duration)
-            {
-                ready = true;
-            }               
-        }                
-    }
-
-    public Coroutine StartDotRoutine(int damage, float duration)
-    {      
-     Coroutine dotRoutine = StartCoroutine(RemoveHealthGradually(damage, duration));
-        return dotRoutine;
-    }
-
-
-    private void DieAndDrop()
+    public void DieAndDrop()
     {
         Transform childTransform = transform.GetChild(0);
         childTransform.gameObject.SetActive(true);
@@ -102,7 +62,7 @@ public class Health : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void InstantiateDamageOutput(int damage)
+    public void InstantiateDamageOutput(int damage)
     {
         counter++;
         if(counter >= 6)
@@ -117,10 +77,4 @@ public class Health : MonoBehaviour
         dmgOutput.transform.position = gameObject.transform.position;
     }
 
-   public IEnumerator StopDotRoutine(Coroutine routine)
-    {
-        yield return null;   
-        StopCoroutine(routine);
-
-    }
 }

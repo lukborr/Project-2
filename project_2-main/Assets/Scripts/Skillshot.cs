@@ -11,12 +11,11 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public int skillDamage;
     [HideInInspector] public float cooldownTime;
     [HideInInspector] public float skillDuration;
+    [HideInInspector] public float dotDuration;
     [HideInInspector] public float skillSpeed;
     [HideInInspector] public  WhereSkillSpawn whereSkillSpawn;
     [HideInInspector] public bool cooldownUp = true;
     [HideInInspector] public float skillRange;
-
-    
 
     private List<Health> healthsList= new List<Health>();
 
@@ -42,7 +41,6 @@ public class Skillshot : MonoBehaviour
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile || offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {              
                 health.RemoveHealth(skillDamage);
-                Debug.Log(skillDamage);
 
                 if (enemyCountBeforeDestroy != -1)
                 {
@@ -53,14 +51,10 @@ public class Skillshot : MonoBehaviour
                     }
                 }
             }
-            else if (offensiveSkillSO.skillShotType == SkillShotType.Dot || offensiveSkillSO.skillShotType == SkillShotType.DotStick)
-            {              
-             Coroutine routine = health.StartDotRoutine(skillDamage, skillDuration); 
-                if(offensiveSkillSO.skillShotType == SkillShotType.DotStick)
-                {
-                    health.StopDotRoutine(routine);
-                    
-                }
+            else if (offensiveSkillSO.skillShotType == SkillShotType.Dot || (offensiveSkillSO.skillShotType == SkillShotType.DotStick))
+            {
+                DotManager dotManager = collision.GetComponent<DotManager>();               
+                dotManager.ApplyDotRoutine(offensiveSkillSO.skillName, skillDamage, dotDuration);
             }
         }
     }
@@ -68,11 +62,14 @@ public class Skillshot : MonoBehaviour
 
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy")  )
+        if (collision.CompareTag("Enemy"))
         {
-           // Health health = collision.gameObject.GetComponent<Health>();
-           // if(health.dotRoutine !=null)
-           // health.StopCoroutine(health.dotRoutine);
+            if (offensiveSkillSO.skillShotType == SkillShotType.Dot)
+            {
+                DotManager dotManager = collision.GetComponent<DotManager>();
+                dotManager.RemoveDotRoutine(offensiveSkillSO.skillName);
+            }
+          
         }                
     }
 

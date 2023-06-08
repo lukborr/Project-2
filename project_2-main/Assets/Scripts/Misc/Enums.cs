@@ -4,7 +4,7 @@
         Dot,
         Projectile,
         Aura,
-    DotStick
+    DotStick,
 }
 public enum WhereSkillSpawn
 {

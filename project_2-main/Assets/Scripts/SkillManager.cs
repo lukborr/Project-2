@@ -59,7 +59,7 @@ public class SkillManager : MonoBehaviour
         {           
             LoadNewSkillPrefab("Ignite");
             LoadNewSkillPrefab("Thunderbolt");
-            LoadNewSkillPrefab("ElectricBall");
+            LoadNewSkillPrefab("PoisonPool");
 
         }
         else if (Input.GetKeyDown(KeyCode.Y))
@@ -95,7 +95,7 @@ public class SkillManager : MonoBehaviour
                 if(activeProjectile.GetComponent<Skillshot>() != null)
                 {
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-                    Debug.Log("pobralem " + skillshot.name);
+                   
 
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
                     {
@@ -106,8 +106,7 @@ public class SkillManager : MonoBehaviour
                     {                      
                                              
                         if(inRange)
-                        {
-                            Debug.Log("tut");
+                        {                           
                             Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
                         }
                     }
@@ -144,6 +143,7 @@ public class SkillManager : MonoBehaviour
                 activeProjectileRange = offensiveSkillSO.SkillRange;
                 skillshot.skillDamage = offensiveSkillSO.skillDamage;
                 skillshot.skillDuration = offensiveSkillSO.skillDuration;
+                skillshot.dotDuration = offensiveSkillSO.skillDuration;
                 skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
                 skillshot.cooldownTime = offensiveSkillSO.skillCooldown;
                 skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
@@ -179,7 +179,6 @@ public class SkillManager : MonoBehaviour
         {
             activeProjectile = skillsNumbers[number].gameObject;
             selectedNumber = number;
-            Debug.Log(skillsNumbers[number].skillDamage);
         }
     }
 
@@ -203,7 +202,5 @@ public class SkillManager : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
         
     }
-
-
 
 }

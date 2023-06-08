@@ -8,6 +8,7 @@ public class OffensiveSkillSO : ScriptableObject
     public SkillShotType skillShotType;
     public WhereSkillSpawn whereSkillSpawn;
     public float skillDuration;
+    public float dotDuration;
     public int skillDamage;
     public float skillSpeed;
     public float skillCooldown;

@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: -3375693503879596033}
   - component: {fileID: 5740482529089634920}
   - component: {fileID: 46013189}
+  - component: {fileID: 992715932}
   m_Layer: 7
   m_Name: Spider
   m_TagString: Enemy
@@ -300,6 +301,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &992715932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1602606510955348240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7d2bd801a868a4ab7b670b69482162, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8504231487308913616
 GameObject:
   m_ObjectHideFlags: 0
