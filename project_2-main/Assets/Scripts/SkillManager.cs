@@ -24,6 +24,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private float  sphereRadius;
     private float activeProjectileRange;
 
+
     private void Update()
     {
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
@@ -55,13 +56,6 @@ public class SkillManager : MonoBehaviour
             LoadExistingSkill(3);
         }
 
-        else if (Input.GetKeyDown(KeyCode.Z))
-        {           
-            LoadNewSkillPrefab("Ignite");
-            LoadNewSkillPrefab("Thunderbolt");
-            LoadNewSkillPrefab("PoisonPool");
-
-        }
         else if (Input.GetKeyDown(KeyCode.Y))
         {
             ModifySkillStats(skillsNumbers[0], 2, 0, 0, 2, 0);
@@ -74,6 +68,13 @@ public class SkillManager : MonoBehaviour
             }
         }
         
+    }
+
+    private void Awake()
+    {
+        LoadNewSkillPrefab("LightningChain");
+        LoadNewSkillPrefab("Thunderbolt");
+        LoadNewSkillPrefab("PoisonPool");
     }
 
     private void OnEnable()
@@ -95,7 +96,7 @@ public class SkillManager : MonoBehaviour
                 if(activeProjectile.GetComponent<Skillshot>() != null)
                 {
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-                   
+
 
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
                     {
@@ -134,6 +135,7 @@ public class SkillManager : MonoBehaviour
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
 
+           
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
             {
                 gatheredSkills.Add(name);
@@ -143,6 +145,7 @@ public class SkillManager : MonoBehaviour
                 activeProjectileRange = offensiveSkillSO.SkillRange;
                 skillshot.skillDamage = offensiveSkillSO.skillDamage;
                 skillshot.skillDuration = offensiveSkillSO.skillDuration;
+                skillshot.stunDuration = offensiveSkillSO.stunDuration;
                 skillshot.dotDuration = offensiveSkillSO.skillDuration;
                 skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
                 skillshot.cooldownTime = offensiveSkillSO.skillCooldown;

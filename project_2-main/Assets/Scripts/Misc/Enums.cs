@@ -12,6 +12,11 @@ public enum WhereSkillSpawn
     Cursor,
     Self
 }
+public enum ShockTargets
+{
+    Single,
+    Multiple
+}
 
 
 

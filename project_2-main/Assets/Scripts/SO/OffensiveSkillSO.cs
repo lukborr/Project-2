@@ -16,4 +16,5 @@ public class OffensiveSkillSO : ScriptableObject
     public int enemyCountBeforeDestroy;
     public Sprite skillSprite;
     public string skillDescription;
+    public float stunDuration;
 }

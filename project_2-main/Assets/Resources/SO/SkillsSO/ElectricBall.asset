@@ -16,6 +16,7 @@ MonoBehaviour:
   skillShotType: 2
   whereSkillSpawn: 2
   skillDuration: 0.4
+  dotDuration: 0
   skillDamage: 3
   skillSpeed: 100
   skillCooldown: 10
@@ -23,3 +24,4 @@ MonoBehaviour:
   enemyCountBeforeDestroy: 0
   skillSprite: {fileID: 0}
   skillDescription: Orbiting ball of electricity, protecting it's bearer.
+  stunDuration: 1

@@ -17,10 +17,11 @@ MonoBehaviour:
   whereSkillSpawn: 0
   skillDuration: 3
   dotDuration: 0
-  skillDamage: 1
+  skillDamage: 5
   skillSpeed: 2
   skillCooldown: 5
-  SkillRange: 0
+  SkillRange: 1
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 0}
   skillDescription: 
+  stunDuration: 0.5

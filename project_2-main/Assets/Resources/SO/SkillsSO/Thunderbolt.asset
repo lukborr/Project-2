@@ -16,10 +16,12 @@ MonoBehaviour:
   skillShotType: 1
   whereSkillSpawn: 1
   skillDuration: 0.4
+  dotDuration: 0
   skillDamage: 6
   skillSpeed: 0
   skillCooldown: 5
   SkillRange: 6
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 0}
-  skillDescription: Thunderbolt from clean skies
+  skillDescription: A sudden thunderbolt from clean sky
+  stunDuration: 1
