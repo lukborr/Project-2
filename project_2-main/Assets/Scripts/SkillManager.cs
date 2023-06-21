@@ -18,7 +18,6 @@ public class SkillManager : MonoBehaviour
     private float distancePlayerMouse;
     private bool inRange = false;
 
-    [SerializeField] private GameObject testProjectile;
     [SerializeField] private GameObject aurasGm;
 
     [SerializeField] private float  sphereRadius;
