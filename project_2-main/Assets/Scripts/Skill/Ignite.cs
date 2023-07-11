@@ -18,11 +18,5 @@ public class Ignite : Skillshot
         
     }
 
-    protected override void OnTriggerExit2D(Collider2D collision)
-    {
-       
-    }
-
    
-
 }

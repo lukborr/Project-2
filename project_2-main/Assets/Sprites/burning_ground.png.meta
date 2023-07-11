@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d40718a021617d547b93a6cd6a832ce7
+guid: 7663f162f19cde44caf959f58abb15fb
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: comet_crush_0
+      name: burning_ground_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 38
-        height: 31
+        width: 36
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a62680040d089b54baa64de77f1acc28
-      internalID: -755398566
+      spriteID: 750a7da2bf5a5fb479bb2edb5d9ca7fa
+      internalID: -633574450
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: comet_crush_1
+      name: burning_ground_1
       rect:
         serializedVersion: 2
-        x: 38
+        x: 36
         y: 0
-        width: 38
-        height: 31
+        width: 36
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 676afbcfc0a108641a6fb72e8c425e05
-      internalID: -1650884697
+      spriteID: feb3f458b3f901c4aa35a48d5f973935
+      internalID: -1253393377
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: comet_crush_2
+      name: burning_ground_2
       rect:
         serializedVersion: 2
-        x: 76
+        x: 72
         y: 0
-        width: 38
-        height: 31
+        width: 36
+        height: 39
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,29 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 37346485d56170b42a6716dace41c2c0
-      internalID: 1712427340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: comet_crush_3
-      rect:
-        serializedVersion: 2
-        x: 114
-        y: 0
-        width: 38
-        height: 31
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d515d2ffe506d874fbde5b9ad7f3acbe
-      internalID: -1116989367
+      spriteID: 43a1bb2b1160ef340b0ce368a20867f2
+      internalID: 1141521831
       vertices: []
       indices: 
       edges: []
@@ -199,10 +178,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      comet_crush_0: -755398566
-      comet_crush_1: -1650884697
-      comet_crush_2: 1712427340
-      comet_crush_3: -1116989367
+      burning_ground_0: -633574450
+      burning_ground_1: -1253393377
+      burning_ground_2: 1141521831
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

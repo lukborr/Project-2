@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class SkillManager : MonoBehaviour
 {
-    [SerializeField] private GameObject activeProjectile;
+    [SerializeField] public GameObject activeProjectile;
+    [SerializeField] private GameObject secondarySkill;
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
 
     public List<string> gatheredSkills = new List<string>();
     private Skillshot[] skillsNumbers = new Skillshot[4];
     private bool[] cooldowns = new bool[4] { true, true, true, true };
+    private Dictionary<string, string> secondarySkillsDictionary = new Dictionary<string, string>()
+    {
+        {"CometCall", "BurningGround" }
+    };
     private int selectedNumber;
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
@@ -72,8 +77,8 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         LoadNewSkillPrefab("LightningChain");
-        LoadNewSkillPrefab("Thunderbolt");
-        LoadNewSkillPrefab("PoisonPool");
+        LoadNewSkillPrefab("Ignite");
+        LoadNewSkillPrefab("CometCall");
     }
 
     private void OnEnable()
@@ -133,8 +138,7 @@ public class SkillManager : MonoBehaviour
         else
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-
-           
+                      
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
             {
                 gatheredSkills.Add(name);
@@ -151,12 +155,31 @@ public class SkillManager : MonoBehaviour
                 skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                 skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                 AssignSkillToNumber(skillshot);
+
+                if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
+                {
+                    string secondarySkillName = secondarySkillsDictionary[name];
+                    secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
+                    Skillshot skillshot2 = activeProjectile.GetComponent<Skillshot>();
+                    activeProjectileRange = offensiveSkillSO.SkillRange;
+                    skillshot2.skillDamage = offensiveSkillSO.skillDamage;
+                    skillshot2.skillDuration = offensiveSkillSO.skillDuration;
+                    skillshot2.stunDuration = offensiveSkillSO.stunDuration;
+                    skillshot2.dotDuration = offensiveSkillSO.skillDuration;
+                    skillshot2.skillSpeed = offensiveSkillSO.skillSpeed;
+                    skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
+                    skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+                    skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+                   
+                }
             }
+
             else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {
                aurasGm.transform.Find(name).gameObject.SetActive(true);               
             }
-        }                         
+           
+        }    
     }
 
     private void AssignSkillToNumber(Skillshot skillshot)
@@ -181,6 +204,16 @@ public class SkillManager : MonoBehaviour
         {
             activeProjectile = skillsNumbers[number].gameObject;
             selectedNumber = number;
+            if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))
+            {
+                Debug.Log("tuts");
+                string secondarySkillName = secondarySkillsDictionary[activeProjectile.name];
+                secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
+            }
+            else
+            {
+                secondarySkill= null;
+            }
         }
     }
 

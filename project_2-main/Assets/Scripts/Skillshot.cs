@@ -65,7 +65,6 @@ public class Skillshot : MonoBehaviour
                 DotManager dotManager = collision.GetComponent<DotManager>();
                 dotManager.RemoveDotRoutine(offensiveSkillSO.skillName);
             }
-
         }
     }
 
