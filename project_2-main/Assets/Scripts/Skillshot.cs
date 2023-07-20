@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
-[RequireComponent(typeof(SpriteRenderer))]
+
+
 
 public class Skillshot : MonoBehaviour
 {
-
     [SerializeField] public OffensiveSkillSO offensiveSkillSO;
     [HideInInspector] public int enemyCountBeforeDestroy;
     [HideInInspector] public int skillDamage;
@@ -16,6 +16,8 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public WhereSkillSpawn whereSkillSpawn;
     [HideInInspector] public bool cooldownUp = true;
     [HideInInspector] public float skillRange;
+    [HideInInspector] public float slowPercent;
+    [HideInInspector] public float slowDuration;
 
     public Rigidbody2D rb;
 
@@ -27,7 +29,6 @@ public class Skillshot : MonoBehaviour
     {
         StartCoroutine(DestroyAfterTime(skillDuration));
     }
-
 
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
@@ -122,6 +123,8 @@ public class Skillshot : MonoBehaviour
             }
         }
     }
+
+   
 
 
 

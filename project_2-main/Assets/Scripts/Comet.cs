@@ -19,15 +19,5 @@ public class Comet : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);     
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("CometCall"))
-        {
-            Vector2 position = (Vector2)cometPoint.position + offset;
-            Instantiate(cometExplosion, position, cometExplosion.transform.rotation);
-            Instantiate(burningGround, position, burningGround.transform.rotation);
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-    }
+    
 }

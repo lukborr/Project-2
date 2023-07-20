@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CometCall
   m_EditorClassIdentifier: 
   skillName: CometCall
-  skillShotType: 1
+  skillShotType: 3
   whereSkillSpawn: 1
   skillDuration: 3
   dotDuration: 3
-  skillDamage: 0
+  skillDamage: 2
   skillSpeed: 0
   skillCooldown: 10
   SkillRange: 5
@@ -25,3 +25,4 @@ MonoBehaviour:
   skillSprite: {fileID: 0}
   skillDescription: 
   stunDuration: 0
+  needsSecondarySkill: 1

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class SkillManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private GameObject aurasGm;
 
-    [SerializeField] private float  sphereRadius;
+    [SerializeField] private float sphereRadius;
     private float activeProjectileRange;
 
 
@@ -34,15 +35,15 @@ public class SkillManager : MonoBehaviour
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distancePlayerMouse = Vector2.Distance(worldPositionCursor, transform.position);
-        if(distancePlayerMouse <= activeProjectileRange)
+        if (distancePlayerMouse <= activeProjectileRange)
         {
-            inRange= true;
+            inRange = true;
         }
         else
         {
             inRange = false;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             LoadExistingSkill(0);
@@ -62,7 +63,7 @@ public class SkillManager : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Y))
         {
-            ModifySkillStats(skillsNumbers[0], 2, 0, 0, 2, 0);
+           
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -71,14 +72,14 @@ public class SkillManager : MonoBehaviour
                 Debug.Log(skillsNumbers[i]);
             }
         }
-        
+
     }
 
     private void Awake()
     {
-        LoadNewSkillPrefab("LightningChain");
-        LoadNewSkillPrefab("Ignite");
-        LoadNewSkillPrefab("CometCall");
+        LoadNewSkillPrefab("Icicle");
+        LoadNewSkillPrefab("FrostBolt");
+        LoadNewSkillPrefab("ForcePush");
     }
 
     private void OnEnable()
@@ -93,40 +94,53 @@ public class SkillManager : MonoBehaviour
     {
 
         if (cooldowns[selectedNumber] == true)
-        {        
-            
+        {
+
             if (activeProjectile != null)
             {
-                if(activeProjectile.GetComponent<Skillshot>() != null)
+                Vector2 pos = new Vector2();
+                if (activeProjectile.GetComponent<Skillshot>() != null)
                 {
+
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-
-
+                    
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
-                    {
-                        Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
 
+                    {
+                        GameObject go = Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+                        pos= go.transform.position;
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
-                    {                      
-                                             
-                        if(inRange)
-                        {                           
-                            Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
+                    {
+
+                        if (inRange)
+                        {
+                            GameObject go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
+                            pos = go.transform.position;
                         }
                     }
-                    else if(skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
+                    else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
+
                     {
-                        Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
-                    }
+                        GameObject go = Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
+                        pos = go.transform.position;
+                    }                   
+
                 }
-              
+                if (secondarySkill != null)
+                {
+                    //Instantiate(secondarySkill, pos, secondarySkill.transform.rotation);                   
+                }
+
                 cooldowns[selectedNumber] = false;
                 StartCoroutine(ResetCooldown(selectedNumber));
+
             }
         }
-         
     }
+
+
+
 
 
     private void LoadNewSkillPrefab(string name)
@@ -138,7 +152,7 @@ public class SkillManager : MonoBehaviour
         else
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-                      
+
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
             {
                 gatheredSkills.Add(name);
@@ -147,6 +161,8 @@ public class SkillManager : MonoBehaviour
                 Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
                 activeProjectileRange = offensiveSkillSO.SkillRange;
                 skillshot.skillDamage = offensiveSkillSO.skillDamage;
+                skillshot.slowDuration= offensiveSkillSO.slowDuration;
+                skillshot.slowPercent= offensiveSkillSO.slowPercent;
                 skillshot.skillDuration = offensiveSkillSO.skillDuration;
                 skillshot.stunDuration = offensiveSkillSO.stunDuration;
                 skillshot.dotDuration = offensiveSkillSO.skillDuration;
@@ -157,12 +173,14 @@ public class SkillManager : MonoBehaviour
                 AssignSkillToNumber(skillshot);
 
                 if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
-                {
+                {                  
                     string secondarySkillName = secondarySkillsDictionary[name];
                     secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
-                    Skillshot skillshot2 = activeProjectile.GetComponent<Skillshot>();
+                    Skillshot skillshot2 = secondarySkill.GetComponent<Skillshot>();
                     activeProjectileRange = offensiveSkillSO.SkillRange;
                     skillshot2.skillDamage = offensiveSkillSO.skillDamage;
+                    skillshot2.slowPercent = offensiveSkillSO.slowPercent;
+                    skillshot2.slowDuration = offensiveSkillSO.slowDuration;
                     skillshot2.skillDuration = offensiveSkillSO.skillDuration;
                     skillshot2.stunDuration = offensiveSkillSO.stunDuration;
                     skillshot2.dotDuration = offensiveSkillSO.skillDuration;
@@ -170,16 +188,15 @@ public class SkillManager : MonoBehaviour
                     skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
                     skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                     skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
-                   
                 }
             }
 
             else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {
-               aurasGm.transform.Find(name).gameObject.SetActive(true);               
+                aurasGm.transform.Find(name).gameObject.SetActive(true);
             }
-           
-        }    
+
+        }
     }
 
     private void AssignSkillToNumber(Skillshot skillshot)
@@ -206,13 +223,12 @@ public class SkillManager : MonoBehaviour
             selectedNumber = number;
             if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))
             {
-                Debug.Log("tuts");
                 string secondarySkillName = secondarySkillsDictionary[activeProjectile.name];
                 secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
             }
             else
             {
-                secondarySkill= null;
+                secondarySkill = null;
             }
         }
     }
@@ -235,7 +251,7 @@ public class SkillManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
-        
+
     }
 
 }

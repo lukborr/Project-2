@@ -18,4 +18,6 @@ public class OffensiveSkillSO : ScriptableObject
     public string skillDescription;
     public float stunDuration;
     public bool needsSecondarySkill;
+    public float slowPercent;
+    public float slowDuration;
 }

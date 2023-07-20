@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3522352204755969625
+--- !u!1 &3804090530286519604
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3522352204755969628}
-  - component: {fileID: 3522352204755969627}
-  - component: {fileID: 3522352204755969626}
-  - component: {fileID: 3522352204755969629}
-  - component: {fileID: 3522352204755969630}
-  m_Layer: 0
-  m_Name: BurningGround
+  - component: {fileID: 8355105451170930703}
+  - component: {fileID: 2274489567800190101}
+  - component: {fileID: 7490650714851085962}
+  - component: {fileID: 2157995462580729225}
+  - component: {fileID: 5894413839835773395}
+  m_Layer: 3
+  m_Name: Icicle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3522352204755969628
+--- !u!4 &8355105451170930703
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522352204755969625}
+  m_GameObject: {fileID: 3804090530286519604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2.0428212, y: -0.4943344, z: -0.02304855}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3522352204755969627
+--- !u!212 &2274489567800190101
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522352204755969625}
+  m_GameObject: {fileID: 3804090530286519604}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,80 +76,75 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -633574450, guid: 7663f162f19cde44caf959f58abb15fb, type: 3}
+  m_Sprite: {fileID: 1154562868, guid: 07267fce6c4e54e43982a2c4547a88ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.125, y: 1.21875}
+  m_Size: {x: 1.8125, y: 0.6875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3522352204755969626
-Animator:
-  serializedVersion: 5
+--- !u!114 &7490650714851085962
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522352204755969625}
+  m_GameObject: {fileID: 3804090530286519604}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1ae80b3986f23a047a3f42c95db2b7af, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!58 &3522352204755969629
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef36dddb76862a24e8d00baa2ad11bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offensiveSkillSO: {fileID: 11400000, guid: 48b83e74c1bc3594faf9455a608cb500, type: 2}
+  enemyCountBeforeDestroy: 3
+  skillDamage: 5
+  cooldownTime: 2
+  skillDuration: 10
+  dotDuration: 10
+  stunDuration: 0
+  skillSpeed: 3
+  whereSkillSpawn: 0
+  cooldownUp: 1
+  skillRange: 0
+  rb: {fileID: 0}
+--- !u!50 &2157995462580729225
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3804090530286519604}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!58 &5894413839835773395
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522352204755969625}
+  m_GameObject: {fileID: 3804090530286519604}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.016955376, y: 0}
+  m_Offset: {x: 0.41881877, y: -0.04090041}
   serializedVersion: 2
-  m_Radius: 0.60513616
---- !u!114 &3522352204755969630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522352204755969625}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09977d674cee44c469037660bdb7b95e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  offensiveSkillSO: {fileID: 11400000, guid: 96e43dcf07b46f347be1e7be270ccd78, type: 2}
-  enemyCountBeforeDestroy: 0
-  skillDamage: 0
-  cooldownTime: 10
-  skillDuration: 3
-  dotDuration: 3
-  stunDuration: 0
-  skillSpeed: 0
-  whereSkillSpawn: 1
-  cooldownUp: 1
-  skillRange: 0
-  rb: {fileID: 0}
-  cometObject: {fileID: 9114512609218270615, guid: 296d7a78df08a284dbd16efa75c18d90, type: 3}
-  targetPosition: {x: 0, y: 0}
-  cometExplosion: {fileID: 9142026666529014129, guid: 9023540313ecfa74698a2df69f0f077f, type: 3}
-  burningGround: {fileID: 3522352204755969625}
-  cometPoint: {fileID: 0}
+  m_Radius: 0.0931527

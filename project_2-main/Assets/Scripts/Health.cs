@@ -1,26 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
   [HideInInspector] public int health;
     [SerializeField] private GameObject DamageOutput;
-   // public Coroutine dotRoutine;
     private int counter = 2;
     [SerializeField] EnemySO enemySO;
 
 
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T)) 
-        {
-            
-        }
-    }
     void Start()
     {
         if (gameObject.CompareTag("Player"))

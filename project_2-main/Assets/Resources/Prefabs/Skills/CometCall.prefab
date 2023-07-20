@@ -59,6 +59,10 @@ MonoBehaviour:
   skillRange: 0
   rb: {fileID: 0}
   cometObject: {fileID: 9114512609218270615, guid: 296d7a78df08a284dbd16efa75c18d90, type: 3}
+  targetPosition: {x: 0, y: 0}
+  cometExplosion: {fileID: 9142026666529014129, guid: 9023540313ecfa74698a2df69f0f077f, type: 3}
+  burningGround: {fileID: 3522352204755969625, guid: 837aff66b17e302478484fe4e6b57de4, type: 3}
+  cometPoint: {fileID: 0}
 --- !u!212 &9052482113149207419
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -121,7 +125,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.000065639615, y: -0.36829513}

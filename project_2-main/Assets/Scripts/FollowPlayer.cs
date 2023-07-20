@@ -49,6 +49,21 @@ public class FollowPlayer : MonoBehaviour
         StartCoroutine(Stun(followPlayerScript, animator, duration));
     }
 
+    public void SlowDown(float procent)
+    {
+        speed = speed * procent;
+    }
+    public void StartNormalSpeedRoutine(float time)
+    {
+        StartCoroutine(SetNormalSpeed(time));
+    }
+
+    private IEnumerator SetNormalSpeed(float time)
+    {
+        yield return new WaitForSeconds(time);
+        speed = enemySO.enemySpeed;
+    }
+
 
 
 

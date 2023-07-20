@@ -10,9 +10,8 @@ public class Blizzard : Skillshot
         if (collision.CompareTag("Enemy"))
         {
             FollowPlayer followPlayer= collision.GetComponent<FollowPlayer>();
-            followPlayer.speed = followPlayer.speed * 0.75f;
-            SpriteRenderer sprite = collision.GetComponent<SpriteRenderer>();
-            sprite.color = new Color(0.22f,0.22f,0.92f,1f);            
+            followPlayer.SlowDown(slowPercent);
+            collision.GetComponent<EnemySprite>().TurnSpriteColorBlue();        
         }
     }
 
@@ -23,8 +22,7 @@ public class Blizzard : Skillshot
         {
             FollowPlayer followPlayer = collision.GetComponent<FollowPlayer>();
             followPlayer.speed = followPlayer.enemySO.enemySpeed;
-            SpriteRenderer sprite = collision.GetComponent<SpriteRenderer>();
-            sprite.color = new Color(1f, 1f, 1f, 1f);
+            collision.GetComponent<EnemySprite>().TurnSpriteColorBack();
         }
     }
 }
