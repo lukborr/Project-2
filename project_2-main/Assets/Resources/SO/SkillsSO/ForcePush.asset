@@ -21,7 +21,7 @@ MonoBehaviour:
   skillSpeed: 0
   skillCooldown: 0
   SkillRange: 0
-  enemyCountBeforeDestroy: 0
+  enemyCountBeforeDestroy: 5
   skillSprite: {fileID: 0}
   skillDescription: 
   stunDuration: 0

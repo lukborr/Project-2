@@ -22,21 +22,9 @@ public class ForceExplosion : Skillshot
             FollowPlayer followPlayerScript = collision.GetComponent<FollowPlayer>();
             rb.AddForce(forceDirection * 7, ForceMode2D.Impulse);
             rb.isKinematic = true;
-
             followPlayerScript.StartFreezeRoutine();
-            
-               
-
         }
     }
-
- 
-
-
-
-
-
-
 }
 
 
