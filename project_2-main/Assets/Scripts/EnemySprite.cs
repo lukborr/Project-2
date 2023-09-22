@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(FollowPlayer))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(FollowPlayer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(DotManager))]
+[RequireComponent(typeof(SpriteRenderer))]
+
 public class EnemySprite : MonoBehaviour
 {
     Vector2 currentPos;

@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7184707669475216024}
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0.313, y: 0.014, z: 0}
+  m_LocalPosition: {x: 0.489, y: 0.0744, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -161,7 +161,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014517263, y: -0.14490421}
+  m_Offset: {x: 0.0012540817, y: -0.2324419}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -172,7 +172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.070898384, y: 0.028846174}
+  m_Size: {x: 0.13350105, y: 0.061738968}
   m_EdgeRadius: 0
 --- !u!1 &7184707669761859406
 GameObject:
@@ -360,10 +360,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeProjectile: {fileID: 0}
+  secondarySkill: {fileID: 0}
   handGameobject: {fileID: 7184707669475216024}
   gatheredSkills: []
   offensiveSkillSO: {fileID: 0}
-  testProjectile: {fileID: 5597919972152919372, guid: ccded3b11f4852d4ca6bfe86a5f598dc, type: 3}
   aurasGm: {fileID: 7184707668845306843}
   sphereRadius: 5
 --- !u!70 &7184707669802975226
@@ -456,7 +456,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7184707670017916773}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.065, y: 0.019, z: 0}
+  m_LocalPosition: {x: -0.4576, y: -0.0855, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

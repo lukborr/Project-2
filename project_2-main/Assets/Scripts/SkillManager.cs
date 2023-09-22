@@ -79,7 +79,7 @@ public class SkillManager : MonoBehaviour
     {
         LoadNewSkillPrefab("Icicle");
         LoadNewSkillPrefab("FrostBolt");
-        LoadNewSkillPrefab("ForcePush");
+        LoadNewSkillPrefab("Ignite");
     }
 
     private void OnEnable()
