@@ -18,6 +18,7 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public float skillRange;
     [HideInInspector] public float slowPercent;
     [HideInInspector] public float slowDuration;
+    public int skillLevel;
 
     public Rigidbody2D rb;
 
