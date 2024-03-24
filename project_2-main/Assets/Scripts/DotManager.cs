@@ -10,6 +10,7 @@ public class DotManager : MonoBehaviour
     private void Start()
     {
         healthScript = GetComponent<Health>();
+        
     }
 
     private void Update()
@@ -26,9 +27,13 @@ public class DotManager : MonoBehaviour
             ApplyDotRoutine("Storm", 1, 8);
         }
     }
+    /// <summary>
+    /// Takes name of the skill, amount of health to remove and duration of the DoT and then removes it gradually
+    /// </summary>
     public IEnumerator RemoveHealthGradually(string skillName,int healthToRemove, float duration)
-    {      
-      if (duration != -1)
+    {
+        
+        if (duration != -1)
         {
             StartCoroutine(Timer(duration));
         }
