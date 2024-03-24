@@ -16,9 +16,15 @@ MonoBehaviour:
   skillShotType: 1
   whereSkillSpawn: 2
   skillDuration: 10
+  dotDuration: 0
   skillDamage: 1
   skillSpeed: 1
   skillCooldown: 1
+  SkillRange: 0
   enemyCountBeforeDestroy: 10
-  skillSprite: {fileID: 0}
+  skillSprite: {fileID: 128474765, guid: 0c862114c1b10ba47b5df289467a035c, type: 3}
   skillDescription: 
+  stunDuration: 0
+  needsSecondarySkill: 0
+  slowPercent: 0
+  slowDuration: 0
