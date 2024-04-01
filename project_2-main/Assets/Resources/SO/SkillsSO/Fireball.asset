@@ -16,10 +16,15 @@ MonoBehaviour:
   skillShotType: 1
   whereSkillSpawn: 0
   skillDuration: 20
+  dotDuration: 0
   skillDamage: 3
   skillSpeed: 2
-  skillCooldown: 3
+  skillCooldown: 2
   SkillRange: 0
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 21300000, guid: b17f6817766118d45930fb33b327f92c, type: 3}
   skillDescription: A mighty fireball casted forward
+  stunDuration: 0
+  needsSecondarySkill: 0
+  slowPercent: 0
+  slowDuration: 0

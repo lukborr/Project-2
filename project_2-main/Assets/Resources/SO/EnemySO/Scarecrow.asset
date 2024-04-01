@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325202c71353d884184a193d9277a817, type: 3}
   m_Name: Scarecrow
   m_EditorClassIdentifier: 
-  enemyHealth: 100
+  enemyHealth: 25
   enemyDamage: 5
   enemySpeed: 0.3

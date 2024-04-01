@@ -74,10 +74,8 @@ public class SkillManager : MonoBehaviour
     }
 
     private void Awake()
-    {
-        
-        LoadNewSkillPrefab("Fireball");
-      
+    {      
+        LoadNewSkillPrefab("Fireball");     
     }
 
     private void OnEnable()
@@ -239,7 +237,7 @@ public class SkillManager : MonoBehaviour
         {
             Skillshot skillshot = gatheredSkills[skillName];
             int skillLevel = skillshot.skillLevel;
-
+            Debug.Log($"{skillName} you already have");
             switch (skillshot.name)
             {
                 case "Icicle":
@@ -531,6 +529,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
+            Debug.Log($"You dont have the {skillName} already so i will load it");
             LoadNewSkillPrefab(skillName);
         }
         

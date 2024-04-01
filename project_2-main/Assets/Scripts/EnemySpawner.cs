@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject spider;
     [SerializeField] GameObject scarecrow;
     [SerializeField] GameObject pumpkin;
+    [SerializeField] GameObject spawnedEnemiesObject;
     void Start()
     {
         StartCoroutine(WaveManager());
@@ -21,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy(Vector2 position, GameObject enemy)
     {
-        Instantiate(enemy, position, enemy.transform.rotation);
+        Instantiate(enemy, position, enemy.transform.rotation, spawnedEnemiesObject.transform);
     }
 
     private Vector2 GenerateRandomPosition()

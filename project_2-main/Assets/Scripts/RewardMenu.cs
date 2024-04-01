@@ -15,6 +15,7 @@ public class RewardMenu : MonoBehaviour
     [SerializeField] private GameObject spawnedEnemies;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private SkillManager skillManager;
+    [SerializeField] private EnemySpawner enemySpawner;
 
     private List<string> skillnames = new List<string>();
     
@@ -28,12 +29,7 @@ public class RewardMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        for (int i = 0; i < spawnedEnemies.transform.childCount; i++)
-        {
-            spawnedEnemies.transform.GetChild(i).GetComponent<FollowPlayer>().enabled = true;
-            spawnedEnemies.transform.GetChild(i).GetComponent<Animator>().enabled = true;
-        }
-        playerController.enabled = true;
+        UnPauseGame();
     }
 
     private void PauseGame()
@@ -44,6 +40,7 @@ public class RewardMenu : MonoBehaviour
             spawnedEnemies.transform.GetChild(i).GetComponent<Animator>().enabled = false;
         }
         playerController.enabled = false;
+        enemySpawner.enabled = false;
     }
 
     public void DrawSkills(List<OffensiveSkillSO> skillz)
@@ -69,6 +66,17 @@ public class RewardMenu : MonoBehaviour
     {
         var skillName = skillnames[number];
         EventManager.CallOnButtonClickedEvent(skillName);
+        skillnames.Clear();
     }
 
+    private void UnPauseGame()
+    {
+        for (int i = 0; i < spawnedEnemies.transform.childCount; i++)
+        {
+            spawnedEnemies.transform.GetChild(i).GetComponent<FollowPlayer>().enabled = true;
+            spawnedEnemies.transform.GetChild(i).GetComponent<Animator>().enabled = true;
+        }
+        playerController.enabled = true;
+        enemySpawner.enabled = true;
+    }
 }
