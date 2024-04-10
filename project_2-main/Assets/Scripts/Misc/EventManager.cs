@@ -7,6 +7,8 @@ public delegate void HealthChangeDelegate(int health);
 public delegate void LeveledUpDelegate();
 public delegate void GeneratedRandomSkillsDelegate(List<string> skills);
 public delegate void OnButtonClickedDelegate(string skillToUpgrade);
+public delegate void GamePausedDelegate();
+public delegate void GameResumedDelegate();
 public static class EventManager 
 {
     public static event PointerDelegate PointerEvent;
@@ -15,6 +17,24 @@ public static class EventManager
     public static event LeveledUpDelegate LeveledUp;
     public static event GeneratedRandomSkillsDelegate GeneratedRandomSkills;
     public static event OnButtonClickedDelegate OnButtonClicked;
+    public static event GamePausedDelegate OnGamePaused;
+    public static event GameResumedDelegate OnGameResumed;
+
+    public static void CallOnGameResumedEvent()
+    {
+        if(OnGameResumed!= null)
+        {
+            OnGameResumed();
+        }
+            
+    }
+    public static void CallOnGamePausedEvent()
+    {
+        if (OnGamePaused != null)
+        {
+            OnGamePaused();
+        }
+    }
 
     public static void CallOnButtonClickedEvent(string skillToUpgrade)
     {

@@ -23,7 +23,6 @@ public class Experience : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             GainExperience(1);
-            Debug.Log($"exp: {characterExperience}");
         }
     }
     public void GainExperience(int experience)
