@@ -16,9 +16,17 @@ public class RewardMenu : MonoBehaviour
 
 
     private List<string> skillnames = new List<string>();
-    
 
-  
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            Debug.Log(buttonName0.GetComponent<TextMeshProUGUI>().text);
+            Debug.Log(buttonName1.GetComponent<TextMeshProUGUI>().text);
+            Debug.Log(buttonName2.GetComponent<TextMeshProUGUI>().text);
+        }
+    }
 
     private void OnEnable()
     { 
@@ -30,6 +38,8 @@ public class RewardMenu : MonoBehaviour
         
         UnPauseGame();
     }
+
+    
 
     private void PauseGame()
     {

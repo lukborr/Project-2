@@ -66,7 +66,7 @@ public class SkillManager : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.Y))
         {
-           
+            Debug.Log(gatheredSkills.ContainsKey("Fireball")); 
            
         }
        
@@ -148,7 +148,6 @@ public class SkillManager : MonoBehaviour
         else
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
             {
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
