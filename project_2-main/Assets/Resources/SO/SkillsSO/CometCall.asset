@@ -22,7 +22,7 @@ MonoBehaviour:
   skillCooldown: 10
   SkillRange: 5
   enemyCountBeforeDestroy: 0
-  skillSprite: {fileID: -516203487, guid: 64f3deeb538c693439aae91274f4a3bf, type: 3}
+  skillSprite: {fileID: 21300000, guid: f9276bcf6cfd0f04eaf95dbcd00fac22, type: 3}
   skillDescription: 
   stunDuration: 0
   needsSecondarySkill: 1

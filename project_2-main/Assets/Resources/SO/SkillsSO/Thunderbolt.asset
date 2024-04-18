@@ -22,7 +22,7 @@ MonoBehaviour:
   skillCooldown: 5
   SkillRange: 6
   enemyCountBeforeDestroy: -1
-  skillSprite: {fileID: 1815791411, guid: 09ca9589eabeee64a981cb85106fbd67, type: 3}
+  skillSprite: {fileID: 21300000, guid: d53f4921d7fcf5743bd45d2efe2dbb9b, type: 3}
   skillDescription: A sudden thunderbolt from clean sky
   stunDuration: 1
   needsSecondarySkill: 0

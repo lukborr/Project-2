@@ -16,10 +16,15 @@ MonoBehaviour:
   skillShotType: 0
   whereSkillSpawn: 1
   skillDuration: 12
+  dotDuration: 0
   skillDamage: 1
   skillSpeed: 0
   skillCooldown: 5
   SkillRange: 2
   enemyCountBeforeDestroy: -1
-  skillSprite: {fileID: 21300000, guid: 03b677a216202374d98617890ae3b367, type: 3}
+  skillSprite: {fileID: 21300000, guid: b6bc1495ed42b104da30de3a502bc98c, type: 3}
   skillDescription: A continously damaging pool of poison
+  stunDuration: 0
+  needsSecondarySkill: 0
+  slowPercent: 0
+  slowDuration: 0
