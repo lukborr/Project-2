@@ -8,14 +8,13 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject secondarySkill;
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
-    RewardMenu rewardMenu;
 
     private List<string> availableSkillsToUpgrade = new List<string>()
     { "Icicle","Frostbolt","LightningChain","ElectricBall","PoisonPool",
       "Blizzard","CometCall","Fireball","Ignite","Thunderbolt", "ForceExplosion"};
     public Dictionary<string, Skillshot> gatheredSkills = new Dictionary<string, Skillshot>();
-    private Skillshot[] skillsNumbers = new Skillshot[4];
-    private bool[] cooldowns = new bool[4] { true, true, true, true };
+    private Skillshot[] skillsNumbers = new Skillshot[5];
+    private bool[] cooldowns = new bool[5] { true, true, true, true, true };
     private Dictionary<string, string> secondarySkillsDictionary = new Dictionary<string, string>()
     {
         {"CometCall", "BurningGround" }
@@ -63,17 +62,14 @@ public class SkillManager : MonoBehaviour
         {
             LoadExistingSkill(3);
         }
-
-        else if (Input.GetKeyDown(KeyCode.Y))
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            Debug.Log(gatheredSkills.ContainsKey("Fireball")); 
-           
+            LoadExistingSkill(4);
         }
-       
 
     }
 
-    private void Awake()
+    private void Start()
     {      
         LoadNewSkillPrefab("Fireball");     
     }
@@ -148,6 +144,7 @@ public class SkillManager : MonoBehaviour
         else
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
+
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
             {
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
@@ -166,7 +163,8 @@ public class SkillManager : MonoBehaviour
                 skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                 skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                 skillshot.skillLevel = 1;
-                AssignSkillToNumber(skillshot);
+                EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
+                
 
                 if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
                 {                  
@@ -197,26 +195,31 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    private void AssignSkillToNumber(Skillshot skillshot)
+    private int AssignSkillToNumber(Skillshot skillshot)
     {
         for (int i = 0; i < skillsNumbers.Length; i++)
         {
             if (skillsNumbers[i] == skillshot)
             {
-                return;
+                return i;
             }
             else if (skillsNumbers[i] == null)
             {
                 skillsNumbers[i] = skillshot;
-                break;
+                return i;
+                
             }
+            
         }
+        Debug.Log("nie znaleziono numeru");
+        return 0;
     }
 
     private void LoadExistingSkill(int number)
     {
         if (skillsNumbers[number] != null)
         {
+            EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = skillsNumbers[number].gameObject;
             selectedNumber = number;
             if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))

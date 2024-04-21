@@ -9,6 +9,8 @@ public delegate void GeneratedRandomSkillsDelegate(List<string> skills);
 public delegate void OnButtonClickedDelegate(string skillToUpgrade);
 public delegate void GamePausedDelegate();
 public delegate void GameResumedDelegate();
+public delegate void SkillBarUpdatedDelegate(int skillNumber, Sprite sprite);
+public delegate void SkillChooseDelegate(int whichSkillNumber);
 public static class EventManager 
 {
     public static event PointerDelegate PointerEvent;
@@ -19,6 +21,23 @@ public static class EventManager
     public static event OnButtonClickedDelegate OnButtonClicked;
     public static event GamePausedDelegate OnGamePaused;
     public static event GameResumedDelegate OnGameResumed;
+    public static event SkillBarUpdatedDelegate OnSkillBarUpdated;
+    public static event SkillChooseDelegate OnSkillChoose;
+
+    public static void CallOnSkillChooseEvent(int whichSkillNumber)
+    {
+        if(OnSkillChoose != null)
+        {
+            OnSkillChoose(whichSkillNumber);
+        }
+    }
+    public static void CallOnSkillBarUpdatedEvent(int skillNumber, Sprite sprite)
+    {
+        if(OnSkillBarUpdated != null)
+        {
+            OnSkillBarUpdated(skillNumber, sprite);
+        }
+    }
 
     public static void CallOnGameResumedEvent()
     {

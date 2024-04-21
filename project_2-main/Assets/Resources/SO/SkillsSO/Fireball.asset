@@ -22,7 +22,7 @@ MonoBehaviour:
   skillCooldown: 2
   SkillRange: 0
   enemyCountBeforeDestroy: 1
-  skillSprite: {fileID: 21300000, guid: b0f17fbd6f31be745953324e55816f18, type: 3}
+  skillSprite: {fileID: 21300000, guid: d00d57235b7f90c47a7ec700e2054d86, type: 3}
   skillDescription: A mighty fireball casted forward
   stunDuration: 0
   needsSecondarySkill: 0
