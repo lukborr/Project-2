@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -182,6 +183,7 @@ public class SkillManager : MonoBehaviour
                     skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
                     skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                     skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+
                 }
             }
 
@@ -190,6 +192,7 @@ public class SkillManager : MonoBehaviour
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 aurasGm.transform.Find(name).gameObject.SetActive(true);
                 gatheredSkills.Add(name, skillshot);
+                EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
             }
 
         }
@@ -206,6 +209,12 @@ public class SkillManager : MonoBehaviour
             else if (skillsNumbers[i] == null)
             {
                 skillsNumbers[i] = skillshot;
+                if (skillsNumbers[4] != null)
+                {
+                    availableSkillsToUpgrade.Clear();
+                    availableSkillsToUpgrade = gatheredSkills.Keys.ToList();
+                }
+                
                 return i;
                 
             }

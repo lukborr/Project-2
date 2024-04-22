@@ -22,7 +22,7 @@ public class Experience : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GainExperience(1);
+            GainExperience(2);
         }
     }
     public void GainExperience(int experience)
