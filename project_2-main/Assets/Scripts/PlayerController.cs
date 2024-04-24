@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D playerb;
     [SerializeField] private float playerSpeed;
     private Camera mainCam;
-   [SerializeField] private Animator playerAnim;
+    [SerializeField] private Animator playerAnim;
 
     float horizontalInput, verticalInput;
     private bool isWalking = false;
@@ -26,42 +26,47 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {       
-        MovePlayer();      
+    {
+        MovePlayer();
     }
 
 
     private void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");       
-    }
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-
-    private void MovePlayer()
-    {
-        Vector2 move = new Vector2(horizontalInput * playerSpeed * Time.deltaTime, verticalInput * playerSpeed * Time.deltaTime);
-        playerb.MovePosition(playerb.position + move);
-    }
-
-    private void GetPointerInput()
-    {
-        var mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        EventManager.CallPointerEvent(mousePos);       
-    }
-
-    private void WalkCheck()
-    {
-        if(horizontalInput != 0 ||verticalInput != 0)
+        if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            isWalking = true;
+            EventManager.CallMouseButton0();
         }
-        else if(horizontalInput == 0 && verticalInput == 0)
-        {
-            isWalking= false;
-        }
-        playerAnim.SetBool("isWalking", isWalking);
     }
 
- 
-}
+
+        private void MovePlayer()
+        {
+            Vector2 move = new Vector2(horizontalInput * playerSpeed * Time.deltaTime, verticalInput * playerSpeed * Time.deltaTime);
+            playerb.MovePosition(playerb.position + move);
+        }
+
+        private void GetPointerInput()
+        {
+            var mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+            EventManager.CallPointerEvent(mousePos);
+        }
+
+        private void WalkCheck()
+        {
+            if (horizontalInput != 0 || verticalInput != 0)
+            {
+                isWalking = true;
+            }
+            else if (horizontalInput == 0 && verticalInput == 0)
+            {
+                isWalking = false;
+            }
+            playerAnim.SetBool("isWalking", isWalking);
+        }
+
+
+    }

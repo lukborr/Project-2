@@ -12,7 +12,7 @@ public class RewardMenu : MonoBehaviour
 
     [SerializeField] private GameObject spawnedEnemies;
     [SerializeField] private PlayerController playerController;
-    [SerializeField] private SkillManager skillManager;
+
 
 
     private List<string> skillnames = new List<string>();
