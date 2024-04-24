@@ -145,13 +145,13 @@ public class SkillManager : MonoBehaviour
         else
         {
             GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
-
+            Skillshot skillshot = gm.GetComponent<Skillshot>();
+            offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
+            EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
             if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
-            {
-                Skillshot skillshot = gm.GetComponent<Skillshot>();
+            {              
                 gatheredSkills.Add(name, skillshot);
                 activeProjectile = gm;
-                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
                 activeProjectileRange = offensiveSkillSO.SkillRange;
                 skillshot.skillDamage = offensiveSkillSO.skillDamage;
                 skillshot.slowDuration= offensiveSkillSO.slowDuration;
@@ -164,7 +164,7 @@ public class SkillManager : MonoBehaviour
                 skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                 skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                 skillshot.skillLevel = 1;
-                EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
+                
                 
 
                 if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
@@ -183,18 +183,15 @@ public class SkillManager : MonoBehaviour
                     skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
                     skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                     skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
-
                 }
             }
 
             else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {
-                Skillshot skillshot = gm.GetComponent<Skillshot>();
+ 
                 aurasGm.transform.Find(name).gameObject.SetActive(true);
-                gatheredSkills.Add(name, skillshot);
-                EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
+                gatheredSkills.Add(name, skillshot);               
             }
-
         }
     }
 
@@ -213,14 +210,10 @@ public class SkillManager : MonoBehaviour
                 {
                     availableSkillsToUpgrade.Clear();
                     availableSkillsToUpgrade = gatheredSkills.Keys.ToList();
-                }
-                
-                return i;
-                
-            }
-            
+                }               
+                return i;             
+            }  
         }
-        Debug.Log("nie znaleziono numeru");
         return 0;
     }
 
