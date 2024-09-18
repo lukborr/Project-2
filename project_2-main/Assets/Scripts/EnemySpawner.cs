@@ -9,36 +9,36 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject scarecrow;
     [SerializeField] GameObject pumpkin;
     [SerializeField] GameObject spawnedEnemiesObject;
-    private int waveNumber = 0;
+    [SerializeField] GameObject EnemiesParent;
+    List<GameObject>[] spawnedEnemies = new List<GameObject>[3];
+    //List<GameObject> spawnedEnemies= new List<GameObject>();
     private int enemiesLeft = 3;
     void Start()
     {
-        WaveManager(waveNumber);
+        // Initialization for every list with spawned enemies in array of lists
+        for (int i = 0; i < spawnedEnemies.Length; i++)
+        {
+            spawnedEnemies[i] = new List<GameObject>();
+        }
+        //WaveManager(waveNumber);
+        WaveManger(1);
     }
 
     private void OnEnable()
     {
         EventManager.OnGamePaused += StopSpawningEnemies;
-        EventManager.OnGameResumed += ResumeSpawningEnemies;
+       // EventManager.OnGameResumed += ResumeSpawningEnemies;
     }
     private void OnDisable()
     {
         EventManager.OnGamePaused -= StopSpawningEnemies;
-        EventManager.OnGameResumed += ResumeSpawningEnemies;
+        //EventManager.OnGameResumed += ResumeSpawningEnemies;
     }
-
 
     private void StopSpawningEnemies()
     {
         StopAllCoroutines();
     }
-
-    private void ResumeSpawningEnemies()
-    {
-        WaveManager(waveNumber);
-    }
-
-
 
     private void SpawnEnemy(Vector2 position, GameObject enemy)
     {
@@ -72,39 +72,50 @@ public class EnemySpawner : MonoBehaviour
         return position;
     }
 
-    private IEnumerator SpawnerRoutine(GameObject enemyGo, float timeBeetweenSpawns)
-    { 
-            while (enemiesLeft > 0)               
-            {
-                yield return new WaitForSeconds(timeBeetweenSpawns);
-                SpawnEnemy(GenerateRandomPosition(), enemyGo);
-                enemiesLeft--;
-            }
-        waveNumber++;
-        switch (waveNumber)
+    private void SpawnEnemies( GameObject enemyGo, int howMany, float timeToSpawn, int waveNumber)
+    {
+        for (int i = 0;i < howMany; i++)
         {
-            case 1:
-                enemiesLeft = 5;
-                break;
-            case 2:
-                enemiesLeft = 8;
-                break;
+            var spawnedEnemy = Instantiate(enemyGo, GenerateRandomPosition(), enemyGo.transform.rotation, EnemiesParent.transform);
+            spawnedEnemies[waveNumber - 1].Add(spawnedEnemy);
+            spawnedEnemy.gameObject.SetActive(false);
         }
-        WaveManager(waveNumber);
+        StartCoroutine(ActivateEnemies(spawnedEnemies[waveNumber - 1],timeToSpawn));
     }
 
-    private void WaveManager(int waveNumber)
+    private IEnumerator ActivateEnemies(List<GameObject> list, float timeToSpawn)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            yield return new WaitForSeconds(timeToSpawn);
+            list[i].SetActive(true);
+        }
+    }
+    private void WaveManger(int waveNumber)
     {
         switch (waveNumber)
         {
-            case 0:              
-                StartCoroutine(SpawnerRoutine(spider, 2.5f));               
+            case 1:
+                SpawnEnemies(spider,2, 1f, 1);
+                StartCoroutine(nextWave(10f, waveNumber + 1));
                 break;
-            case 1:              
-                StartCoroutine(SpawnerRoutine(pumpkin, 2.5f));
+            case 2:
+                SpawnEnemies(pumpkin, 10, 2f, 2);
+                StartCoroutine(nextWave(10f, waveNumber + 1));
+                break;
+            case 3:
+                SpawnEnemies(scarecrow, 10, 5f, 3) ;
                 break;
         }
-             
     }
+
+    private IEnumerator nextWave(float timeToNewWave, int waveNumber)
+    {
+        yield return new WaitForSeconds(timeToNewWave);
+        WaveManger(waveNumber);
+    }
+
+
+
 }
     

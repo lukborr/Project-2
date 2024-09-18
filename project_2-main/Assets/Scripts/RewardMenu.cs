@@ -76,8 +76,9 @@ public class RewardMenu : MonoBehaviour
             spawnedEnemies.transform.GetChild(i).GetComponent<FollowPlayer>().enabled = true;
             spawnedEnemies.transform.GetChild(i).GetComponent<Animator>().enabled = true;
         }
-        playerController.enabled = true;
+        
         
         EventManager.CallOnGameResumedEvent();
+        playerController.enabled = true;
     }
 }
