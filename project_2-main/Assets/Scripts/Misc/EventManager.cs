@@ -11,6 +11,7 @@ public delegate void GamePausedDelegate();
 public delegate void GameResumedDelegate();
 public delegate void SkillBarUpdatedDelegate(int skillNumber, Sprite sprite);
 public delegate void SkillChooseDelegate(int whichSkillNumber);
+public delegate void PreviousWaveUnfreezedDelegate(int waveNumber);
 public static class EventManager 
 {
     public static event PointerDelegate PointerEvent;
@@ -23,7 +24,16 @@ public static class EventManager
     public static event GameResumedDelegate OnGameResumed;
     public static event SkillBarUpdatedDelegate OnSkillBarUpdated;
     public static event SkillChooseDelegate OnSkillChoose;
+    public static event PreviousWaveUnfreezedDelegate OnPreviousWaveUnfreezed;
 
+    
+    public static void CallOnPreviousWaveUnfrezzedEvent(int waveNumber)
+    {
+        if(OnPreviousWaveUnfreezed != null)
+        {
+            OnPreviousWaveUnfreezed(waveNumber);
+        }
+    }
     public static void CallOnSkillChooseEvent(int whichSkillNumber)
     {
         if(OnSkillChoose != null)
