@@ -10,9 +10,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] GameObject pumpkin;
     [SerializeField] GameObject spawnedEnemiesObject;
     [SerializeField] GameObject EnemiesParent;
-    List<GameObject>[] spawnedEnemies = new List<GameObject>[3];
+    [SerializeField] GameObject rat;
+    List<GameObject>[] spawnedEnemies = new List<GameObject>[5];
+    private List<float> timeBetweenSpawns = new List<float>();
     private int waveNumber = 1;
-    private int waveMax = 3;
+    private int waveMax = 5;
     private bool isPaused = false;
     void Start()
     {
@@ -22,6 +24,11 @@ public class EnemySpawner : MonoBehaviour
             spawnedEnemies[i] = new List<GameObject>();
         }      
         WaveManger(0);
+        timeBetweenSpawns.Add(0.25f);
+        timeBetweenSpawns.Add(0.25f);
+        timeBetweenSpawns.Add(0.1f);
+        timeBetweenSpawns.Add(0.3f);
+        timeBetweenSpawns.Add(0.2f);
     }
 
     private void OnEnable()
@@ -98,12 +105,16 @@ public class EnemySpawner : MonoBehaviour
 
     private void NextWaveActivation(int waveNumber)
     {
-            ActivateEnemies(spawnedEnemies[waveNumber - 1], 0.5f, waveNumber);
+        float time = timeBetweenSpawns[waveNumber - 1];
+        ActivateEnemies(spawnedEnemies[waveNumber - 1], time, waveNumber);
     }  
 
     private IEnumerator ActivateEnemiesRoutine(List<GameObject> list, float timeToSpawn, int waveNumber)
     {
-       
+       if(waveNumber != 1)
+        {
+            yield return new WaitForSeconds(2f);
+        }
         for (int i = 0; i < list.Count; i++)
         {
             while (isPaused)
@@ -127,11 +138,12 @@ public class EnemySpawner : MonoBehaviour
         switch (levelNumber)
         {
             case 0:
-               var spiders = SpawnEnemies(spider, 10,1);
-                StartCoroutine(ActivateEnemiesRoutine(spiders, 0.5f, waveNumber));
-                var pumpkins = SpawnEnemies(pumpkin, 10, 2);
-                var scarecreows = SpawnEnemies(scarecrow, 10, 3);
-
+               var spiders = SpawnEnemies(spider, 30,1);
+                StartCoroutine(ActivateEnemiesRoutine(spiders, 0.2f, waveNumber));
+                var pumpkins = SpawnEnemies(pumpkin, 30, 2);
+                var scarecrows = SpawnEnemies(scarecrow, 10, 3);
+                var rats = SpawnEnemies(rat, 15, 4);
+                var spiders2 = SpawnEnemies(spider, 30, 5);
                 break;
         }       
     }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: ForcePush
   skillShotType: 1
-  whereSkillSpawn: 0
+  whereSkillSpawn: 2
   skillDuration: 1
   dotDuration: 0
   skillDamage: 4

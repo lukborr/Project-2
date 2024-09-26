@@ -26,5 +26,5 @@ MonoBehaviour:
   skillDescription: 
   stunDuration: 0
   needsSecondarySkill: 0
-  slowPercent: 0.75
+  slowPercent: 0.5
   slowDuration: 0

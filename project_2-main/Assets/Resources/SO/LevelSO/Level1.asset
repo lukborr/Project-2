@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325202c71353d884184a193d9277a817, type: 3}
-  m_Name: Scarecrow
+  m_Script: {fileID: 11500000, guid: 1d1a77eb6682d8446a016fef42f2cd00, type: 3}
+  m_Name: Level1
   m_EditorClassIdentifier: 
-  enemyHealth: 25
-  enemyDamage: 5
-  enemySpeed: 0.75
+  wave1: 1.5
+  wave2: 1
+  wave3: 0.5
+  wave4: 0.25
+  wave5: 0.1

@@ -17,7 +17,7 @@ MonoBehaviour:
   whereSkillSpawn: 1
   skillDuration: 12
   dotDuration: 0
-  skillDamage: 1
+  skillDamage: 2
   skillSpeed: 0
   skillCooldown: 5
   SkillRange: 2

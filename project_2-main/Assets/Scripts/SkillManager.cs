@@ -72,7 +72,8 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {      
-        LoadNewSkillPrefab("Fireball");     
+        LoadNewSkillPrefab("Fireball");
+        LoadNewSkillPrefab("CometCall");
     }
 
     private void OnEnable()
