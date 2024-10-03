@@ -38,7 +38,7 @@ public class Skillshot : MonoBehaviour
             Health health = collision.gameObject.GetComponent<Health>();
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile || offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {
-                health.RemoveHealth(skillDamage);
+                health.RemoveHealth((Mathf.CeilToInt(skillDamage * GlobalStats.damageMultiplier)));
 
                 if (enemyCountBeforeDestroy != -1)
                 {
@@ -52,7 +52,7 @@ public class Skillshot : MonoBehaviour
             else if (offensiveSkillSO.skillShotType == SkillShotType.Dot || (offensiveSkillSO.skillShotType == SkillShotType.DotStick))
             {
                 DotManager dotManager = collision.GetComponent<DotManager>();
-                dotManager.ApplyDotRoutine(offensiveSkillSO.skillName, skillDamage, dotDuration);
+                dotManager.ApplyDotRoutine(offensiveSkillSO.skillName, (Mathf.CeilToInt(skillDamage * GlobalStats.damageMultiplier)), dotDuration);
             }
         }
     }
@@ -84,7 +84,7 @@ public class Skillshot : MonoBehaviour
     protected void ProjectileMoveForward()
     {
         Vector2 move = new Vector2(transform.right.x, transform.right.y);
-        rb.MovePosition(rb.position + skillSpeed * Time.deltaTime * move);
+        rb.MovePosition(rb.position + skillSpeed * GlobalStats.projectileSpeedMultiplier * Time.deltaTime * move);
     }
 
     protected void ShockStun(Collider2D collision)
@@ -101,7 +101,6 @@ public class Skillshot : MonoBehaviour
                 Animator animator = collision.GetComponent<Animator>();
                 followplayer.StartStunRoutine(followplayer, animator, stunDuration);
             }
-
         }
 
     }

@@ -31,13 +31,14 @@ public class PlayerController : MonoBehaviour
     private void GetInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");       
+        verticalInput = Input.GetAxisRaw("Vertical");
+        
     }
 
 
     private void MovePlayer()
     {
-        Vector2 move = new Vector2(horizontalInput * playerSpeed * Time.deltaTime, verticalInput * playerSpeed * Time.deltaTime);
+        Vector2 move = new Vector2(horizontalInput * playerSpeed * GlobalStats.movementSpeedMultiplier * Time.deltaTime, verticalInput * playerSpeed * Time.deltaTime);
         playerb.MovePosition(playerb.position + move);
     }
 
@@ -59,6 +60,8 @@ public class PlayerController : MonoBehaviour
         }
         playerAnim.SetBool("isWalking", isWalking);
     }
+
+
 
  
 }

@@ -67,6 +67,10 @@ public class SkillManager : MonoBehaviour
         {
             LoadExistingSkill(4);
         }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("Testuje T");
+        }
 
     }
 
@@ -106,7 +110,8 @@ public class SkillManager : MonoBehaviour
 
                     {
                         GameObject go = Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
-                        pos= go.transform.position;
+                        go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
+                        pos = go.transform.position;
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
@@ -114,6 +119,7 @@ public class SkillManager : MonoBehaviour
                         if (inRange)
                         {
                             GameObject go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
+                            go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                             pos = go.transform.position;
                         }
                     }
@@ -121,6 +127,7 @@ public class SkillManager : MonoBehaviour
 
                     {
                         GameObject go = Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
+                        go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                         pos = go.transform.position;
                     }                   
 
@@ -145,7 +152,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
+            GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;            
             Skillshot skillshot = gm.GetComponent<Skillshot>();
             offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
             EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
@@ -161,7 +168,7 @@ public class SkillManager : MonoBehaviour
                 skillshot.stunDuration = offensiveSkillSO.stunDuration;
                 skillshot.dotDuration = offensiveSkillSO.skillDuration;
                 skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
-                skillshot.cooldownTime = offensiveSkillSO.skillCooldown;
+                skillshot.cooldownTime = offensiveSkillSO.skillCooldown * GlobalStats.cooldownMultiplier;
                 skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                 skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                 skillshot.skillLevel = 1;
@@ -181,7 +188,7 @@ public class SkillManager : MonoBehaviour
                     skillshot2.stunDuration = offensiveSkillSO.stunDuration;
                     skillshot2.dotDuration = offensiveSkillSO.skillDuration;
                     skillshot2.skillSpeed = offensiveSkillSO.skillSpeed;
-                    skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
+                    skillshot2.cooldownTime = offensiveSkillSO.skillCooldown; 
                     skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                     skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                 }
@@ -224,6 +231,7 @@ public class SkillManager : MonoBehaviour
         {
             EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = skillsNumbers[number].gameObject;
+            activeProjectile.GetComponent<Skillshot>().cooldownTime *= GlobalStats.cooldownMultiplier;
             selectedNumber = number;
             if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))
             {
