@@ -6,5 +6,6 @@ public static class GlobalStats
     public static float projectileSizeMultiplier = 1;
     public static float projectileSpeedMultiplier = 1;
     public static float movementSpeedMultiplier = 1;
+    public static float armor = 1;
     
 }

@@ -18,5 +18,11 @@ public enum ShockTargets
     Multiple
 }
 
+public enum SkillType
+{
+    Active,
+    Passive
+}
+
 
 

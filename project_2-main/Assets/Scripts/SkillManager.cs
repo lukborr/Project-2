@@ -10,11 +10,17 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
 
-    private List<string> availableSkillsToUpgrade = new List<string>()
+    private List<string> availableActiveSkillsToUpgrade = new List<string>()
     { "Icicle","Frostbolt","LightningChain","ElectricBall","PoisonPool",
       "Blizzard","CometCall","Fireball","Ignite","Thunderbolt", "ForceExplosion"};
-    public Dictionary<string, Skillshot> gatheredSkills = new Dictionary<string, Skillshot>();
-    private Skillshot[] skillsNumbers = new Skillshot[5];
+    public Dictionary<string, Skillshot> gatheredActiveSkills = new Dictionary<string, Skillshot>();
+
+    private List<string> availablePassiveSkillsToUpgrade = new List<string>()
+    { "LuckyKnife"};
+    public List<string> gatheredPassiveSkills = new List<string>();
+  
+    private Skillshot[] activeSkillsNumbers = new Skillshot[5];
+    private string[] passiveSkillsNumbers = new string[5];   
     private bool[] cooldowns = new bool[5] { true, true, true, true, true };
     private Dictionary<string, string> secondarySkillsDictionary = new Dictionary<string, string>()
     {
@@ -23,6 +29,7 @@ public class SkillManager : MonoBehaviour
     private int selectedNumber;
 
     [SerializeField] private OffensiveSkillSO offensiveSkillSO;
+    [SerializeField] private PassiveSkillSO passiveSkillSO;
     private Vector2 worldPositionCursor;
     private float distancePlayerMouse;
     private bool inRange = false;
@@ -31,7 +38,6 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private float sphereRadius;
     private float activeProjectileRange;
-
 
     private void Update()
     {
@@ -70,14 +76,13 @@ public class SkillManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("Testuje T");
+            LoadNewSkillPrefab("LuckyKnife");
         }
-
     }
 
     private void Start()
-    {      
-        LoadNewSkillPrefab("Fireball");
-        LoadNewSkillPrefab("CometCall");
+    {        
+        LoadNewSkillPrefab("Fireball");       
     }
 
     private void OnEnable()
@@ -139,85 +144,100 @@ public class SkillManager : MonoBehaviour
 
                 cooldowns[selectedNumber] = false;
                 StartCoroutine(ResetCooldown(selectedNumber));
-
+                
             }
         }
     }
 
     private void LoadNewSkillPrefab(string name)
     {
-        if (gatheredSkills.ContainsKey(name))
+        if (gatheredActiveSkills.ContainsKey(name) || gatheredPassiveSkills.Contains(name))
         {
             return;
         }
         else
         {
-            GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;            
-            Skillshot skillshot = gm.GetComponent<Skillshot>();
-            offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + name);
-            EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
-            if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
-            {              
-                gatheredSkills.Add(name, skillshot);
-                activeProjectile = gm;
-                activeProjectileRange = offensiveSkillSO.SkillRange;
-                skillshot.skillDamage = offensiveSkillSO.skillDamage;
-                skillshot.slowDuration= offensiveSkillSO.slowDuration;
-                skillshot.slowPercent= offensiveSkillSO.slowPercent;
-                skillshot.skillDuration = offensiveSkillSO.skillDuration;
-                skillshot.stunDuration = offensiveSkillSO.stunDuration;
-                skillshot.dotDuration = offensiveSkillSO.skillDuration;
-                skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
-                skillshot.cooldownTime = offensiveSkillSO.skillCooldown * GlobalStats.cooldownMultiplier;
-                skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
-                skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
-                skillshot.skillLevel = 1;
-                
-                
-
-                if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
-                {                  
-                    string secondarySkillName = secondarySkillsDictionary[name];
-                    secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
-                    Skillshot skillshot2 = secondarySkill.GetComponent<Skillshot>();
+            if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's skillshot
+            {
+                GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
+                Skillshot skillshot = gm.GetComponent<Skillshot>();
+                offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
+                EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
+                if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
+                {
+                    gatheredActiveSkills.Add(name, skillshot);
+                    activeProjectile = gm;
                     activeProjectileRange = offensiveSkillSO.SkillRange;
-                    skillshot2.skillDamage = offensiveSkillSO.skillDamage;
-                    skillshot2.slowPercent = offensiveSkillSO.slowPercent;
-                    skillshot2.slowDuration = offensiveSkillSO.slowDuration;
-                    skillshot2.skillDuration = offensiveSkillSO.skillDuration;
-                    skillshot2.stunDuration = offensiveSkillSO.stunDuration;
-                    skillshot2.dotDuration = offensiveSkillSO.skillDuration;
-                    skillshot2.skillSpeed = offensiveSkillSO.skillSpeed;
-                    skillshot2.cooldownTime = offensiveSkillSO.skillCooldown; 
-                    skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
-                    skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+                    skillshot.skillDamage = offensiveSkillSO.skillDamage;
+                    skillshot.slowDuration = offensiveSkillSO.slowDuration;
+                    skillshot.slowPercent = offensiveSkillSO.slowPercent;
+                    skillshot.skillDuration = offensiveSkillSO.skillDuration;
+                    skillshot.stunDuration = offensiveSkillSO.stunDuration;
+                    skillshot.dotDuration = offensiveSkillSO.skillDuration;
+                    skillshot.skillSpeed = offensiveSkillSO.skillSpeed;
+                    skillshot.cooldownTime = offensiveSkillSO.skillCooldown * GlobalStats.cooldownMultiplier;
+                    skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+                    skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+                    skillshot.skillLevel = 1;
+
+
+
+                    if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
+                    {
+                        string secondarySkillName = secondarySkillsDictionary[name];
+                        secondarySkill = Resources.Load("Prefabs/Skills/" + secondarySkillName) as GameObject;
+                        Skillshot skillshot2 = secondarySkill.GetComponent<Skillshot>();
+                        activeProjectileRange = offensiveSkillSO.SkillRange;
+                        skillshot2.skillDamage = offensiveSkillSO.skillDamage;
+                        skillshot2.slowPercent = offensiveSkillSO.slowPercent;
+                        skillshot2.slowDuration = offensiveSkillSO.slowDuration;
+                        skillshot2.skillDuration = offensiveSkillSO.skillDuration;
+                        skillshot2.stunDuration = offensiveSkillSO.stunDuration;
+                        skillshot2.dotDuration = offensiveSkillSO.skillDuration;
+                        skillshot2.skillSpeed = offensiveSkillSO.skillSpeed;
+                        skillshot2.cooldownTime = offensiveSkillSO.skillCooldown;
+                        skillshot2.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
+                        skillshot2.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
+                    }
+                }
+
+                else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
+                {
+                    aurasGm.transform.Find(name).gameObject.SetActive(true);
+                    gatheredActiveSkills.Add(name, skillshot);
                 }
             }
-
-            else if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType == SkillShotType.Aura)
+            else if (availablePassiveSkillsToUpgrade.Contains(name) || gatheredPassiveSkills.Count <6)
             {
- 
-                aurasGm.transform.Find(name).gameObject.SetActive(true);
-                gatheredSkills.Add(name, skillshot);               
+                gatheredPassiveSkills.Add(name);                            
+                passiveSkillSO = Resources.Load<PassiveSkillSO>("SO/SkillsSO/Passive/" + name);
+                EventManager.CallOnSkillBarUpdatedEvent(gatheredPassiveSkills.IndexOf(name) + 5, passiveSkillSO.skillSprite);
+                GlobalStats.cooldownMultiplier *= passiveSkillSO.cooldownReduction;
+                GlobalStats.damageMultiplier *= passiveSkillSO.attackDamageIncrease;
+                GlobalStats.movementSpeedMultiplier *= passiveSkillSO.movementSpeedIncrease;
+                GlobalStats.projectileSpeedMultiplier *= passiveSkillSO.movementSpeedIncrease;
+                GlobalStats.projectileSizeMultiplier *= passiveSkillSO.projectileSizeIncrease;
+                GlobalStats.armor *= passiveSkillSO.armorIncrease;               
             }
         }
+            
     }
 
     private int AssignSkillToNumber(Skillshot skillshot)
     {
-        for (int i = 0; i < skillsNumbers.Length; i++)
+        for (int i = 0; i < activeSkillsNumbers.Length; i++)
         {
-            if (skillsNumbers[i] == skillshot)
+            if (activeSkillsNumbers[i] == skillshot)
             {
                 return i;
             }
-            else if (skillsNumbers[i] == null)
+            else if (activeSkillsNumbers[i] == null)
             {
-                skillsNumbers[i] = skillshot;
-                if (skillsNumbers[4] != null)
+                activeSkillsNumbers[i] = skillshot;
+                if (activeSkillsNumbers[4] != null)
                 {
-                    availableSkillsToUpgrade.Clear();
-                    availableSkillsToUpgrade = gatheredSkills.Keys.ToList();
+                    availableActiveSkillsToUpgrade.Clear();
+                    availableActiveSkillsToUpgrade = gatheredActiveSkills.Keys.ToList();
                 }               
                 return i;             
             }  
@@ -225,12 +245,13 @@ public class SkillManager : MonoBehaviour
         return 0;
     }
 
+
     private void LoadExistingSkill(int number)
     {
-        if (skillsNumbers[number] != null)
+        if (activeSkillsNumbers[number] != null)
         {
             EventManager.CallOnSkillChooseEvent(number);
-            activeProjectile = skillsNumbers[number].gameObject;
+            activeProjectile = activeSkillsNumbers[number].gameObject;
             activeProjectile.GetComponent<Skillshot>().cooldownTime *= GlobalStats.cooldownMultiplier;
             selectedNumber = number;
             if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))
@@ -246,9 +267,9 @@ public class SkillManager : MonoBehaviour
     }
     public void LevelUpSkill(string skillName)
     {
-        if (gatheredSkills.ContainsKey(skillName))
+        if (gatheredActiveSkills.ContainsKey(skillName))
         {
-            Skillshot skillshot = gatheredSkills[skillName];
+            Skillshot skillshot = gatheredActiveSkills[skillName];
             int skillLevel = skillshot.skillLevel;
             Debug.Log($"{skillName} you already have");
             switch (skillshot.name)
@@ -273,7 +294,7 @@ public class SkillManager : MonoBehaviour
                             break;
                         case 6:
                             skillshot.skillDamage += 4;
-                            availableSkillsToUpgrade.Remove("Icicle");
+                            availableActiveSkillsToUpgrade.Remove("Icicle");
                             break;
                     }
                     break;
@@ -298,7 +319,7 @@ public class SkillManager : MonoBehaviour
                             break;
                         case 6:
                             skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableSkillsToUpgrade.Remove("Ignite");
+                            availableActiveSkillsToUpgrade.Remove("Ignite");
                             break;
                     }
                     break;
@@ -324,7 +345,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.stunDuration += 0.25f;
-                            availableSkillsToUpgrade.Remove("Thunderbolt");
+                            availableActiveSkillsToUpgrade.Remove("Thunderbolt");
                             break;
                     }
                     break;
@@ -350,7 +371,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.stunDuration += 0.25f;
-                            availableSkillsToUpgrade.Remove("LightningChain");
+                            availableActiveSkillsToUpgrade.Remove("LightningChain");
                             break;
                     }
                     break;
@@ -376,7 +397,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.slowPercent += 0.25f;
-                            availableSkillsToUpgrade.Remove("Frostbolt");
+                            availableActiveSkillsToUpgrade.Remove("Frostbolt");
                             break;
                     }
                     break;
@@ -402,7 +423,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.cooldownTime -= 0.25f;
-                            availableSkillsToUpgrade.Remove("Fireball");
+                            availableActiveSkillsToUpgrade.Remove("Fireball");
                             break;
                     }
                     break;
@@ -428,7 +449,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.slowPercent += 0.15f;
-                            availableSkillsToUpgrade.Remove("Blizzard");
+                            availableActiveSkillsToUpgrade.Remove("Blizzard");
                             break;
                     }
                     break;
@@ -454,7 +475,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             // powiekszyc obszar burning grounda
-                            availableSkillsToUpgrade.Remove("CometCall");
+                            availableActiveSkillsToUpgrade.Remove("CometCall");
                             break;
                     }
                     break;
@@ -480,7 +501,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.stunDuration += 0.25f;
-                            availableSkillsToUpgrade.Remove("ElectricBall");
+                            availableActiveSkillsToUpgrade.Remove("ElectricBall");
                             break;
                     }
                     break;
@@ -506,7 +527,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableSkillsToUpgrade.Remove("ForceExplosion");
+                            availableActiveSkillsToUpgrade.Remove("ForceExplosion");
                             break;
                     }
                     break;
@@ -532,7 +553,7 @@ public class SkillManager : MonoBehaviour
                         case 6:
                             skillshot.skillDamage += 2;
                             skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableSkillsToUpgrade.Remove("PoisonPool");
+                            availableActiveSkillsToUpgrade.Remove("PoisonPool");
                             break;
                     }
                     break;
@@ -550,18 +571,18 @@ public class SkillManager : MonoBehaviour
 
     private void GetRandomSkills()
     {
-        int skill0 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
-        string _skill0 = availableSkillsToUpgrade[skill0];
-        availableSkillsToUpgrade.Remove(_skill0);
-        int skill1 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
-        string _skill1 = availableSkillsToUpgrade[skill1];
-        availableSkillsToUpgrade.Remove(_skill1);
-        int skill2 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
-        string _skill2 = availableSkillsToUpgrade[skill2];
-        availableSkillsToUpgrade.Remove(_skill2);
-        availableSkillsToUpgrade.Add(_skill0);
-        availableSkillsToUpgrade.Add(_skill1);
-        availableSkillsToUpgrade.Add(_skill2);
+        int skill0 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
+        string _skill0 = availableActiveSkillsToUpgrade[skill0];
+        availableActiveSkillsToUpgrade.Remove(_skill0);
+        int skill1 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
+        string _skill1 = availableActiveSkillsToUpgrade[skill1];
+        availableActiveSkillsToUpgrade.Remove(_skill1);
+        int skill2 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
+        string _skill2 = availableActiveSkillsToUpgrade[skill2];
+        availableActiveSkillsToUpgrade.Remove(_skill2);
+        availableActiveSkillsToUpgrade.Add(_skill0);
+        availableActiveSkillsToUpgrade.Add(_skill1);
+        availableActiveSkillsToUpgrade.Add(_skill2);
         var randomSkills = new List<string>() { _skill0, _skill1, _skill2 };
         EventManager.CallGeneratedRandomSkillsEvent(randomSkills);
         
@@ -569,7 +590,7 @@ public class SkillManager : MonoBehaviour
 
     IEnumerator ResetCooldown(int number)
     {
-        yield return new WaitForSeconds(skillsNumbers[number].cooldownTime);
+        yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime);
         cooldowns[number] = true;
     }
 

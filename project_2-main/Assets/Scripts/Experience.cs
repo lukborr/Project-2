@@ -63,7 +63,7 @@ public class Experience : MonoBehaviour
             List<OffensiveSkillSO> skillsSo = new List<OffensiveSkillSO>();
             for (int i = 0; i < skills.Count; i++)
             {
-                OffensiveSkillSO skillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/" + skills[i]);
+                OffensiveSkillSO skillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + skills[i]);
                 Debug.Log(skillSO.skillName);
                 skillsSo.Add(skillSO);
             }

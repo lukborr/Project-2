@@ -24,12 +24,9 @@ public class RewardMenu : MonoBehaviour
     }
 
     private void OnDisable()
-    {
-        
+    {        
         UnPauseGame();
     }
-
-    
 
     private void PauseGame()
     {
@@ -75,9 +72,7 @@ public class RewardMenu : MonoBehaviour
         {
             spawnedEnemies.transform.GetChild(i).GetComponent<FollowPlayer>().enabled = true;
             spawnedEnemies.transform.GetChild(i).GetComponent<Animator>().enabled = true;
-        }
-        
-        
+        }       
         EventManager.CallOnGameResumedEvent();
         playerController.enabled = true;
     }
