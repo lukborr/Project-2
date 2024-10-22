@@ -7,9 +7,12 @@ using UnityEngine.UI;
 public class RewardMenu : MonoBehaviour
 {
     [SerializeField] private Button button0, button1, button2;
+    
     [SerializeField] private GameObject buttonDescription0, buttonDescription1, buttonDescription2;
     [SerializeField] private GameObject buttonName0, buttonName1, buttonName2;
-
+    private Button[] buttons = new Button[3];
+    private GameObject[] buttonNames = new GameObject[3];
+    private GameObject[] buttonDescriptions = new GameObject[3];
     [SerializeField] private GameObject spawnedEnemies;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private SkillManager skillManager;
@@ -27,6 +30,18 @@ public class RewardMenu : MonoBehaviour
     {        
         UnPauseGame();
     }
+    private void Awake()
+    {
+        buttons[0] = button0;
+        buttons[1] = button1;   
+        buttons[2] = button2;
+        buttonNames[0] = buttonName0;
+        buttonNames[1] = buttonName1;
+        buttonNames[2] = buttonName2;
+        buttonDescriptions[0] = buttonDescription0;
+        buttonDescriptions[1] = buttonDescription1;
+        buttonDescriptions[2] = buttonDescription2;
+    }
 
     private void PauseGame()
     {
@@ -40,28 +55,42 @@ public class RewardMenu : MonoBehaviour
         
     }
 
-    public void DrawSkills(List<OffensiveSkillSO> skillz)
+    public void DrawSkills(List<string> skillz)
     {
         for (int i = 0; i < skillz.Count; i++)
         {
-            skillnames.Add(skillz[i].skillName);
-        }
-        button0.image.sprite = skillz[0].skillSprite;
-        buttonName0.GetComponent<TextMeshProUGUI>().text = skillz[0].name;
-        buttonDescription0.GetComponent<TextMeshProUGUI>().text = skillz[0].skillDescription;
-        
-        button1.image.sprite = skillz[1].skillSprite;
-        buttonName1.GetComponent<TextMeshProUGUI>().text = skillz[1].name;
-        buttonDescription1.GetComponent<TextMeshProUGUI>().text = skillz[1].skillDescription;
+            var so = Resources.Load("SO/SkillsSO/Offensive/" + skillz[i]);           
+            if(so != null)
+            {
+                OffensiveSkillSO activeSkillSO = (OffensiveSkillSO)so;
+                buttons[i].image.sprite = activeSkillSO.skillSprite;
+                buttonNames[i].GetComponent<TextMeshProUGUI>().text = activeSkillSO.skillName;
+                buttonDescriptions[i].GetComponent<TextMeshProUGUI>().text = activeSkillSO?.skillDescription;
+                skillnames.Add(activeSkillSO.skillName);
 
-        button2.image.sprite = skillz[2].skillSprite;
-        buttonName2.GetComponent<TextMeshProUGUI>().text = skillz[2].name;
-        buttonDescription2.GetComponent<TextMeshProUGUI>().text = skillz[2].skillDescription;
+            }
+            else
+            {
+                so = Resources.Load("SO/SkillsSO/Passive/" + skillz[i]);
+                if (so != null)
+                {
+                    PassiveSkillSO passiveSkillSO = (PassiveSkillSO)so;
+                    buttons[i].image.sprite = passiveSkillSO.skillSprite;
+                    buttonNames[i].GetComponent<TextMeshProUGUI>().text = passiveSkillSO.skillName;
+                    buttonDescriptions[i].GetComponent<TextMeshProUGUI>().text = passiveSkillSO?.skillDescription;
+                    skillnames.Add(passiveSkillSO.skillName);
+
+                }
+            }
+            //skillnames.Add(skillz[i].skillName);
+        }
+      
     }
 
     public void ButtonClick(int number)
     {
         var skillName = skillnames[number];
+        Debug.Log(skillName);
         EventManager.CallOnButtonClickedEvent(skillName);
         skillnames.Clear();
     }

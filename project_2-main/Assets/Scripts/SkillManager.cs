@@ -14,10 +14,12 @@ public class SkillManager : MonoBehaviour
     { "Icicle","Frostbolt","LightningChain","ElectricBall","PoisonPool",
       "Blizzard","CometCall","Fireball","Ignite","Thunderbolt", "ForceExplosion"};
     public Dictionary<string, Skillshot> gatheredActiveSkills = new Dictionary<string, Skillshot>();
+    // private List<string> availableSkillsToUpgrade = new List<string>();
 
     private List<string> availablePassiveSkillsToUpgrade = new List<string>()
     { "LuckyKnife"};
-    public List<string> gatheredPassiveSkills = new List<string>();
+    private List<string> gatheredPassiveSkills = new List<string>();
+    List<string> availableSkillsToUpgrade = new List<string>();
   
     private Skillshot[] activeSkillsNumbers = new Skillshot[5];
     private string[] passiveSkillsNumbers = new string[5];   
@@ -76,12 +78,15 @@ public class SkillManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("Testuje T");
-            LoadNewSkillPrefab("LuckyKnife");
+            LoadNewSkillPrefab("LuckyKnife");           
         }
     }
 
     private void Start()
-    {        
+    {
+        var skills = availableActiveSkillsToUpgrade.Union(availablePassiveSkillsToUpgrade);
+        availableSkillsToUpgrade = skills.ToList();
+
         LoadNewSkillPrefab("Fireball");       
     }
 
@@ -159,6 +164,7 @@ public class SkillManager : MonoBehaviour
         {
             if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's skillshot
             {
+                Debug.Log("to jest skillshot");
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
@@ -209,6 +215,7 @@ public class SkillManager : MonoBehaviour
             }
             else if (availablePassiveSkillsToUpgrade.Contains(name) || gatheredPassiveSkills.Count <6)
             {
+                Debug.Log("laduje tutja");
                 gatheredPassiveSkills.Add(name);                            
                 passiveSkillSO = Resources.Load<PassiveSkillSO>("SO/SkillsSO/Passive/" + name);
                 EventManager.CallOnSkillBarUpdatedEvent(gatheredPassiveSkills.IndexOf(name) + 5, passiveSkillSO.skillSprite);
@@ -219,6 +226,7 @@ public class SkillManager : MonoBehaviour
                 GlobalStats.projectileSizeMultiplier *= passiveSkillSO.projectileSizeIncrease;
                 GlobalStats.armor *= passiveSkillSO.armorIncrease;               
             }
+            
         }
             
     }
@@ -267,324 +275,351 @@ public class SkillManager : MonoBehaviour
     }
     public void LevelUpSkill(string skillName)
     {
-        if (gatheredActiveSkills.ContainsKey(skillName))
+        var so = Resources.Load("SO/SkillsSO/Offensive/" + skillName);
+        if (so != null)
         {
-            Skillshot skillshot = gatheredActiveSkills[skillName];
-            int skillLevel = skillshot.skillLevel;
-            Debug.Log($"{skillName} you already have");
-            switch (skillshot.name)
+            if (gatheredActiveSkills.ContainsKey(skillName))
             {
-                case "Icicle":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 3:
-                            skillshot.enemyCountBeforeDestroy = 3;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 4;
-                            availableActiveSkillsToUpgrade.Remove("Icicle");
-                            break;
-                    }
-                    break;
+                Skillshot skillshot = gatheredActiveSkills[skillName];
+                int skillLevel = skillshot.skillLevel;
+                switch (skillshot.name)
+                {
+                    case "Icicle":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 3:
+                                skillshot.enemyCountBeforeDestroy = 3;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 4;
+                                availableActiveSkillsToUpgrade.Remove("Icicle");
+                                break;
+                        }
+                        break;
 
-                case "Ignite":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 3:
-                            skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableActiveSkillsToUpgrade.Remove("Ignite");
-                            break;
-                    }
-                    break;
+                    case "Ignite":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 3:
+                                skillshot.transform.localScale = new Vector3(2, 2, 1);
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.transform.localScale = new Vector3(2, 2, 1);
+                                availableActiveSkillsToUpgrade.Remove("Ignite");
+                                break;
+                        }
+                        break;
 
-                case "Thunderbolt":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 2:
-                            skillshot.stunDuration += 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.stunDuration += 0.25f;
-                            availableActiveSkillsToUpgrade.Remove("Thunderbolt");
-                            break;
-                    }
-                    break;
+                    case "Thunderbolt":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 2:
+                                skillshot.stunDuration += 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.stunDuration += 0.25f;
+                                availableActiveSkillsToUpgrade.Remove("Thunderbolt");
+                                break;
+                        }
+                        break;
 
-                case "LightningChain":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.stunDuration += 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.stunDuration += 0.25f;
-                            availableActiveSkillsToUpgrade.Remove("LightningChain");
-                            break;
-                    }
-                    break;
+                    case "LightningChain":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.stunDuration += 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.stunDuration += 0.25f;
+                                availableActiveSkillsToUpgrade.Remove("LightningChain");
+                                break;
+                        }
+                        break;
 
-                case "Frostbolt":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 2:
-                            skillshot.slowPercent += 0.25f;
-                            break;
-                        case 3:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.slowPercent += 0.25f;
-                            availableActiveSkillsToUpgrade.Remove("Frostbolt");
-                            break;
-                    }
-                    break;
+                    case "Frostbolt":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 2:
+                                skillshot.slowPercent += 0.25f;
+                                break;
+                            case 3:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.slowPercent += 0.25f;
+                                availableActiveSkillsToUpgrade.Remove("Frostbolt");
+                                break;
+                        }
+                        break;
 
-                case "Fireball":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 2;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.cooldownTime -= 0.25f;
-                            availableActiveSkillsToUpgrade.Remove("Fireball");
-                            break;
-                    }
-                    break;
+                    case "Fireball":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 2;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.cooldownTime -= 0.25f;
+                                availableActiveSkillsToUpgrade.Remove("Fireball");
+                                break;
+                        }
+                        break;
 
-                case "Blizzard":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.slowPercent += 0.15f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 4:
-                            skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.slowPercent += 0.15f;
-                            availableActiveSkillsToUpgrade.Remove("Blizzard");
-                            break;
-                    }
-                    break;
+                    case "Blizzard":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.slowPercent += 0.15f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 4:
+                                skillshot.transform.localScale = new Vector3(2, 2, 1);
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.slowPercent += 0.15f;
+                                availableActiveSkillsToUpgrade.Remove("Blizzard");
+                                break;
+                        }
+                        break;
 
-                case "CometCall":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 4:
-                            // powiekszyc burning grounda
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            // powiekszyc obszar burning grounda
-                            availableActiveSkillsToUpgrade.Remove("CometCall");
-                            break;
-                    }
-                    break;
+                    case "CometCall":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 4:
+                                // powiekszyc burning grounda
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                // powiekszyc obszar burning grounda
+                                availableActiveSkillsToUpgrade.Remove("CometCall");
+                                break;
+                        }
+                        break;
 
-                case "ElectricBall":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.stunDuration += 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillSpeed += 1.25f;
-                            break;
-                        case 4:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.5f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.stunDuration += 0.25f;
-                            availableActiveSkillsToUpgrade.Remove("ElectricBall");
-                            break;
-                    }
-                    break;
+                    case "ElectricBall":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.stunDuration += 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillSpeed += 1.25f;
+                                break;
+                            case 4:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.5f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.stunDuration += 0.25f;
+                                availableActiveSkillsToUpgrade.Remove("ElectricBall");
+                                break;
+                        }
+                        break;
 
-                case "ForceExplosion":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 4:
-                            skillshot.transform.localScale = new Vector3(1.5f, 1.5f, 1);
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableActiveSkillsToUpgrade.Remove("ForceExplosion");
-                            break;
-                    }
-                    break;
+                    case "ForceExplosion":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 4:
+                                skillshot.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.transform.localScale = new Vector3(2, 2, 1);
+                                availableActiveSkillsToUpgrade.Remove("ForceExplosion");
+                                break;
+                        }
+                        break;
 
-                case "PoisonPool":
-                    switch (skillLevel)
-                    {
-                        case 1:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 2:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 3:
-                            skillshot.skillDamage += 1;
-                            break;
-                        case 4:
-                            skillshot.transform.localScale = new Vector3(1.5f, 1.5f, 1);
-                            break;
-                        case 5:
-                            skillshot.cooldownTime -= 0.25f;
-                            break;
-                        case 6:
-                            skillshot.skillDamage += 2;
-                            skillshot.transform.localScale = new Vector3(2, 2, 1);
-                            availableActiveSkillsToUpgrade.Remove("PoisonPool");
-                            break;
-                    }
-                    break;
+                    case "PoisonPool":
+                        switch (skillLevel)
+                        {
+                            case 1:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 2:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 3:
+                                skillshot.skillDamage += 1;
+                                break;
+                            case 4:
+                                skillshot.transform.localScale = new Vector3(1.5f, 1.5f, 1);
+                                break;
+                            case 5:
+                                skillshot.cooldownTime -= 0.25f;
+                                break;
+                            case 6:
+                                skillshot.skillDamage += 2;
+                                skillshot.transform.localScale = new Vector3(2, 2, 1);
+                                availableActiveSkillsToUpgrade.Remove("PoisonPool");
+                                break;
+                        }
+                        break;
+                }
+                skillshot.skillLevel++;
+                Debug.Log($"{skillshot} lvl is now: {skillshot.skillLevel}");
             }
-            skillshot.skillLevel++;
-            Debug.Log($"{skillshot} lvl is now: {skillshot.skillLevel}");
+            else
+            {
+                LoadNewSkillPrefab(skillName);
+            }
+
         }
         else
         {
-            Debug.Log($"You dont have the {skillName} already so i will load it");
-            LoadNewSkillPrefab(skillName);
+            var so2 = Resources.Load("SO/SkillsSO/Passive/" + skillName);
+            if( so2 != null)
+            {
+                if (gatheredPassiveSkills.Contains(skillName))
+                {
+                    
+                    switch (skillName)
+                    {
+                        case "LuckyKnife":
+                            if(GlobalStats.luckyKnifeLevel < 5)
+                            {
+                                GlobalStats.luckyKnifeLevel++;
+                                GlobalStats.damageMultiplier *= 1.1f;
+                            }
+                            break;
+                    }
+                }              
+                else
+                {
+                    LoadNewSkillPrefab(skillName);
+                }
+            }
         }
-        
     }
 
     private void GetRandomSkills()
     {
-        int skill0 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
-        string _skill0 = availableActiveSkillsToUpgrade[skill0];
-        availableActiveSkillsToUpgrade.Remove(_skill0);
-        int skill1 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
-        string _skill1 = availableActiveSkillsToUpgrade[skill1];
-        availableActiveSkillsToUpgrade.Remove(_skill1);
-        int skill2 = Random.Range(0, availableActiveSkillsToUpgrade.Count - 1);
-        string _skill2 = availableActiveSkillsToUpgrade[skill2];
-        availableActiveSkillsToUpgrade.Remove(_skill2);
-        availableActiveSkillsToUpgrade.Add(_skill0);
-        availableActiveSkillsToUpgrade.Add(_skill1);
-        availableActiveSkillsToUpgrade.Add(_skill2);
+        int skill0 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
+        string _skill0 = availableSkillsToUpgrade[skill0];
+        availableSkillsToUpgrade.Remove(_skill0);
+        int skill1 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
+        string _skill1 = availableSkillsToUpgrade[skill1];
+        availableSkillsToUpgrade.Remove(_skill1);
+        int skill2 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
+        string _skill2 = availableSkillsToUpgrade[skill2];
+        availableSkillsToUpgrade.Remove(_skill2);
+        availableSkillsToUpgrade.Add(_skill0);
+        availableSkillsToUpgrade.Add(_skill1);
+        availableSkillsToUpgrade.Add(_skill2);
         var randomSkills = new List<string>() { _skill0, _skill1, _skill2 };
-        EventManager.CallGeneratedRandomSkillsEvent(randomSkills);
+        EventManager.CallGeneratedRandomSkillsEvent(randomSkills);    
         
     }
 

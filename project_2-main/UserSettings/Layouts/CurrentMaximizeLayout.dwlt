@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 5742
+  controlID: 370
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 5694
+  controlID: 324
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 5685
+  controlID: 315
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -241,7 +241,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: fefaffff686500009a650000b4650000
+      m_ExpandedIDs: fefaffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -823,8 +823,8 @@ MonoBehaviour:
     y: 1028
     width: 1955
     height: 279
-  m_MinSize: {x: 231, y: 271}
-  m_MaxSize: {x: 10001, y: 10021}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -867,7 +867,7 @@ MonoBehaviour:
     m_SaveData: []
     m_OverlaysVisible: 1
   m_SearchFilter:
-    m_NameFilter: skillmanager
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -877,24 +877,24 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/SO/SkillsSO/Offensive
+    - Assets/Scripts
     m_Globs: []
-    m_OriginalText: skillmanager
+    m_OriginalText: 
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
   m_StartGridSize: 56
   m_LastFolders:
-  - Assets/Resources/SO/SkillsSO/Offensive
+  - Assets/Scripts
   m_LastFoldersGridSize: 56
   m_LastProjectPath: D:\GitHub\Project-2\project_2-main
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: be690000
-    m_LastClickedID: 27070
-    m_ExpandedIDs: 00000000526900005469000056690000586900005a6900005c6900005e6900006069000062690000646900006669000000ca9a3bffffff7f
+    m_SelectedIDs: 54690000
+    m_LastClickedID: 26964
+    m_ExpandedIDs: 000000004a6900004c6900004e69000050690000526900005469000056690000586900005a6900005c6900005e69000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -922,7 +922,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000526900005469000056690000586900005a6900005c6900005e6900006069000062690000646900006669000000ca9a3bffffff7f
+    m_ExpandedIDs: 000000004a6900004c6900004e69000050690000526900005469000056690000586900005a6900005c6900005e69000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -947,8 +947,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 82270000
-    m_LastClickedInstanceID: 10114
+    m_SelectedInstanceIDs: 80270000
+    m_LastClickedInstanceID: 10112
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000ae620000625d00000000000062610000546000005a6100005c61000070610000b0650000be610000406000007c6000002c650000346500001662000096250000be620000f86e00002e8700001468000092620000f8710000d2600000a06a0000ec780000ea630000d464000044610000c66100008c620000a4660000a26600004a660000586900008c6a000074690000
     m_RenameOverlay:
@@ -1404,7 +1404,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 10114
+  m_LastInspectedObjectInstanceID: 10112
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0

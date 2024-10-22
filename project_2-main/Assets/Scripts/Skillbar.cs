@@ -26,7 +26,7 @@ public class Skillbar : MonoBehaviour
 
     private void HighlightSkill(int whichSkill)
     {
-        for (int i = 0; i < skillIcons.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
             var gm = skillIcons[i].transform.GetChild(0).gameObject;
             gm.SetActive(false);
