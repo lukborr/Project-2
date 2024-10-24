@@ -17,7 +17,7 @@ public class SkillManager : MonoBehaviour
     // private List<string> availableSkillsToUpgrade = new List<string>();
 
     private List<string> availablePassiveSkillsToUpgrade = new List<string>()
-    { "LuckyKnife"};
+    { "LuckyKnife", "EnlargingWand", "GoldenApple", "MagicShoes", "SpectralArmor", "SpellBook"};
     private List<string> gatheredPassiveSkills = new List<string>();
     List<string> availableSkillsToUpgrade = new List<string>();
   
@@ -162,7 +162,7 @@ public class SkillManager : MonoBehaviour
         }
         else
         {
-            if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's skillshot
+            if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's active skill
             {
                 Debug.Log("to jest skillshot");
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
@@ -592,6 +592,41 @@ public class SkillManager : MonoBehaviour
                             {
                                 GlobalStats.luckyKnifeLevel++;
                                 GlobalStats.damageMultiplier *= 1.1f;
+                            }
+                            break;
+                        case "EnlargingWand":
+                            if (GlobalStats.enlargingWandLevel < 5)
+                            {
+                                GlobalStats.enlargingWandLevel++;
+                                GlobalStats.projectileSizeMultiplier *= 1.15f;
+                            }
+                            break;
+                        case "GoldenApple":
+                            if (GlobalStats.goldenAppleLevel < 5)
+                            {
+                                GlobalStats.goldenAppleLevel++;
+                                GlobalStats.health *= 1.1f;
+                            }
+                            break;
+                        case "MagicShoes":
+                            if (GlobalStats.magicShoesLevel < 5)
+                            {
+                                GlobalStats.magicShoesLevel++;
+                                GlobalStats.movementSpeedMultiplier *= 1.1f;
+                            }
+                            break;
+                        case "SpectralArmor":
+                            if (GlobalStats.spectralArmorLevel < 5)
+                            {
+                                GlobalStats.spectralArmorLevel++;
+                                GlobalStats.armor *= 1.1f;
+                            }
+                            break;
+                        case "SpellBook":
+                            if (GlobalStats.spellBookLevel < 5)
+                            {
+                                GlobalStats.spellBookLevel++;
+                                GlobalStats.cooldownMultiplier *= 1.1f;
                             }
                             break;
                     }
