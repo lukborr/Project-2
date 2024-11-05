@@ -5,23 +5,32 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     [HideInInspector] public int health;
+    private float maxHealth = 100;
     [SerializeField] private GameObject DamageOutput;
     private int counter = 2;
     [SerializeField] EnemySO enemySO;
     [SerializeField] Image image;
 
+    private void OnEnable()
+    {
+        EventManager.OnPlayerMaxHealthChanged += ChangeMaxHealth;
+    }
 
+    private void OnDisable()
+    {
+        EventManager.OnPlayerMaxHealthChanged -= ChangeMaxHealth;
+    }
     void Start()
     {
         if (gameObject.CompareTag("Player"))
         {
             health = 100;
+            maxHealth *= GlobalStats.health;
         }
         else
         {
             health = enemySO.enemyHealth;
         }
-
     }
 
     public void RemoveHealth(int healthToRemove)
@@ -50,7 +59,6 @@ public class Health : MonoBehaviour
         }
     }
 
-
     public void DieAndDrop()
     {
         Transform childTransform = transform.GetChild(0);
@@ -76,9 +84,28 @@ public class Health : MonoBehaviour
 
     private void ChangeHealthBar()
     {
-        image.fillAmount = health / 100f;
+        image.fillAmount = health / maxHealth;
+       
     }
 
+    private void ChangeMaxHealth(float heathPercent)
+    {
+        maxHealth *= heathPercent;
+        if (gameObject.CompareTag("Player"))
+        {
+            ChangeHealthBar();
+        }
+    }
 
-
+    private void HealPlayer(int healthToGain)
+    {
+        if(health < maxHealth)
+        {
+            health += healthToGain;
+            if (health > maxHealth)
+            {
+                health = (int)maxHealth;
+            }
+        }       
+    }
 }

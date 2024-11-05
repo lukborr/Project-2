@@ -148,8 +148,7 @@ public class SkillManager : MonoBehaviour
                 }
 
                 cooldowns[selectedNumber] = false;
-                StartCoroutine(ResetCooldown(selectedNumber));
-                
+                StartCoroutine(ResetCooldown(selectedNumber));              
             }
         }
     }
@@ -215,7 +214,6 @@ public class SkillManager : MonoBehaviour
             }
             else if (availablePassiveSkillsToUpgrade.Contains(name) || gatheredPassiveSkills.Count <6)
             {
-                Debug.Log("laduje tutja");
                 gatheredPassiveSkills.Add(name);                            
                 passiveSkillSO = Resources.Load<PassiveSkillSO>("SO/SkillsSO/Passive/" + name);
                 EventManager.CallOnSkillBarUpdatedEvent(gatheredPassiveSkills.IndexOf(name) + 5, passiveSkillSO.skillSprite);
@@ -605,7 +603,9 @@ public class SkillManager : MonoBehaviour
                             if (GlobalStats.goldenAppleLevel < 5)
                             {
                                 GlobalStats.goldenAppleLevel++;
-                                GlobalStats.health *= 1.1f;
+                                GlobalStats.health *= 1.1f;                           
+                                EventManager.CallPlayerMaxHealthChangedEvent(1.1f);
+                                Debug.Log("hheheh");
                             }
                             break;
                         case "MagicShoes":
@@ -626,7 +626,7 @@ public class SkillManager : MonoBehaviour
                             if (GlobalStats.spellBookLevel < 5)
                             {
                                 GlobalStats.spellBookLevel++;
-                                GlobalStats.cooldownMultiplier *= 1.1f;
+                                GlobalStats.cooldownMultiplier *= 0.9f;
                             }
                             break;
                     }
@@ -660,7 +660,7 @@ public class SkillManager : MonoBehaviour
 
     IEnumerator ResetCooldown(int number)
     {
-        yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime);
+        yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier);
         cooldowns[number] = true;
     }
 

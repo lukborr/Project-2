@@ -75,11 +75,6 @@ public class Skillshot : MonoBehaviour
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
-    public IEnumerator ResetCooldown(float time)
-    {
-        yield return new WaitForSeconds(time);
-        cooldownUp = true;
-    }
 
     protected void ProjectileMoveForward()
     {
