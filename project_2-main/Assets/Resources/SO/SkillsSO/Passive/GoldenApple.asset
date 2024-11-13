@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3f54e67fc027a438ec621d59993e6f, type: 3}
   m_Name: GoldenApple
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 76855fbdf15b27f4d93e1bef0d41fd38, type: 3}
+  skillSprite: {fileID: 21300000, guid: 7adc16ae4acd6214fbaeb0cd7f5313af, type: 3}
   skillName: GoldenApple
   skillDescription: Increases health by 10%
   cooldownReduction: 1

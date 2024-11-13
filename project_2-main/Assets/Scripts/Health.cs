@@ -35,13 +35,15 @@ public class Health : MonoBehaviour
 
     public void RemoveHealth(int healthToRemove)
     {
-        health -= healthToRemove;
         if (gameObject.CompareTag("Enemy"))
         {
+            health -= healthToRemove;
             InstantiateDamageOutput(healthToRemove);
         }
         else if (gameObject.CompareTag("Player"))
         {
+            int finalHealthtoRemove = healthToRemove - GlobalStats.armor;
+            health -= finalHealthtoRemove;
             ChangeHealthBar();
         }
         Debug.Log("remaining health is " + health);

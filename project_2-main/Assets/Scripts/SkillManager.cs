@@ -10,6 +10,8 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
 
+    [SerializeField] GameObject[] cooldownImages;
+
     private List<string> availableActiveSkillsToUpgrade = new List<string>()
     { "Icicle","Frostbolt","LightningChain","ElectricBall","PoisonPool",
       "Blizzard","CometCall","Fireball","Ignite","Thunderbolt", "ForceExplosion"};
@@ -148,7 +150,7 @@ public class SkillManager : MonoBehaviour
                 }
 
                 cooldowns[selectedNumber] = false;
-                StartCoroutine(ResetCooldown(selectedNumber));              
+                StartCoroutine(ResetCooldown(selectedNumber));               
             }
         }
     }
@@ -184,8 +186,6 @@ public class SkillManager : MonoBehaviour
                     skillshot.enemyCountBeforeDestroy = offensiveSkillSO.enemyCountBeforeDestroy;
                     skillshot.whereSkillSpawn = offensiveSkillSO.whereSkillSpawn;
                     skillshot.skillLevel = 1;
-
-
 
                     if (activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill)
                     {
@@ -605,7 +605,6 @@ public class SkillManager : MonoBehaviour
                                 GlobalStats.goldenAppleLevel++;
                                 GlobalStats.health *= 1.1f;                           
                                 EventManager.CallPlayerMaxHealthChangedEvent(1.1f);
-                                Debug.Log("hheheh");
                             }
                             break;
                         case "MagicShoes":
@@ -619,7 +618,7 @@ public class SkillManager : MonoBehaviour
                             if (GlobalStats.spectralArmorLevel < 5)
                             {
                                 GlobalStats.spectralArmorLevel++;
-                                GlobalStats.armor *= 1.1f;
+                                GlobalStats.armor += 5;
                             }
                             break;
                         case "SpellBook":
@@ -660,6 +659,7 @@ public class SkillManager : MonoBehaviour
 
     IEnumerator ResetCooldown(int number)
     {
+        EventManager.CallOnCooldownEvent(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier, cooldownImages[number]);
         yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier);
         cooldowns[number] = true;
     }

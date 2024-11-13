@@ -6,7 +6,7 @@ public static class GlobalStats
     public static float projectileSizeMultiplier = 1;
     public static float projectileSpeedMultiplier = 1;
     public static float movementSpeedMultiplier = 1;
-    public static float armor = 1;
+    public static int armor = 0;
     public static float health = 1;
 
     public static int luckyKnifeLevel = 0;

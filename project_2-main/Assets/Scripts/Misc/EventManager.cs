@@ -13,6 +13,7 @@ public delegate void SkillBarUpdatedDelegate(int skillNumber, Sprite sprite);
 public delegate void SkillChooseDelegate(int whichSkillNumber);
 public delegate void PreviousWaveUnfreezedDelegate(int waveNumber);
 public delegate void PlayerMaxHealthChanged(float health);
+public delegate void CooldownDelegate(float seconds, GameObject cooldownObject);
 public static class EventManager 
 {
     public static event PointerDelegate PointerEvent;
@@ -27,8 +28,15 @@ public static class EventManager
     public static event SkillChooseDelegate OnSkillChoose;
     public static event PreviousWaveUnfreezedDelegate OnPreviousWaveUnfreezed;
     public static event PlayerMaxHealthChanged OnPlayerMaxHealthChanged;
+    public static event CooldownDelegate OnCooldown;
 
- 
+    public static void CallOnCooldownEvent(float seconds, GameObject cooldownObject)
+    {
+        if(OnCooldown != null)
+        {
+            OnCooldown(seconds, cooldownObject);
+        }
+    }
     public static void CallPlayerMaxHealthChangedEvent(float health)
     {
         if (OnPlayerMaxHealthChanged != null)

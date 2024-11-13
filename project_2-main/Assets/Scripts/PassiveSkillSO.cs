@@ -11,7 +11,7 @@ public class PassiveSkillSO : ScriptableObject
     public float cooldownReduction;
     public float healthIncrease;
     public float projectileSizeIncrease;
-    public float armorIncrease;
+    public int armorIncrease;
     public float movementSpeedIncrease;
     public float attackDamageIncrease;
 }
