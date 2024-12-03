@@ -14,6 +14,7 @@ public delegate void SkillChooseDelegate(int whichSkillNumber);
 public delegate void PreviousWaveUnfreezedDelegate(int waveNumber);
 public delegate void PlayerMaxHealthChanged(float health);
 public delegate void CooldownDelegate(float seconds, GameObject cooldownObject);
+public delegate void HealDelegate(int healAmount);
 public static class EventManager 
 {
     public static event PointerDelegate PointerEvent;
@@ -29,6 +30,15 @@ public static class EventManager
     public static event PreviousWaveUnfreezedDelegate OnPreviousWaveUnfreezed;
     public static event PlayerMaxHealthChanged OnPlayerMaxHealthChanged;
     public static event CooldownDelegate OnCooldown;
+    public static event HealDelegate OnHeal;
+
+    public static void CallOnHealEvent(int healAmount)
+    {
+        if (OnHeal != null)
+        {
+            OnHeal(healAmount);
+        }
+    }
 
     public static void CallOnCooldownEvent(float seconds, GameObject cooldownObject)
     {
