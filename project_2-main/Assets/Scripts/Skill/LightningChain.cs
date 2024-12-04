@@ -27,7 +27,7 @@ public class LightningChain : Skillshot
             var distance = Vector2.Distance(colliders[i].transform.position, transform.position);
             dict.Add(distance, colliders[i]);
             list.Add(distance);
-            colliders[i].GetComponent<Health>().RemoveHealth(skillDamage);
+            colliders[i].GetComponent<EnemyHealth>().RemoveHealth(skillDamage);
         }
         list.Sort();
         ShockStun(colliders);

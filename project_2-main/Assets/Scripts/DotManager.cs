@@ -5,11 +5,11 @@ using UnityEngine;
 public class DotManager : MonoBehaviour
 {
     Dictionary<string, Coroutine> activeRoutinesDictionary = new Dictionary<string, Coroutine>();
-    Health healthScript;
+    EnemyHealth healthScript;
 
     private void Start()
     {
-        healthScript = GetComponent<Health>();
+        healthScript = GetComponent<EnemyHealth>();
     }
 
     private void Update()

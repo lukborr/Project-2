@@ -35,7 +35,7 @@ public class Skillshot : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Health health = collision.gameObject.GetComponent<Health>();
+            EnemyHealth health = collision.gameObject.GetComponent<EnemyHealth>();
             if (offensiveSkillSO.skillShotType == SkillShotType.Projectile || offensiveSkillSO.skillShotType == SkillShotType.Aura)
             {
                 health.RemoveHealth((Mathf.CeilToInt(skillDamage * GlobalStats.damageMultiplier)));

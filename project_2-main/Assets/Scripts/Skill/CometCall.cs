@@ -30,7 +30,7 @@ public class CometCall : Skillshot
             {
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    colliders[i].GetComponent<Health>().RemoveHealth(skillDamage * 5);
+                    colliders[i].GetComponent<EnemyHealth>().RemoveHealth(skillDamage * 5);
                     Debug.Log(colliders[i].name);
                 }
             }          

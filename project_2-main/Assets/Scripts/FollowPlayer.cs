@@ -8,7 +8,7 @@ public class FollowPlayer : MonoBehaviour
     public bool canMove = true;
     public EnemySO enemySO;
     public float speed;
-    private Health _health;
+    private PlayerHealth _health;
     private Coroutine routine;
 
     private void Start()
@@ -69,7 +69,7 @@ public class FollowPlayer : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            _health = collision.GetComponent<Health>();
+            _health = collision.GetComponent<PlayerHealth>();
 
             routine = StartCoroutine(RemoveHealth(_health, enemySO.enemyDamage));
         }
@@ -81,7 +81,7 @@ public class FollowPlayer : MonoBehaviour
             StopCoroutine(routine);
     }
 
-    IEnumerator RemoveHealth(Health health, int damage)
+    IEnumerator RemoveHealth(PlayerHealth health, int damage)
     {
         while (health.health > 0)
         {

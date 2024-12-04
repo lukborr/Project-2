@@ -225,11 +225,11 @@ GameObject:
   - component: {fileID: 6089947486035356706}
   - component: {fileID: 4847933856308795843}
   - component: {fileID: 7898820966786270460}
-  - component: {fileID: 3754833791870492721}
   - component: {fileID: 1147895866234786768}
   - component: {fileID: 624547597205220599}
   - component: {fileID: 8215946537586046107}
   - component: {fileID: 5488682207466774533}
+  - component: {fileID: 1352906732089930588}
   m_Layer: 7
   m_Name: Rat
   m_TagString: Enemy
@@ -356,22 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f9d9e57c5d43445ac4defeccad1d2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3754833791870492721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687807423714105097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b098bfee556f8c48b6fd0b651882009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 0
-  DamageOutput: {fileID: 1698507105855825405, guid: 25bf5e8f041e6604caf853e0e0ca0d02, type: 3}
-  enemySO: {fileID: 11400000, guid: e6c115ca3bcb1bc43bacb3b0a3bf3fdf, type: 2}
-  image: {fileID: 0}
 --- !u!58 &1147895866234786768
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -458,6 +442,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4aa1562474439f4b9e5ba2b3f76f0c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1352906732089930588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6687807423714105097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def4c45069ac5344d99b3454ad4b1a72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  DamageOutput: {fileID: 1698507105855825405, guid: 25bf5e8f041e6604caf853e0e0ca0d02, type: 3}
+  enemySO: {fileID: 11400000, guid: 28a83a34ac77ef242b5bae194ee693df, type: 2}
 --- !u!1 &8682790929158296992
 GameObject:
   m_ObjectHideFlags: 0

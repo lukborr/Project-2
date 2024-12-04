@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(FollowPlayer))]
-[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(EnemyHealth))]
 [RequireComponent(typeof(FollowPlayer))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(DotManager))]

@@ -165,7 +165,6 @@ public class SkillManager : MonoBehaviour
         {
             if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's active skill
             {
-                Debug.Log("to jest skillshot");
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
