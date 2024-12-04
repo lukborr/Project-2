@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public int health;
-    public float maxHealth = 100;
+    [HideInInspector] public int health;
+    private float maxHealth = 100;
     [SerializeField] private GameObject DamageOutput;
     private int counter = 2;
     [SerializeField] EnemySO enemySO;
@@ -14,19 +14,17 @@ public class Health : MonoBehaviour
     private void OnEnable()
     {
         EventManager.OnPlayerMaxHealthChanged += ChangeMaxHealth;
-        EventManager.OnHeal += HealPlayer;
     }
 
     private void OnDisable()
     {
         EventManager.OnPlayerMaxHealthChanged -= ChangeMaxHealth;
-        EventManager.OnHeal -= HealPlayer;
     }
     void Start()
     {
         if (gameObject.CompareTag("Player"))
         {
-            health = 90;
+            health = 100;
             maxHealth *= GlobalStats.health;
         }
         else
@@ -48,6 +46,7 @@ public class Health : MonoBehaviour
             health -= finalHealthtoRemove;
             ChangeHealthBar();
         }
+        Debug.Log("remaining health is " + health);
 
         if (health <= 0)
         {
@@ -87,7 +86,8 @@ public class Health : MonoBehaviour
 
     private void ChangeHealthBar()
     {
-        image.fillAmount = health / maxHealth;      
+        image.fillAmount = health / maxHealth;
+       
     }
 
     private void ChangeMaxHealth(float heathPercent)
@@ -103,13 +103,11 @@ public class Health : MonoBehaviour
     {
         if(health < maxHealth)
         {
-            health += healthToGain;           
+            health += healthToGain;
             if (health > maxHealth)
             {
                 health = (int)maxHealth;
             }
-            ChangeHealthBar();
-
         }       
     }
 }

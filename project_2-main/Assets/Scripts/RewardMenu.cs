@@ -90,6 +90,7 @@ public class RewardMenu : MonoBehaviour
     public void ButtonClick(int number)
     {
         var skillName = skillnames[number];
+        Debug.Log(skillName);
         EventManager.CallOnButtonClickedEvent(skillName);
         skillnames.Clear();
     }
