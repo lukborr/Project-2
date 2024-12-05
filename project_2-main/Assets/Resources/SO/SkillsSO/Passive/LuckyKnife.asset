@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3f54e67fc027a438ec621d59993e6f, type: 3}
   m_Name: LuckyKnife
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: b33876742a01b8e458381f9faa09fac7, type: 3}
+  skillSprite: {fileID: 21300000, guid: df939d0acb454dc469ae61486951a457, type: 3}
   skillName: LuckyKnife
   skillDescription: Increase total damage by 10%
   cooldownReduction: 1

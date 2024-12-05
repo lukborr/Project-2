@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3f54e67fc027a438ec621d59993e6f, type: 3}
   m_Name: MagicShoes
   m_EditorClassIdentifier: 
-  skillSprite: {fileID: 21300000, guid: 6000c99975711fb4293b1047ef421ffe, type: 3}
+  skillSprite: {fileID: 21300000, guid: 6b4af28822ade9945bc645468d1ad086, type: 3}
   skillName: MagicShoes
   skillDescription: Increases movement speed by 10%
   cooldownReduction: 1
