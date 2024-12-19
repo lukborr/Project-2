@@ -58,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 7184707669475216024}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
-  m_LocalPosition: {x: 0.489, y: 0.0744, z: 0}
+  m_LocalPosition: {x: 0.2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 7184707669802975226}
   - component: {fileID: 7184707669802975204}
   - component: {fileID: 7184707669802975205}
+  - component: {fileID: 2845700483432753583}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -357,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8d1f1e1b413c44b82ba9b3ba85df87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 1.5
+  playerSpeed: 1
   playerAnim: {fileID: 7184707669802975205}
 --- !u!114 &7184707669802975224
 MonoBehaviour:
@@ -386,7 +387,12 @@ MonoBehaviour:
   activeProjectile: {fileID: 0}
   secondarySkill: {fileID: 0}
   handGameobject: {fileID: 7184707669475216024}
-  cooldownImages: []
+  cooldownImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   offensiveSkillSO: {fileID: 0}
   passiveSkillSO: {fileID: 0}
   aurasGm: {fileID: 7184707668845306843}
@@ -423,8 +429,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.023511246, y: -0.037979722}
-  m_Size: {x: 0.21508566, y: 0.92404056}
+  m_Offset: {x: 0.0004413128, y: -0.022599965}
+  m_Size: {x: 0.16894579, y: 0.50622314}
   m_Direction: 0
 --- !u!114 &7184707669802975204
 MonoBehaviour:
@@ -462,6 +468,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2845700483432753583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7184707669802975218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630107566613d7b49b76c1536dff130a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 100
+  image: {fileID: 0}
 --- !u!1 &7184707670017916773
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +494,7 @@ GameObject:
   - component: {fileID: 7184707670017916774}
   - component: {fileID: 7184707670017916775}
   m_Layer: 6
-  m_Name: rotationPoint
+  m_Name: rotationPointHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -488,7 +509,7 @@ Transform:
   m_GameObject: {fileID: 7184707670017916773}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4576, y: -0.0855, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0035, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

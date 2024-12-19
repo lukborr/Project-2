@@ -18,6 +18,7 @@ public class Skillshot : MonoBehaviour
     [HideInInspector] public float skillRange;
     [HideInInspector] public float slowPercent;
     [HideInInspector] public float slowDuration;
+    [HideInInspector] public Vector2 move;
     public int skillLevel;
 
     public Rigidbody2D rb;
@@ -25,6 +26,8 @@ public class Skillshot : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        move = new Vector2(transform.right.x, transform.right.y);
+       
     }
     private void OnEnable()
     {
@@ -78,7 +81,7 @@ public class Skillshot : MonoBehaviour
 
     protected void ProjectileMoveForward()
     {
-        Vector2 move = new Vector2(transform.right.x, transform.right.y);
+        
         rb.MovePosition(rb.position + skillSpeed * GlobalStats.projectileSpeedMultiplier * Time.deltaTime * move);
     }
 

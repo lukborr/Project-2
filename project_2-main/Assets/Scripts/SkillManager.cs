@@ -79,8 +79,7 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("Testuje T");
-            LoadNewSkillPrefab("LuckyKnife");           
+            Debug.Log("Testuje T");           
         }
     }
 
@@ -89,7 +88,9 @@ public class SkillManager : MonoBehaviour
         var skills = availableActiveSkillsToUpgrade.Union(availablePassiveSkillsToUpgrade);
         availableSkillsToUpgrade = skills.ToList();
 
-        LoadNewSkillPrefab("Fireball");       
+        LoadNewSkillPrefab("Fireball");
+        LoadNewSkillPrefab("Icicle");
+        LoadNewSkillPrefab("Frostbolt");
     }
 
     private void OnEnable()

@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 2621949044912643592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.001, y: 0.002, z: 0.08188132}
-  m_LocalScale: {x: 5, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2621949045093427759}
@@ -151,7 +151,7 @@ MonoBehaviour:
   offensiveSkillSO: {fileID: 11400000, guid: aa4277e795a06584ba9e5b43581bec92, type: 2}
   enemyCountBeforeDestroy: 1
   skillDamage: 3
-  cooldownTime: 0
+  cooldownTime: 2
   skillDuration: 20
   dotDuration: 20
   stunDuration: 0
