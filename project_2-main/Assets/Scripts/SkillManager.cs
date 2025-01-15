@@ -263,8 +263,14 @@ public class SkillManager : MonoBehaviour
 
     private void LoadExistingSkill(int number)
     {
-        if (activeSkillsNumbers[number] != null)
-        {
+        if (activeSkillsNumbers[number].offensiveSkillSO.skillShotType == SkillShotType.Aura)
+    
+            {
+                return;
+            }
+            else if (activeSkillsNumbers[number] != null)
+            {
+                
             EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = activeSkillsNumbers[number].gameObject;
             var skillshot = activeProjectile.GetComponent<Skillshot>();
