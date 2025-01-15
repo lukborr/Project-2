@@ -20,7 +20,7 @@ MonoBehaviour:
   skillDamage: 5
   skillSpeed: 2
   skillCooldown: 5
-  SkillRange: 1
+  SkillRange: 0
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 21300000, guid: 467ebf6bc89f34a4c9d371206a6da7b3, type: 3}
   skillDescription: 

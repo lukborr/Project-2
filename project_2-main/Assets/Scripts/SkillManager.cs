@@ -9,6 +9,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject secondarySkill;
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
+    [SerializeField] private GameObject rangePreview;
 
     [SerializeField] GameObject[] cooldownImages;
 
@@ -45,6 +46,7 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
+       
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distancePlayerMouse = Vector2.Distance(worldPositionCursor, transform.position);
@@ -125,6 +127,8 @@ public class SkillManager : MonoBehaviour
                         GameObject go = Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
                         go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                         pos = go.transform.position;
+                        cooldowns[selectedNumber] = false;
+                        StartCoroutine(ResetCooldown(selectedNumber));
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
@@ -134,6 +138,8 @@ public class SkillManager : MonoBehaviour
                             GameObject go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
                             go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                             pos = go.transform.position;
+                            cooldowns[selectedNumber] = false;
+                            StartCoroutine(ResetCooldown(selectedNumber));
                         }
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
@@ -142,7 +148,10 @@ public class SkillManager : MonoBehaviour
                         GameObject go = Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
                         go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                         pos = go.transform.position;
-                    }                   
+                        cooldowns[selectedNumber] = false;
+                        StartCoroutine(ResetCooldown(selectedNumber));
+                    }
+                    
 
                 }
                 if (secondarySkill != null)
@@ -150,8 +159,7 @@ public class SkillManager : MonoBehaviour
                     //Instantiate(secondarySkill, pos, secondarySkill.transform.rotation);                   
                 }
 
-                cooldowns[selectedNumber] = false;
-                StartCoroutine(ResetCooldown(selectedNumber));               
+                               
             }
         }
     }
@@ -175,6 +183,7 @@ public class SkillManager : MonoBehaviour
                     gatheredActiveSkills.Add(name, skillshot);
                     activeProjectile = gm;
                     activeProjectileRange = offensiveSkillSO.SkillRange;
+                    skillshot.skillRange = offensiveSkillSO.SkillRange;
                     skillshot.skillDamage = offensiveSkillSO.skillDamage;
                     skillshot.slowDuration = offensiveSkillSO.slowDuration;
                     skillshot.slowPercent = offensiveSkillSO.slowPercent;
@@ -258,7 +267,20 @@ public class SkillManager : MonoBehaviour
         {
             EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = activeSkillsNumbers[number].gameObject;
-            activeProjectile.GetComponent<Skillshot>().cooldownTime *= GlobalStats.cooldownMultiplier;
+            var skillshot = activeProjectile.GetComponent<Skillshot>();
+            skillshot.cooldownTime *= GlobalStats.cooldownMultiplier;
+            if (skillshot.skillRange > 0)
+            {
+                Debug.Log("wiekszy od zera");
+                rangePreview.gameObject.SetActive(true);
+                rangePreview.transform.localScale = new Vector2(skillshot.skillRange * 2, skillshot.skillRange * 2);
+            }
+            else 
+            {
+                Debug.Log("mniejszy od zera");
+                rangePreview.gameObject.SetActive(false);
+            }
+
             selectedNumber = number;
             if ((activeProjectile.GetComponent<Skillshot>().offensiveSkillSO.needsSecondarySkill))
             {
@@ -666,7 +688,8 @@ public class SkillManager : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(transform.position, sphereRadius);
+        //Gizmos.DrawWireSphere(transform.position, sphereRadius);
+        Gizmos.DrawWireSphere(transform.position, 10);
     }
 
 }
