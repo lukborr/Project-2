@@ -18,7 +18,7 @@ MonoBehaviour:
   skillDuration: 20
   dotDuration: 0
   skillDamage: 3
-  skillSpeed: 2
+  skillSpeed: 2.5
   skillCooldown: 2
   SkillRange: 0
   enemyCountBeforeDestroy: 1
