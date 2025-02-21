@@ -23,7 +23,7 @@ MonoBehaviour:
   SkillRange: 5
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 21300000, guid: ea7ec9a3cb68eed45985de1779801a37, type: 3}
-  skillDescription: 
+  skillDescription: Summons a storm of ice, damaging and slowing enemies in the area.
   stunDuration: 0
   needsSecondarySkill: 0
   slowPercent: 0.5

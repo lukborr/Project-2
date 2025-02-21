@@ -23,7 +23,8 @@ MonoBehaviour:
   SkillRange: 5
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 21300000, guid: d53f4921d7fcf5743bd45d2efe2dbb9b, type: 3}
-  skillDescription: A sudden thunderbolt from clean sky
+  skillDescription: Summons a powerful lightning bolt, striking an enemy with electric
+    force.
   stunDuration: 1
   needsSecondarySkill: 0
   slowPercent: 0

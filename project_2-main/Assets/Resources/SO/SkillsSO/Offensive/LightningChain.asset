@@ -23,7 +23,8 @@ MonoBehaviour:
   SkillRange: 0
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 21300000, guid: 467ebf6bc89f34a4c9d371206a6da7b3, type: 3}
-  skillDescription: 
+  skillDescription: Releases a charged orb that zaps the first enemy hit, unleashing
+    a chain lightning strike on nearby foes.
   stunDuration: 0.5
   needsSecondarySkill: 0
   slowPercent: 0

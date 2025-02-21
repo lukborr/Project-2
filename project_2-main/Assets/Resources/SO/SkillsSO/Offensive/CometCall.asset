@@ -23,7 +23,8 @@ MonoBehaviour:
   SkillRange: 2
   enemyCountBeforeDestroy: 0
   skillSprite: {fileID: 21300000, guid: f9276bcf6cfd0f04eaf95dbcd00fac22, type: 3}
-  skillDescription: 
+  skillDescription: Calls down a fiery meteor that crashes into enemies, dealing
+    massive damage and ignites the area.
   stunDuration: 0
   needsSecondarySkill: 1
   slowPercent: 0

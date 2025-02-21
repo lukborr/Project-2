@@ -23,7 +23,7 @@ MonoBehaviour:
   SkillRange: 2
   enemyCountBeforeDestroy: -1
   skillSprite: {fileID: 21300000, guid: b6bc1495ed42b104da30de3a502bc98c, type: 3}
-  skillDescription: A continously damaging pool of poison
+  skillDescription: Creates a toxic puddle that poisons enemies standing in it.
   stunDuration: 0
   needsSecondarySkill: 0
   slowPercent: 0

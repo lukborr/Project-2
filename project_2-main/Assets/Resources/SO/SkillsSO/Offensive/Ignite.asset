@@ -23,7 +23,7 @@ MonoBehaviour:
   SkillRange: 3
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 21300000, guid: 6f385e251f4bcfa43bbdd3c610d275bc, type: 3}
-  skillDescription: 
+  skillDescription: Engulfs the target in flames, dealing fire damage over time.
   stunDuration: 0
   needsSecondarySkill: 0
   slowPercent: 0

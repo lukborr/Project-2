@@ -23,7 +23,7 @@ MonoBehaviour:
   SkillRange: 0
   enemyCountBeforeDestroy: 1
   skillSprite: {fileID: 21300000, guid: 5669b2bc7d8f78f4088ee6cda7f540c9, type: 3}
-  skillDescription: 
+  skillDescription: Launches a sharp icicle that pierces through enemies.
   stunDuration: 0
   needsSecondarySkill: 0
   slowPercent: 0.5

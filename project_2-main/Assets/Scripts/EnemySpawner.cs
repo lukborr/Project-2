@@ -24,11 +24,11 @@ public class EnemySpawner : MonoBehaviour
             spawnedEnemies[i] = new List<GameObject>();
         }      
         WaveManger(0);
-        timeBetweenSpawns.Add(0.25f);
-        timeBetweenSpawns.Add(0.25f);
-        timeBetweenSpawns.Add(0.1f);
-        timeBetweenSpawns.Add(0.3f);
-        timeBetweenSpawns.Add(0.2f);
+        timeBetweenSpawns.Add(2f);
+        timeBetweenSpawns.Add(3f);
+        timeBetweenSpawns.Add(5f);
+        timeBetweenSpawns.Add(6f);
+        timeBetweenSpawns.Add(7f);
     }
 
     private void OnEnable()
@@ -138,12 +138,12 @@ public class EnemySpawner : MonoBehaviour
         switch (levelNumber)
         {
             case 0:
-               var spiders = SpawnEnemies(spider, 30,1);
-                StartCoroutine(ActivateEnemiesRoutine(spiders, 0.2f, waveNumber));
-                var pumpkins = SpawnEnemies(pumpkin, 30, 2);
-                var scarecrows = SpawnEnemies(scarecrow, 10, 3);
+               var spiders = SpawnEnemies(spider, 50,1);
+                StartCoroutine(ActivateEnemiesRoutine(spiders, 0.6f, waveNumber));
+                var pumpkins = SpawnEnemies(pumpkin, 40, 2);
+                var scarecrows = SpawnEnemies(scarecrow, 12, 3);
                 var rats = SpawnEnemies(rat, 15, 4);
-                var spiders2 = SpawnEnemies(spider, 30, 5);
+                var spiders2 = SpawnEnemies(spider, 60, 5);
                 break;
         }       
     }

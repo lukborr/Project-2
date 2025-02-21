@@ -91,8 +91,6 @@ public class SkillManager : MonoBehaviour
         availableSkillsToUpgrade = skills.ToList();
 
         LoadNewSkillPrefab("Fireball");
-        LoadNewSkillPrefab("Icicle");
-        LoadNewSkillPrefab("Frostbolt");
     }
 
     private void OnEnable()
@@ -112,13 +110,14 @@ public class SkillManager : MonoBehaviour
 
         if (cooldowns[selectedNumber] == true)
         {
+            Debug.Log("1");
 
             if (activeProjectile != null)
             {
                 Vector2 pos = new Vector2();
                 if (activeProjectile.GetComponent<Skillshot>() != null)
                 {
-
+                    Debug.Log("2");
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
                     
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
@@ -129,10 +128,11 @@ public class SkillManager : MonoBehaviour
                         pos = go.transform.position;
                         cooldowns[selectedNumber] = false;
                         StartCoroutine(ResetCooldown(selectedNumber));
+                        Debug.Log("3");
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
-
+                        Debug.Log("4");
                         if (inRange)
                         {
                             GameObject go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
@@ -140,6 +140,10 @@ public class SkillManager : MonoBehaviour
                             pos = go.transform.position;
                             cooldowns[selectedNumber] = false;
                             StartCoroutine(ResetCooldown(selectedNumber));
+                        }
+                        else
+                        {
+                            Debug.Log("brak zasiegu");
                         }
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
@@ -275,6 +279,8 @@ public class SkillManager : MonoBehaviour
             activeProjectile = activeSkillsNumbers[number].gameObject;
             var skillshot = activeProjectile.GetComponent<Skillshot>();
             skillshot.cooldownTime *= GlobalStats.cooldownMultiplier;
+            activeProjectileRange = skillshot.skillRange;
+
             if (skillshot.skillRange > 0)
             {
                 Debug.Log("wiekszy od zera");
