@@ -15,8 +15,8 @@ public class ForcePush : Skillshot
             FollowPlayer followPlayerScript = collision.GetComponent<FollowPlayer>();
             var enemyRb = collision.GetComponent<Rigidbody2D>();
             float dist = Vector2.Distance(collision.transform.position, point1.position);
-            collision.GetComponent<Rigidbody2D>().AddForce(point2.position - point1.position  / dist, ForceMode2D.Impulse);         
-            enemyRb.isKinematic = true;
+            collision.GetComponent<Rigidbody2D>().AddForce(point2.position - point1.position  / dist, ForceMode2D.Impulse);
+            enemyRb.bodyType = RigidbodyType2D.Kinematic;
             followPlayerScript.StartFreezeRoutine();           
         }        
     }

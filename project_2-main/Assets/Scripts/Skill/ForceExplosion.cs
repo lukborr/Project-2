@@ -21,7 +21,7 @@ public class ForceExplosion : Skillshot
             var rb = collision.GetComponent<Rigidbody2D>();
             FollowPlayer followPlayerScript = collision.GetComponent<FollowPlayer>();
             rb.AddForce(forceDirection * 7, ForceMode2D.Impulse);
-            rb.isKinematic = true;
+            rb.bodyType = RigidbodyType2D.Kinematic;
             followPlayerScript.StartFreezeRoutine();
         }
     }

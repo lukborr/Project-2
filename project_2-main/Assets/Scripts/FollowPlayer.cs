@@ -27,8 +27,8 @@ public class FollowPlayer : MonoBehaviour
    private IEnumerator FreezeSelf()
     {
         yield return new WaitForSeconds(0.4f);
-        rb.velocity = Vector2.zero;
-        rb.isKinematic = false;
+        rb.linearVelocity = Vector2.zero;
+        rb.bodyType = RigidbodyType2D.Static;
     }
 
    public void StartFreezeRoutine()

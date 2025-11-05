@@ -15,17 +15,16 @@ public class SkillManager : MonoBehaviour
 
     private List<string> availableActiveSkillsToUpgrade = new List<string>()
     { "Icicle","Frostbolt","LightningChain","ElectricBall","PoisonPool",
-      "Blizzard","CometCall","Fireball","Ignite","Thunderbolt", "ForceExplosion"};
+      "Blizzard","CometCall","Fireball","Ignite","Thunderbolt"};
     public Dictionary<string, Skillshot> gatheredActiveSkills = new Dictionary<string, Skillshot>();
-    // private List<string> availableSkillsToUpgrade = new List<string>();
 
     private List<string> availablePassiveSkillsToUpgrade = new List<string>()
     { "LuckyKnife", "EnlargingWand", "GoldenApple", "MagicShoes", "SpectralArmor", "SpellBook"};
     private List<string> gatheredPassiveSkills = new List<string>();
     List<string> availableSkillsToUpgrade = new List<string>();
-  
+
     private Skillshot[] activeSkillsNumbers = new Skillshot[5];
-    private string[] passiveSkillsNumbers = new string[5];   
+    private string[] passiveSkillsNumbers = new string[5];
     private bool[] cooldowns = new bool[5] { true, true, true, true, true };
     private Dictionary<string, string> secondarySkillsDictionary = new Dictionary<string, string>()
     {
@@ -46,7 +45,7 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
-       
+
         handRotation = handGameobject.transform.rotation * Quaternion.Euler(0, 0, 45);
         worldPositionCursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         distancePlayerMouse = Vector2.Distance(worldPositionCursor, transform.position);
@@ -81,16 +80,20 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("Testuje T");           
+            Debug.Log("Testuje T");
         }
     }
 
     private void Start()
     {
-        var skills = availableActiveSkillsToUpgrade.Union(availablePassiveSkillsToUpgrade);
-        availableSkillsToUpgrade = skills.ToList();
+        CombineAvailableSkills();
 
         LoadNewSkillPrefab("Fireball");
+    }
+    private void CombineAvailableSkills()
+    {
+        var skills = availableActiveSkillsToUpgrade.Union(availablePassiveSkillsToUpgrade);
+        availableSkillsToUpgrade = skills.ToList();
     }
 
     private void OnEnable()
@@ -119,7 +122,7 @@ public class SkillManager : MonoBehaviour
                 {
                     Debug.Log("2");
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
-                    
+
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
 
                     {
@@ -155,7 +158,7 @@ public class SkillManager : MonoBehaviour
                         cooldowns[selectedNumber] = false;
                         StartCoroutine(ResetCooldown(selectedNumber));
                     }
-                    
+
 
                 }
                 if (secondarySkill != null)
@@ -163,7 +166,7 @@ public class SkillManager : MonoBehaviour
                     //Instantiate(secondarySkill, pos, secondarySkill.transform.rotation);                   
                 }
 
-                               
+
             }
         }
     }
@@ -178,6 +181,7 @@ public class SkillManager : MonoBehaviour
         {
             if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's active skill
             {
+
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
@@ -225,9 +229,9 @@ public class SkillManager : MonoBehaviour
                     gatheredActiveSkills.Add(name, skillshot);
                 }
             }
-            else if (availablePassiveSkillsToUpgrade.Contains(name) || gatheredPassiveSkills.Count <6)
+            else if (availablePassiveSkillsToUpgrade.Contains(name) || gatheredPassiveSkills.Count < 6)
             {
-                gatheredPassiveSkills.Add(name);                            
+                gatheredPassiveSkills.Add(name);
                 passiveSkillSO = Resources.Load<PassiveSkillSO>("SO/SkillsSO/Passive/" + name);
                 EventManager.CallOnSkillBarUpdatedEvent(gatheredPassiveSkills.IndexOf(name) + 5, passiveSkillSO.skillSprite);
                 GlobalStats.cooldownMultiplier *= passiveSkillSO.cooldownReduction;
@@ -235,9 +239,18 @@ public class SkillManager : MonoBehaviour
                 GlobalStats.movementSpeedMultiplier *= passiveSkillSO.movementSpeedIncrease;
                 GlobalStats.projectileSpeedMultiplier *= passiveSkillSO.movementSpeedIncrease;
                 GlobalStats.projectileSizeMultiplier *= passiveSkillSO.projectileSizeIncrease;
-                GlobalStats.armor *= passiveSkillSO.armorIncrease;               
+                GlobalStats.armor *= passiveSkillSO.armorIncrease;
             }
-            
+
+        }
+        for (int i = 0; i < availableActiveSkillsToUpgrade.Count; i++)
+        {
+            Debug.Log(availableActiveSkillsToUpgrade[i]);
+        }
+
+        if (gatheredActiveSkills.Count == 5 || gatheredPassiveSkills.Count == 5)
+        {
+            CombineAvailableSkills();
         }
             
     }
@@ -672,6 +685,8 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+
+    // TUTAJ TRZA ZMIENIC ZEBY DODAWALO TYLKO SKILLE KTORE SA AVAILABLE, WIDZE ZE TUTAJ JEST UNIA PASYWNYCH I AKTYWNYCH
     private void GetRandomSkills()
     {
         int skill0 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
