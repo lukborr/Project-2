@@ -15,5 +15,7 @@ public static class GlobalStats
     public static int magicShoesLevel = 0;
     public static int spectralArmorLevel = 0;
     public static int spellBookLevel = 0;
+
+    
     
 }

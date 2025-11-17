@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -24,7 +26,6 @@ public class SkillManager : MonoBehaviour
     List<string> availableSkillsToUpgrade = new List<string>();
 
     private Skillshot[] activeSkillsNumbers = new Skillshot[5];
-    private string[] passiveSkillsNumbers = new string[5];
     private bool[] cooldowns = new bool[5] { true, true, true, true, true };
     private Dictionary<string, string> secondarySkillsDictionary = new Dictionary<string, string>()
     {
@@ -80,15 +81,21 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log("Testuje T");
+            Debug.Log(activeSkillsNumbers[0]);
+
         }
     }
 
+    private void Awake()
+    {
+
+    }
     private void Start()
     {
         CombineAvailableSkills();
-
         LoadNewSkillPrefab("Fireball");
+        LoadExistingSkill(0);
+
     }
     private void CombineAvailableSkills()
     {
@@ -113,7 +120,6 @@ public class SkillManager : MonoBehaviour
 
         if (cooldowns[selectedNumber] == true)
         {
-            Debug.Log("1");
 
             if (activeProjectile != null)
             {
@@ -131,7 +137,6 @@ public class SkillManager : MonoBehaviour
                         pos = go.transform.position;
                         cooldowns[selectedNumber] = false;
                         StartCoroutine(ResetCooldown(selectedNumber));
-                        Debug.Log("3");
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
@@ -143,6 +148,7 @@ public class SkillManager : MonoBehaviour
                             pos = go.transform.position;
                             cooldowns[selectedNumber] = false;
                             StartCoroutine(ResetCooldown(selectedNumber));
+
                         }
                         else
                         {
@@ -158,7 +164,7 @@ public class SkillManager : MonoBehaviour
                         cooldowns[selectedNumber] = false;
                         StartCoroutine(ResetCooldown(selectedNumber));
                     }
-
+                    Debug.Log("cd time: " + skillshot.cooldownTime);
 
                 }
                 if (secondarySkill != null)
@@ -175,21 +181,28 @@ public class SkillManager : MonoBehaviour
     {
         if (gatheredActiveSkills.ContainsKey(name) || gatheredPassiveSkills.Contains(name))
         {
-            return;
+            Debug.Log("returned");
         }
         else
         {
             if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's active skill
             {
-
+               
+                Debug.Log("1");
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
+                if (gatheredActiveSkills.Count < 1)
+                {
+                    activeProjectile = gm;
+                }
                 EventManager.CallOnSkillBarUpdatedEvent(AssignSkillToNumber(skillshot), offensiveSkillSO.skillSprite);
                 if (gm.GetComponent<Skillshot>().offensiveSkillSO.skillShotType != SkillShotType.Aura)
                 {
+
+
+
                     gatheredActiveSkills.Add(name, skillshot);
-                    activeProjectile = gm;
                     activeProjectileRange = offensiveSkillSO.SkillRange;
                     skillshot.skillRange = offensiveSkillSO.SkillRange;
                     skillshot.skillDamage = offensiveSkillSO.skillDamage;
@@ -240,6 +253,7 @@ public class SkillManager : MonoBehaviour
                 GlobalStats.projectileSpeedMultiplier *= passiveSkillSO.movementSpeedIncrease;
                 GlobalStats.projectileSizeMultiplier *= passiveSkillSO.projectileSizeIncrease;
                 GlobalStats.armor *= passiveSkillSO.armorIncrease;
+                ApplyCooldown();
             }
 
         }
@@ -252,7 +266,7 @@ public class SkillManager : MonoBehaviour
         {
             CombineAvailableSkills();
         }
-            
+
     }
 
     private int AssignSkillToNumber(Skillshot skillshot)
@@ -270,9 +284,9 @@ public class SkillManager : MonoBehaviour
                 {
                     availableActiveSkillsToUpgrade.Clear();
                     availableActiveSkillsToUpgrade = gatheredActiveSkills.Keys.ToList();
-                }               
-                return i;             
-            }  
+                }
+                return i;
+            }
         }
         return 0;
     }
@@ -281,28 +295,28 @@ public class SkillManager : MonoBehaviour
     private void LoadExistingSkill(int number)
     {
         if (activeSkillsNumbers[number].offensiveSkillSO.skillShotType == SkillShotType.Aura)
-    
-            {
-                return;
-            }
-            else if (activeSkillsNumbers[number] != null)
-            {
-                
+
+        {
+            Debug.Log("wrocilo");
+            return;
+        }
+        else if (activeSkillsNumbers[number] != null)
+        {
+            Debug.Log("odpalilo sie");
             EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = activeSkillsNumbers[number].gameObject;
             var skillshot = activeProjectile.GetComponent<Skillshot>();
             skillshot.cooldownTime *= GlobalStats.cooldownMultiplier;
             activeProjectileRange = skillshot.skillRange;
 
+
             if (skillshot.skillRange > 0)
             {
-                Debug.Log("wiekszy od zera");
                 rangePreview.gameObject.SetActive(true);
                 rangePreview.transform.localScale = new Vector2(skillshot.skillRange * 2, skillshot.skillRange * 2);
             }
-            else 
+            else
             {
-                Debug.Log("mniejszy od zera");
                 rangePreview.gameObject.SetActive(false);
             }
 
@@ -316,7 +330,14 @@ public class SkillManager : MonoBehaviour
             {
                 secondarySkill = null;
             }
+
+
+
         }
+        else {
+            Debug.Log("nie ma");
+        }
+
     }
     public void LevelUpSkill(string skillName)
     {
@@ -625,15 +646,15 @@ public class SkillManager : MonoBehaviour
         else
         {
             var so2 = Resources.Load("SO/SkillsSO/Passive/" + skillName);
-            if( so2 != null)
+            if (so2 != null)
             {
                 if (gatheredPassiveSkills.Contains(skillName))
                 {
-                    
+
                     switch (skillName)
                     {
                         case "LuckyKnife":
-                            if(GlobalStats.luckyKnifeLevel < 5)
+                            if (GlobalStats.luckyKnifeLevel < 5)
                             {
                                 GlobalStats.luckyKnifeLevel++;
                                 GlobalStats.damageMultiplier *= 1.1f;
@@ -650,7 +671,7 @@ public class SkillManager : MonoBehaviour
                             if (GlobalStats.goldenAppleLevel < 5)
                             {
                                 GlobalStats.goldenAppleLevel++;
-                                GlobalStats.health *= 1.1f;                           
+                                GlobalStats.health *= 1.1f;
                                 EventManager.CallPlayerMaxHealthChangedEvent(1.1f);
                             }
                             break;
@@ -671,12 +692,14 @@ public class SkillManager : MonoBehaviour
                         case "SpellBook":
                             if (GlobalStats.spellBookLevel < 5)
                             {
+
                                 GlobalStats.spellBookLevel++;
                                 GlobalStats.cooldownMultiplier *= 0.9f;
+                                ApplyCooldown();
                             }
                             break;
                     }
-                }              
+                }
                 else
                 {
                     LoadNewSkillPrefab(skillName);
@@ -686,7 +709,7 @@ public class SkillManager : MonoBehaviour
     }
 
 
-    // TUTAJ TRZA ZMIENIC ZEBY DODAWALO TYLKO SKILLE KTORE SA AVAILABLE, WIDZE ZE TUTAJ JEST UNIA PASYWNYCH I AKTYWNYCH
+
     private void GetRandomSkills()
     {
         int skill0 = Random.Range(0, availableSkillsToUpgrade.Count - 1);
@@ -702,15 +725,22 @@ public class SkillManager : MonoBehaviour
         availableSkillsToUpgrade.Add(_skill1);
         availableSkillsToUpgrade.Add(_skill2);
         var randomSkills = new List<string>() { _skill0, _skill1, _skill2 };
-        EventManager.CallGeneratedRandomSkillsEvent(randomSkills);    
-        
+        EventManager.CallGeneratedRandomSkillsEvent(randomSkills);
+
     }
 
     IEnumerator ResetCooldown(int number)
     {
         EventManager.CallOnCooldownEvent(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier, cooldownImages[number]);
         yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier);
+        Debug.Log($"waited:{activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier} seconds");
         cooldowns[number] = true;
+    }
+
+    private void ApplyCooldown()
+    {
+        var skillshot = activeProjectile.GetComponent<Skillshot>();
+        skillshot.cooldownTime *= GlobalStats.cooldownMultiplier;
     }
 
     private void OnDrawGizmos()
