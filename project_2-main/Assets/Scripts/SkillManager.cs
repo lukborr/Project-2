@@ -12,6 +12,7 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private GameObject handGameobject;
     Quaternion handRotation;
     [SerializeField] private GameObject rangePreview;
+    [SerializeField] private GameObject projectiles;
 
     [SerializeField] GameObject[] cooldownImages;
 
@@ -126,13 +127,13 @@ public class SkillManager : MonoBehaviour
                 Vector2 pos = new Vector2();
                 if (activeProjectile.GetComponent<Skillshot>() != null)
                 {
-                    Debug.Log("2");
                     Skillshot skillshot = activeProjectile.GetComponent<Skillshot>();
+                    GameObject go;
 
                     if (skillshot.whereSkillSpawn == WhereSkillSpawn.Hand)
 
                     {
-                        GameObject go = Instantiate(activeProjectile, handGameobject.transform.position, handRotation);
+                        go = Instantiate(activeProjectile, handGameobject.transform.position, handRotation, projectiles.transform);                       
                         go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                         pos = go.transform.position;
                         cooldowns[selectedNumber] = false;
@@ -140,10 +141,9 @@ public class SkillManager : MonoBehaviour
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Cursor)
                     {
-                        Debug.Log("4");
                         if (inRange)
                         {
-                            GameObject go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation);
+                            go = Instantiate(activeProjectile, worldPositionCursor, activeProjectile.transform.rotation, projectiles.transform);
                             go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                             pos = go.transform.position;
                             cooldowns[selectedNumber] = false;
@@ -152,20 +152,19 @@ public class SkillManager : MonoBehaviour
                         }
                         else
                         {
-                            Debug.Log("brak zasiegu");
+                            return;
                         }
                     }
                     else if (skillshot.whereSkillSpawn == WhereSkillSpawn.Self)
 
                     {
-                        GameObject go = Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation);
+                        go = Instantiate(activeProjectile, transform.position, activeProjectile.transform.rotation, projectiles.transform);
                         go.transform.localScale = new Vector3(GlobalStats.projectileSizeMultiplier, GlobalStats.projectileSizeMultiplier);
                         pos = go.transform.position;
                         cooldowns[selectedNumber] = false;
                         StartCoroutine(ResetCooldown(selectedNumber));
                     }
-                    Debug.Log("cd time: " + skillshot.cooldownTime);
-
+                        
                 }
                 if (secondarySkill != null)
                 {
@@ -733,7 +732,6 @@ public class SkillManager : MonoBehaviour
     {
         EventManager.CallOnCooldownEvent(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier, cooldownImages[number]);
         yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier);
-        Debug.Log($"waited:{activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier} seconds");
         cooldowns[number] = true;
     }
 

@@ -298,6 +298,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7184707669802975225, guid: 2ec50fe08f4c583458491d9030626652, type: 3}
+      propertyPath: projectiles
+      value: 
+      objectReference: {fileID: 552595620}
+    - target: {fileID: 7184707669802975225, guid: 2ec50fe08f4c583458491d9030626652, type: 3}
       propertyPath: rangePreview
       value: 
       objectReference: {fileID: 585913090}
@@ -2516,6 +2520,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 526101619}
   m_CullTransparentMesh: 1
+--- !u!1 &552595620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 552595621}
+  m_Layer: 0
+  m_Name: Projectiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &552595621
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552595620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.536917, y: 0.36580223, z: -0.015766703}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &558120655
 GameObject:
   m_ObjectHideFlags: 0
@@ -2817,6 +2852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillmanager: {fileID: 690939578}
+  projectilesGo: {fileID: 552595621}
 --- !u!1 &702362511
 GameObject:
   m_ObjectHideFlags: 0
@@ -17313,7 +17349,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1688051627
 Transform:
   m_ObjectHideFlags: 0
@@ -18290,3 +18326,4 @@ SceneRoots:
   - {fileID: 1629064935}
   - {fileID: 1688051627}
   - {fileID: 56018060}
+  - {fileID: 552595621}
