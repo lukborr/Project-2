@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -45,6 +43,10 @@ public class SkillManager : MonoBehaviour
     [SerializeField] private float sphereRadius;
     private float activeProjectileRange;
 
+    private bool[] isRunning = new bool[4];
+    private float[] elapsedTime = new float[4];
+    
+
     private void Update()
     {
 
@@ -82,9 +84,22 @@ public class SkillManager : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
-            Debug.Log(activeSkillsNumbers[0]);
+            StartTimer(1);
 
         }
+        else if (Input.GetKeyDown(KeyCode.L))
+        {
+            PauseCooldowns(FindActiveCooldowns());
+        }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (isRunning[i])
+                {
+                    elapsedTime[i] += Time.deltaTime;
+                }
+            }
+
     }
 
     private void Awake()
@@ -95,8 +110,8 @@ public class SkillManager : MonoBehaviour
     {
         CombineAvailableSkills();
         LoadNewSkillPrefab("Fireball");
+        LoadNewSkillPrefab("PoisonPool");
         LoadExistingSkill(0);
-
     }
     private void CombineAvailableSkills()
     {
@@ -187,7 +202,6 @@ public class SkillManager : MonoBehaviour
             if (Resources.Load("Prefabs/Skills/" + name) as GameObject != null)       // if it's active skill
             {
                
-                Debug.Log("1");
                 GameObject gm = Resources.Load("Prefabs/Skills/" + name) as GameObject;
                 Skillshot skillshot = gm.GetComponent<Skillshot>();
                 offensiveSkillSO = Resources.Load<OffensiveSkillSO>("SO/SkillsSO/Offensive/" + name);
@@ -256,10 +270,6 @@ public class SkillManager : MonoBehaviour
             }
 
         }
-        for (int i = 0; i < availableActiveSkillsToUpgrade.Count; i++)
-        {
-            Debug.Log(availableActiveSkillsToUpgrade[i]);
-        }
 
         if (gatheredActiveSkills.Count == 5 || gatheredPassiveSkills.Count == 5)
         {
@@ -296,12 +306,10 @@ public class SkillManager : MonoBehaviour
         if (activeSkillsNumbers[number].offensiveSkillSO.skillShotType == SkillShotType.Aura)
 
         {
-            Debug.Log("wrocilo");
             return;
         }
         else if (activeSkillsNumbers[number] != null)
         {
-            Debug.Log("odpalilo sie");
             EventManager.CallOnSkillChooseEvent(number);
             activeProjectile = activeSkillsNumbers[number].gameObject;
             var skillshot = activeProjectile.GetComponent<Skillshot>();
@@ -731,7 +739,10 @@ public class SkillManager : MonoBehaviour
     IEnumerator ResetCooldown(int number)
     {
         EventManager.CallOnCooldownEvent(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier, cooldownImages[number]);
-        yield return new WaitForSeconds(activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier);
+        float time = activeSkillsNumbers[number].cooldownTime * GlobalStats.cooldownMultiplier;
+        StartTimer(number);
+        yield return new WaitForSeconds(time);
+        StopTimer(number);
         cooldowns[number] = true;
     }
 
@@ -745,6 +756,50 @@ public class SkillManager : MonoBehaviour
     {
         //Gizmos.DrawWireSphere(transform.position, sphereRadius);
         Gizmos.DrawWireSphere(transform.position, 10);
+    }
+
+    private void StartTimer(int number)
+    {
+        isRunning[number] = true;
+        Debug.Log($"zaczeto timer{isRunning[number]}");
+    }
+
+    private float StopTimer(int number)
+    {
+        isRunning[number] = false;
+        float time = elapsedTime[number];
+        ResetTimer(number);
+        Debug.Log($"zatrzymano timer {time}");
+        return time;
+    }
+
+    private void ResetTimer(int number)
+    {
+        elapsedTime[number] = 0f;
+        Debug.Log("zresetowano timer");
+    }
+
+    private List<bool> FindActiveCooldowns()
+    {
+        List<bool> activeCoold = new List<bool>();
+        for (int i = 0; i < isRunning.Length; i++)
+        {
+            if (isRunning[i])
+            {
+                activeCoold.Add(isRunning[i]);
+            }
+        }
+        
+        return activeCoold;
+    }
+
+    private void PauseCooldowns(List<bool> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            Debug.Log("czas: "+StopTimer(i));
+        }
+        StopAllCoroutines();
     }
 
 }
